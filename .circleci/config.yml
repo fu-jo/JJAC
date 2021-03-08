@@ -18,5 +18,4 @@ jobs:
             echo $(pwd) &&
             ls &&
             npm start
-      - run: sleep 5
       - run: npm run test
