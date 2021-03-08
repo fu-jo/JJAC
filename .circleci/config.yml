@@ -15,8 +15,8 @@ jobs:
             - run: npm install
       - run:
           command:
-            echo $(pwd)
-            ls
+            echo $(pwd) &&
+            ls &&
             npm start
           background: true
       - run: sleep 5
