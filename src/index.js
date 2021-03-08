@@ -4,9 +4,8 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import firebase from 'firebase/app';
-import { firebaseConfig } from './config';
 
-firebase.initializeApp(firebaseConfig);
+firebase.initializeApp(process.env.firebaseConfig);
 
 ReactDOM.render(
   <React.StrictMode>
