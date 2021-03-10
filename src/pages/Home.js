@@ -44,7 +44,7 @@ export default class Home extends Component {
           <Link to="/admin/manage-announcements" className="btn btn-primary">Manage Announcements</Link>
           <Link to="/admin/manage-articles" className="btn btn-primary">Manage Articles</Link>
           <Link to="/admin/manage-users" className="btn btn-primary">Manage Users</Link>
-          <Link to="/admin/modify-articles" className="btn btn-primary">Modify Articles</Link>
+          <Link to="/admin/modify-article/42" className="btn btn-primary">Modify Article</Link>
         </Row>
       </div>
     );
