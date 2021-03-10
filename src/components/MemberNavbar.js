@@ -5,6 +5,17 @@ import Button from "react-bootstrap/Button";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 export default class MemberNavbar extends Component {
+  constructor(props) {
+    super(props);
+    this.callback = this.callback.bind(this);
+  }
+
+  callback() {
+    if (this.props.sendNewStatus) {
+      this.props.sendNewStatus("NonMember")
+    }
+  }
+
   render() {
     return (
       <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
@@ -16,7 +27,7 @@ export default class MemberNavbar extends Component {
             <Nav.Link href="/settings">Settings</Nav.Link>
           </Nav>
           <Nav>
-            <Button variant="primary" onClick={() => this.props.sendNewStatus("NonMember")}>Logout</Button>
+            <Button variant="primary" onClick={this.callback}>Logout</Button>
           </Nav>
         </Navbar.Collapse>
       </Navbar>

@@ -4,7 +4,18 @@ import Nav from "react-bootstrap/Nav";
 import Button from "react-bootstrap/Button";
 import "bootstrap/dist/css/bootstrap.min.css";
 
-export default class NonMemberNavbar extends Component {
+export default class MemberNavbar extends Component {
+  constructor(props) {
+    super(props);
+    this.callback = this.callback.bind(this);
+  }
+
+  callback() {
+    if (this.props.sendNewStatus) {
+      this.props.sendNewStatus("Member")
+    }
+  }
+
   render() {
     return (
       <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
@@ -15,7 +26,7 @@ export default class NonMemberNavbar extends Component {
             <Nav.Link href="/home">Home</Nav.Link>
           </Nav>
           <Nav>
-            <Button variant="primary" onClick={() => this.props.sendNewStatus("Member")}>Login</Button>
+            <Button variant="primary" onClick={this.callback}>Login</Button>
           </Nav>
         </Navbar.Collapse>
       </Navbar>
