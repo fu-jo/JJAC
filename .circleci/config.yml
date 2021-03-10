@@ -12,9 +12,9 @@ jobs:
           steps:
             - run: npm install mocha
             - run: alias mocha=' ./node_modules/.bin._mocha'
-            - run: npm install
+            - run: cd client && npm install
       - run:
           command:
-            npm start
+            cd client && npm start
           background: true
       - run: npm run test
