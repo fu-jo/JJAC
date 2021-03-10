@@ -8,7 +8,7 @@ export default class ArticlesList extends Component {
   render() {
     return (
       <div>
-        {this.state.status === "Member" ? <MemberNavbar /> : <NonMemberNavbar /> }
+        {this.props.status === "Member" ? <MemberNavbar /> : <NonMemberNavbar /> }
         <h2>ArticlesList</h2>
       </div>
     );
