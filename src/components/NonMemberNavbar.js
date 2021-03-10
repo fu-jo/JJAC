@@ -15,7 +15,7 @@ export default class NonMemberNavbar extends Component {
             <Nav.Link href="/home">Home</Nav.Link>
           </Nav>
           <Nav>
-            <Button variant="primary">Login</Button>
+            <Button variant="primary" onClick={() => this.props.sendNewStatus("Member")}>Login</Button>
           </Nav>
         </Navbar.Collapse>
       </Navbar>
