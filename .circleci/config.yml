@@ -15,6 +15,7 @@ jobs:
             - run: npm install
       - run:
           command:
+            cd client
             npm start
           background: true
       - run: npm run test
