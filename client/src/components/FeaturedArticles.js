@@ -10,6 +10,7 @@ import "../styles/components/FeaturedArticles.css";
 export default class FeaturedArticles extends Component {
   render() {
     // Eventually we will map the featured articles to these cards.
+    // Card content needs to be changed based on wireframes.
     // The cards margins/padding still isn't quite correct. Would prefer
     // for the left card to line up with the "Featured Articles" title and
     // the right card to line up with the tables above (basically want no
