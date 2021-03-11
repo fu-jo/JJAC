@@ -1,0 +1,19 @@
+{
+  "name": "UFSASE",
+  "version": "0.1.0",
+  "description": "",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fu-jo/JJAC.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/fu-jo/JJAC/issues"
+  },
+  "homepage": "https://github.com/fu-jo/JJAC#readme"
+}
