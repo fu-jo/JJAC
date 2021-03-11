@@ -14,7 +14,10 @@ import FeaturedArticles from "../components/FeaturedArticles";
 import ContactForm from "../components/ContactForm";
 
 import "../styles/pages/Home.css";
-import tempIMG from "../assets/temp.png";
+import tempImg from "../assets/temp.png";
+
+// Question: do we like where the View All buttons are currently or
+// should they be moved to the same line as the header?
 
 export default class Home extends Component {
   constructor(props) {
@@ -39,7 +42,9 @@ export default class Home extends Component {
           ? <MemberNavbar sendNewStatus={this.navbarCallback} />
           : <NonMemberNavbar sendNewStatus={this.navbarCallback}/>
         }
-        <Image src={tempIMG} fluid className="w-100" style={{margin: 0, height: 200}}/>
+        {/* image below: w-100 means width 100% */}
+        <Image src={tempImg} className="w-100" style={{margin: 0, height: 200}}/>
+        <br/>
         <br/>
         <AboutSASE />
         <br/>
@@ -54,13 +59,11 @@ export default class Home extends Component {
           </Row>
         </Container>
         <br/>
-        <Container>
-          <FeaturedArticles />
-        </Container>
+        <FeaturedArticles />
         <br/>
-        <Container>
-          <ContactForm />
-        </Container>
+        <ContactForm />
+
+
         <br/>
         <br/>
         <Container>

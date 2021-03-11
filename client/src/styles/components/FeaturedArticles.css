@@ -1,12 +1,48 @@
 .cards-container {
-  margin: 20px 0 16px 0;
-}
-
-.card-col {
-  padding: 0 5px;
+  margin-bottom: 16px;
 }
 
 .view-all-articles {
   text-align: right;
-  padding-right: 10px;
+  padding-right: 5px;
+}
+
+.article-card-img {
+  height: 100px;
+}
+
+.article-card-link {
+  color: #212529;
+}
+
+.article-card-link:hover {
+  color: #64696B;
+}
+
+.article-card-link:link {
+  text-decoration: none;
+}
+
+.article-date {
+  margin-top: 10px;
+}
+
+.tag-badge {
+  padding: 0.4em 0.9em;
+  font-size: 0.85rem;
+}
+
+#left-article {
+  padding-left: 0;
+  padding-right: 5px;
+}
+
+#center-article {
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#right-article {
+  padding-left: 5px;
+  padding-right: 0;
 }

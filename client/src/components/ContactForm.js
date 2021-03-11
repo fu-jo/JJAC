@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import Container from "react-bootstrap/Container";
 import Card from "react-bootstrap/Card";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
@@ -10,7 +11,7 @@ import Button from "react-bootstrap/Button";
 export default class ContactForm extends Component {
   render() {
     return (
-      <div>
+      <Container>
         <h4>Contact Us</h4>
         <Card>
           <Card.Body>
@@ -31,7 +32,7 @@ export default class ContactForm extends Component {
             </Form>
           </Card.Body>
         </Card>
-      </div>
+      </Container>
     );
   }
 }
