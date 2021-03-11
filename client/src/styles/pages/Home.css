@@ -1,8 +1,15 @@
-.row {
-  margin-top: 20px;
-  margin-left: 10px;
-}
-
 .btn {
   margin-right: 10px;
+}
+
+.col {
+  padding-left: 0px;
+  padding-right: 0px;
+  margin: 0px;
+}
+
+.row {
+  padding-left: 0px;
+  padding-right: 0px;
+  margin: 0px;
 }

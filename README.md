@@ -2,7 +2,7 @@
 
 ## Getting Set Up
 
-1. Create config.js file in the src folder & add Firebase config (discuss with group to get them)
+1. Change to client folder (`cd client`)
 2. Run `npm install` from root to install node_modules
 3. Run `npm start` to run on local host
 

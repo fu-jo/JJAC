@@ -1,6 +1,4 @@
 import React, { Component } from "react";
-import Button from "react-bootstrap/Button";
-import { useParams } from "react-router-dom";
 
 import MemberNavbar from "../components/MemberNavbar";
 import NonMemberNavbar from "../components/NonMemberNavbar";
