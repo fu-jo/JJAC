@@ -1,0 +1,19 @@
+p, div {
+  white-space: pre-wrap;
+}
+
+.article {
+  margin-top: 3rem;
+  margin-bottom: 4rem;
+}
+
+.tag-badge {
+  padding: 0.4em 0.9em;
+  font-size: 0.85rem;
+  margin: 0 0.2rem;
+}
+
+.text-wrap {
+  float: right;
+  margin: 0 0 10px 20px;
+}
