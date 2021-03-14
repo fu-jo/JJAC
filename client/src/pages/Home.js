@@ -12,6 +12,7 @@ import HomeAnnouncementsList from "../components/HomeAnnouncementsList";
 import HomeEventsList from "../components/HomeEventsList";
 import FeaturedArticles from "../components/FeaturedArticles";
 import ContactForm from "../components/ContactForm";
+import BottomBar from "../components/BottomBar";
 
 import "../styles/pages/Home.css";
 import tempImg from "../assets/temp.png";
@@ -44,10 +45,7 @@ export default class Home extends Component {
         }
         {/* image below: w-100 means width 100% */}
         <Image src={tempImg} className="w-100" style={{margin: 0, height: 200}}/>
-        <br/>
-        <br/>
         <AboutSASE />
-        <br/>
         <Container>
           <Row>
             <Col sm={8} className="col">
@@ -58,14 +56,10 @@ export default class Home extends Component {
             </Col>
           </Row>
         </Container>
-        <br/>
         <FeaturedArticles />
-        <br/>
         <ContactForm />
-
-
-        <br/>
-        <br/>
+        <BottomBar />
+        {/*
         <Container>
           <Link to="/announcements" className="btn btn-primary">Announcements</Link>
           <Link to="/articles-list" className="btn btn-primary">List of All Articles</Link>
@@ -80,7 +74,7 @@ export default class Home extends Component {
           <Link to="/admin/manage-users" className="btn btn-primary">Manage Users</Link>
           <Link to="/admin/modify-article/42" className="btn btn-primary">Modify Article</Link>
         </Container>
-        <br/>
+        */}
       </div>
     );
   }
