@@ -8,7 +8,7 @@ export default class AboutSASE extends Component {
     // Margin between header and paragraphs isn't right -Amber
     return (
       <Container>
-        <h2>About SASE</h2>
+        <h1>UF SASE</h1>
         <p>
           The Society of Asian Scientists & Engineers is a young organization
           at the University of Florida. We welcome companies and individuals to
