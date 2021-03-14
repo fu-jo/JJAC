@@ -4,6 +4,7 @@ import Badge from "react-bootstrap/Badge";
 
 import MemberNavbar from "../components/MemberNavbar";
 import NonMemberNavbar from "../components/NonMemberNavbar";
+import BottomBar from "../components/BottomBar";
 
 import "../styles/pages/SingleArticle.css";
 import testArticle from "../assets/test-article";
@@ -59,6 +60,7 @@ export default class SingleArticle extends Component {
             </div>
           )}
         </Container>
+        <BottomBar />
       </div>
     );
   }
