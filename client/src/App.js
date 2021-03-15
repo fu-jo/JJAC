@@ -9,24 +9,23 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import Home from './components/Home'
 import Settings from './components/Settings'
 
-import Posts from './components/Posts'
+import Posts from './components/Posts/Posts'
+// import PostEntry from './components/PostEntry'
 
-import firebase from './firebase'
+// import firebase from './firebase'
 
-firebase.firestore().collection('posts').add({
-	id: 'ajdklasjkl',
-	title: 'example title',
-  description: 'example description',
-  articleText: 'dakljzxjckl lorem ipsum',
-  date: 'March',
-  tags: ['tag 1'],
-  links: ['www.sase.com']
-})
+// firebase.firestore().collection('posts').add({
+// 	title: 'example title',
+//   description: 'example description',
+//   articleText: 'dakljzxjckl lorem ipsum',
+//   date: 'March',
+//   tags: ['tag 1'],
+//   links: ['www.sase.com']
+// })
 
 export default class App extends Component {
   render() {
     return (
-      //<Posts />
       <Router>
         <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
           <Navbar.Brand href="/home">UF SASE</Navbar.Brand>
@@ -53,7 +52,9 @@ export default class App extends Component {
             <Redirect to="/home" />
           </Route>
         </Switch>
+        <Posts />
       </Router>
+
     );
   }
 }
