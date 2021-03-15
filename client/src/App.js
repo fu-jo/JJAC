@@ -10,7 +10,7 @@ import Home from './components/Home'
 import Settings from './components/Settings'
 
 import Posts from './components/Posts/Posts'
-// import PostEntry from './components/PostEntry'
+import PostEntry from './components/Posts/PostEntry'
 
 // import firebase from './firebase'
 
@@ -53,6 +53,7 @@ export default class App extends Component {
           </Route>
         </Switch>
         <Posts />
+        <PostEntry />
       </Router>
 
     );

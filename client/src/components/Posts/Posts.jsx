@@ -1,6 +1,8 @@
 import React, {useState, useEffect} from 'react'
 import firebase from '../../firebase'
 
+import Post from './Post/Post'
+
 function usePosts() {
     const [posts, setPosts] = useState([])
 
@@ -37,13 +39,7 @@ const Posts = () => {
             </div>
             <ol>
                 {posts.map((post) => 
-                    <li id={post.id}>
-                        <div className='post-entry'>
-                            <h3>{post.title}</h3>
-                            <h4>post.articleText</h4>
-                            <code className='post'></code>
-                        </div>
-                    </li>
+                    <Post post={post}/>
                 )}
             </ol>
         </div>
