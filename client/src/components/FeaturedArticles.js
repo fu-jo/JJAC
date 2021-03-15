@@ -8,7 +8,6 @@ import Badge from "react-bootstrap/Badge";
 import LinesEllipsis from "react-lines-ellipsis";
 
 import "../styles/components/FeaturedArticles.css";
-import tempImg from "../assets/temp.png";
 import testArticle from "../assets/test-article";
 
 export default class FeaturedArticles extends Component {
@@ -25,7 +24,7 @@ export default class FeaturedArticles extends Component {
   }
 
   getFeaturedArticles() {
-    return [testArticle, testArticle, testArticle];
+    return [testArticle, {...testArticle, "tags": ["tag"]}, {...testArticle, "tags": []}];
   }
 
   getDate(dateStr) {
@@ -38,11 +37,18 @@ export default class FeaturedArticles extends Component {
     // Card content needs to be changed based on wireframes. -Amber
     return (
       <Container>
-        <h4>Featured Articles</h4>
+        <Row>
+          <Col>
+            <h4>Latest Announcements</h4>
+          </Col>
+          <Col className="view-all-link">
+            <Link to="/articles-list">View All</Link>
+          </Col>
+        </Row>
         <div className="cards-container">
           <Row>
             {this.state.articles && this.state.articles.map((article, idx) => {return (
-              <Col className="d-flex" md={4} id="left-article">
+              <Col className="d-flex" md={4} id={`article-${idx}`}key={Math.random()}>
                 <a href={`/article/${article.id}`} className="article-card-link">
                   <Card>
                     {article.img && (
@@ -55,26 +61,26 @@ export default class FeaturedArticles extends Component {
                     <Card.Body>
                       <Card.Title>{article.title}</Card.Title>
                       {/* Really awesome module for setting the number of lines */}
-                      <LinesEllipsis text={article.body} maxLine="3" ellipsis="..." basedOn="words" />
+                      <LinesEllipsis
+                        text={article.body}
+                        maxLine={article.tags && article.tags.length > 0 ? "3" : "4"}
+                        ellipsis="..."
+                        basedOn="words"
+                      />
                       {/* Do we like this format or should we use Month Day, Year only? */}
                       <Card.Text className="article-date">{this.getDate(article.date)}</Card.Text>
                       {/* Not totally sure how to turn these into links since the card is a link */}
-                      <p>
-                        {article.tags.map((tag, idx) => (
-                          <a href="/articles-list">
-                            <Badge pill variant="primary" key={idx} className="tag-badge">{tag}</Badge>{" "}
-                          </a>
+                      <div>
+                        {article.tags && article.tags.map((tag) => (
+                          <Badge pill variant="primary" key={Math.random()} className="tag-badge" >{tag}</Badge>
                         ))}
-                      </p>
+                      </div>
                     </Card.Body>
                   </Card>
                 </a>
               </Col>
             )})}
           </Row>
-        </div>
-        <div className="view-all-articles">
-          <Link to="/articles-list">View All</Link>
         </div>
       </Container>
     );
