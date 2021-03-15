@@ -43,13 +43,9 @@ export default class Announcements extends Component {
   render() {
     return (
       <div>
-        {this.props.status === "Member" ? (
-          <MemberNavbar />
-        ) : (
-          <NonMemberNavbar />
-        )}
+        {this.props.status === "Member" ? (<MemberNavbar />) : (<NonMemberNavbar />)}
         <Container>
-          <h1>Announcements</h1>
+          <h1>Latest Announcements</h1>
           {!this.state.loading && (
             <Table striped bordered hover>
               <thead>
