@@ -1,0 +1,24 @@
+[
+  {
+    "id": 1,
+    "title": "Announcement #1",
+    "details": "These are some extra details about the announcement. These are some extra details about the announcement. These are some extra details about the announcement. These are some extra details about the announcement. These are some extra details about the announcement. These are some extra details about the announcement.",
+    "date": "March 23 2021"
+  },
+  {
+    "id": 2,
+    "title": "Announcement #2",
+    "date": "January 20 2021"
+  },
+  {
+    "id": 3,
+    "title": "Announcement #3",
+    "details": "These are some extra details about the announcement",
+    "date": "January 1 2021"
+  },
+  {
+    "id": 4,
+    "title": "Announcement #4",
+    "details": "These are some extra details about the announcement"
+  }
+]
