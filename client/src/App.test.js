@@ -4,6 +4,6 @@ import App from './App';
 
 test('renders SASE name', () => {
   render(<App />);
-  const sase_name = screen.getByText(/UF SASE/i);
+  const sase_name = screen.getByText(/University of Florida/i);
   expect(sase_name).toBeInTheDocument();
 });
