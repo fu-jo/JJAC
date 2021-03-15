@@ -6,7 +6,7 @@ import Col from "react-bootstrap/Col";
 import React, {useState, useEffect} from 'react'
 import firebase from '../firebase'
 
-import Article from './Posts/Post/Post'
+import ArticleCard from './ArticleCard'
 
 const SORT_OPTIONS = {
     'DATE_ASC': {column:'date', direction:'asc'},
@@ -53,7 +53,7 @@ const FeaturedArticles = () => {
               </Row>
               <div className="cards-container">
                 <Row>
-                  {posts.map((article, idx) => <Article article={article} idx={idx}/>)}
+                  {posts.map((article, idx) => <ArticleCard article={article} idx={idx}/>)}
                 </Row>
               </div>
             </Container>
