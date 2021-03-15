@@ -5,20 +5,16 @@ jobs:
   build:
     executor:
       name: node/default
-      tag: '10.4'
+      tag: '14.15.1'
     steps:
       - checkout
       - node/with-cache:
           steps:
-            - run: npm install mocha
+            - run: cd client && npm install mocha
             - run: alias mocha=' ./node_modules/.bin._mocha'
-            - run: npm install
+            - run: cd client && npm install
       - run:
           command:
-            cd client
-            npm start
+            cd client && npm start
           background: true
-      - run: 
-          command:
-            cd client
-            npm run test
+      - run: cd client && npm run test

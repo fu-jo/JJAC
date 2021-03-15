@@ -1,0 +1,21 @@
+.announcements {
+  padding-right: 50px;
+}
+
+#header-left {
+  width: 75%;
+}
+
+.ann-box {
+  white-space: pre-wrap;
+}
+
+.ann-details {
+  margin-left: 20px;
+  font-size: smaller;
+}
+
+.view-all-link {
+  text-align: right;
+  padding-right: 5px;
+}
