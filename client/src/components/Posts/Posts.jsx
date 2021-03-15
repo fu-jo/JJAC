@@ -3,38 +3,50 @@ import firebase from '../../firebase'
 
 import Post from './Post/Post'
 
-function usePosts() {
+const SORT_OPTIONS = {
+    'DATE_ASC': {column:'date', direction:'asc'},
+    'DATE_DESC': {column:'date', direction:'desc'},
+    'TITLE_ASC': {column:'title', direction:'asc'},
+    'TITLE_DESC': {column:'title', direction:'desc'},
+}
+
+function usePosts(sortBy='TITLE_ASC') {
     const [posts, setPosts] = useState([])
 
     useEffect(() => {
-        firebase.firestore().collection('posts')
-        .onSnapshot((snapshot) => {
-            const newPosts = snapshot.docs.map((doc) => ({
-                id: doc.id,
-                ...doc.data()
-            }))
+        const unsubscribe = //drop subscription to firestore
+            firebase.firestore().collection('posts')
+            .orderBy(SORT_OPTIONS[sortBy].column,SORT_OPTIONS[sortBy].direction)
+            .onSnapshot((snapshot) => {
+                const newPosts = snapshot.docs.map((doc) => ({
+                    id: doc.id,
+                    ...doc.data()
+                }))
 
-            setPosts(newPosts)
-        })
-    },[])
+                setPosts(newPosts)
+            })
+
+        return () => unsubscribe()  //callback when unmounted
+    },[sortBy])
 
     return posts
 }
 
 const Posts = () => {
-    const posts = usePosts()
+    const [sortBy, setSortBy] = useState('TITLE_ASC') //default
+    const posts = usePosts(sortBy)
 
     return (
         <div>
             <h2>Posts</h2>
             <div>
                 <label>Sort By</label>{' '}
-                <select name="" id="">
-                    <option value="">Title (a-z)</option>
-                    <option value="">Title (z-a)</option>
-                    <option disabled></option>
-                    <option value="">Date (earliest)</option>
-                    <option value="">Date (latest)</option>
+                <select value={sortBy} onChange={e => setSortBy(e.currentTarget.value)}>
+                    <option value='TITLE_ASC'>Title (a-z)</option>
+                    <option value='TITLE_DESC'>Title (z-a)</option>
+                    <option disabled>---</option>
+                    <option value='DATE_ASC'>Date (earliest)</option>
+                    <option value='DATE_DESC'>Date (latest)</option>
                 </select>
             </div>
             <ol>

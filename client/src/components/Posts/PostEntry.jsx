@@ -11,12 +11,16 @@ const PostEntry = () => {
         firebase.firestore().collection('posts').add({
             title: e.target.title.value,
             content: e.target.content.value,
-            description: e.target.description.value
+            description: e.target.description.value,
+            date: e.target.date.value,
+            tags: [],
+            links:[]
         })
         .then(() => {       //clears form on submit
             e.target.title.value = ''
             e.target.content.value = ''
             e.target.description.value = ''
+            e.target.date.value = ''
         })
     }
 
@@ -34,7 +38,13 @@ const PostEntry = () => {
             <label for="content">Content</label>
             <input name="content" type="text" />
         </div>
-        {/*<div> //for react hooks
+        <div>
+            <label for="date">Date</label>
+            <input name="date" type="date" />
+        </div>
+        
+        {//FIXME need tags and links
+        /*<div> //for react hooks
             <label for="content">Content</label>
             <input id="content" type="text" value={content} onChange={e => setContent(e.currentTarget.value)} />
         </div>*/}
