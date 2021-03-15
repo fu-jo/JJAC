@@ -8,7 +8,6 @@ import Badge from "react-bootstrap/Badge";
 import LinesEllipsis from "react-lines-ellipsis";
 
 import "../styles/components/FeaturedArticles.css";
-import tempImg from "../assets/temp.png";
 import testArticle from "../assets/test-article";
 
 export default class FeaturedArticles extends Component {
@@ -42,7 +41,7 @@ export default class FeaturedArticles extends Component {
         <div className="cards-container">
           <Row>
             {this.state.articles && this.state.articles.map((article, idx) => {return (
-              <Col className="d-flex" md={4} id="left-article">
+              <Col className="d-flex" md={4} id="left-article" key={Math.random()}>
                 <a href={`/article/${article.id}`} className="article-card-link">
                   <Card>
                     {article.img && (
@@ -59,13 +58,11 @@ export default class FeaturedArticles extends Component {
                       {/* Do we like this format or should we use Month Day, Year only? */}
                       <Card.Text className="article-date">{this.getDate(article.date)}</Card.Text>
                       {/* Not totally sure how to turn these into links since the card is a link */}
-                      <p>
-                        {article.tags.map((tag, idx) => (
-                          <a href="/articles-list">
-                            <Badge pill variant="primary" key={idx} className="tag-badge">{tag}</Badge>{" "}
-                          </a>
+                      <div>
+                        {article.tags && article.tags.map((tag) => (
+                          <Badge pill variant="primary" key={Math.random()} className="tag-badge" >{tag}</Badge>
                         ))}
-                      </p>
+                      </div>
                     </Card.Body>
                   </Card>
                 </a>
