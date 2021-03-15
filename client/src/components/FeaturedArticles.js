@@ -37,11 +37,18 @@ export default class FeaturedArticles extends Component {
     // Card content needs to be changed based on wireframes. -Amber
     return (
       <Container>
-        <h4>Featured Articles</h4>
+        <Row>
+          <Col>
+            <h4>Latest Announcements</h4>
+          </Col>
+          <Col className="view-all-link">
+            <Link to="/articles-list">View All</Link>
+          </Col>
+        </Row>
         <div className="cards-container">
           <Row>
             {this.state.articles && this.state.articles.map((article, idx) => {return (
-              <Col className="d-flex" md={4} id="left-article" key={Math.random()}>
+              <Col className="d-flex" md={4} id={`article-${idx}`}key={Math.random()}>
                 <a href={`/article/${article.id}`} className="article-card-link">
                   <Card>
                     {article.img && (
@@ -74,9 +81,6 @@ export default class FeaturedArticles extends Component {
               </Col>
             )})}
           </Row>
-        </div>
-        <div className="view-all-articles">
-          <Link to="/articles-list">View All</Link>
         </div>
       </Container>
     );
