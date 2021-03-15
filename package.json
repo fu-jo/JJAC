@@ -1,0 +1,16 @@
+{
+  "name": "UFSASE",
+  "version": "0.1.0",
+  "description": "",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fu-jo/JJAC.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/fu-jo/JJAC/issues"
+  },
+  "homepage": "https://github.com/fu-jo/JJAC#readme"
+}

@@ -1,7 +1,9 @@
 import React, { Component } from "react";
 import Button from "react-bootstrap/Button";
 
-export default class Settings extends Component {
+import AdminSidebar from '../../components/AdminSidebar';
+
+export default class ManageArticles extends Component {
   constructor(props) {
     super(props);
 
@@ -19,7 +21,8 @@ export default class Settings extends Component {
   render() {
     return (
       <div>
-        <h2>Settings</h2>
+        <AdminSidebar />
+        <h2>ManageArticles</h2>
         <Button variant="primary" onClick={this.buttonClicked}>
           {this.state.name}
         </Button>
