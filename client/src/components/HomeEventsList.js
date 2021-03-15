@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import Table from "react-bootstrap/Table";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
 
 import "../styles/components/HomeEventsList.css";
 
@@ -12,11 +14,18 @@ export default class HomeEventsList extends Component {
     // Margin between header and table isn't right -Amber
     return (
       <div>
-        <h4>Upcoming Events</h4>
+        <Row>
+          <Col>
+            <h4>Upcoming Events</h4>
+          </Col>
+          <Col className="view-all-link" xs={3}>
+            <Link to="/events-calendar">View All</Link>
+          </Col>
+        </Row>
         <Table responsive striped bordered hover>
           <thead>
             <tr>
-              <th>Event</th>
+              <th style={{width: "65%"}}>Event</th>
               <th>Date</th>
             </tr>
           </thead>
@@ -39,9 +48,6 @@ export default class HomeEventsList extends Component {
             </tr>
           </tbody>
         </Table>
-        <div className="view-all-link">
-          <Link to="/events-calendar">View All</Link>
-        </div>
       </div>
     );
   }
