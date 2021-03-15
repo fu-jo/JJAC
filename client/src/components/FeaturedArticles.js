@@ -24,7 +24,7 @@ export default class FeaturedArticles extends Component {
   }
 
   getFeaturedArticles() {
-    return [testArticle, testArticle, testArticle];
+    return [testArticle, {...testArticle, "tags": ["tag"]}, {...testArticle, "tags": []}];
   }
 
   getDate(dateStr) {
@@ -54,7 +54,12 @@ export default class FeaturedArticles extends Component {
                     <Card.Body>
                       <Card.Title>{article.title}</Card.Title>
                       {/* Really awesome module for setting the number of lines */}
-                      <LinesEllipsis text={article.body} maxLine="3" ellipsis="..." basedOn="words" />
+                      <LinesEllipsis
+                        text={article.body}
+                        maxLine={article.tags && article.tags.length > 0 ? "3" : "4"}
+                        ellipsis="..."
+                        basedOn="words"
+                      />
                       {/* Do we like this format or should we use Month Day, Year only? */}
                       <Card.Text className="article-date">{this.getDate(article.date)}</Card.Text>
                       {/* Not totally sure how to turn these into links since the card is a link */}
