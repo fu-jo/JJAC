@@ -9,6 +9,20 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import Home from './components/Home'
 import Settings from './components/Settings'
 
+import Posts from './components/Posts/Posts'
+import PostEntry from './components/Posts/PostEntry'
+
+// import firebase from './firebase'
+
+// firebase.firestore().collection('posts').add({
+// 	title: 'example title',
+//   description: 'example description',
+//   articleText: 'dakljzxjckl lorem ipsum',
+//   date: 'March',
+//   tags: ['tag 1'],
+//   links: ['www.sase.com']
+// })
+
 export default class App extends Component {
   render() {
     return (
@@ -38,7 +52,10 @@ export default class App extends Component {
             <Redirect to="/home" />
           </Route>
         </Switch>
+        <Posts />
+        <PostEntry />
       </Router>
+
     );
   }
 }
