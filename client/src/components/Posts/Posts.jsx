@@ -50,7 +50,7 @@ const Posts = () => {
                 </select>
             </div>
             <ol>
-                {posts.map((post) => 
+                {posts.map((post) =>
                     <Post post={post}/>
                 )}
             </ol>
