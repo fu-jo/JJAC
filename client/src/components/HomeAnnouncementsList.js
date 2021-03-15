@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import Table from "react-bootstrap/Table";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
 import LinesEllipsis from "react-lines-ellipsis";
 
 import "../styles/components/HomeAnnouncementsList.css";
@@ -21,8 +23,8 @@ export default class HomeAnnouncementsList extends Component {
 
   getAnnouncementData() {
     try {
-      const data = testAnnouncements;
-      this.setState({ announcements: testAnnouncements, loading: false });
+      const data = testAnnouncements.slice(0, 3);
+      this.setState({ announcements: data, loading: false });
     }
     catch (e) {
       console.log(e);
@@ -37,7 +39,14 @@ export default class HomeAnnouncementsList extends Component {
   render() {
     return (
       <div className="announcements">
-        <h4>Latest Announcements</h4>
+        <Row>
+          <Col>
+            <h4>Latest Announcements</h4>
+          </Col>
+          <Col className="view-all-link">
+            <Link to="/announcements">View All</Link>
+          </Col>
+        </Row>
         <Table responsive striped bordered hover>
           <thead>
             <tr>
@@ -59,9 +68,6 @@ export default class HomeAnnouncementsList extends Component {
             )})}
           </tbody>
         </Table>
-        <div className="view-all-link">
-          <Link to="/announcements">View All</Link>
-        </div>
       </div>
     );
   }
