@@ -13,7 +13,7 @@ import Posts from './components/Posts'
 
 import firebase from './firebase'
 
-firebase.firestore().collection('users').add({
+firebase.firestore().collection('posts').add({
 	id: 'ajdklasjkl',
 	title: 'example title',
   description: 'example description',
@@ -26,8 +26,7 @@ firebase.firestore().collection('users').add({
 export default class App extends Component {
   render() {
     return (
-      <Posts />
-      /*
+      //<Posts />
       <Router>
         <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
           <Navbar.Brand href="/home">UF SASE</Navbar.Brand>
@@ -55,7 +54,6 @@ export default class App extends Component {
           </Route>
         </Switch>
       </Router>
-      */
     );
   }
 }
