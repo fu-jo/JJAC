@@ -93,9 +93,9 @@ const Announcements = (props) => {
                                 const fixedLink = link.includes("https://") || link.includes("http://") ? link : "https://" + link
                                 return (
                                   <span>
-                                  <a href={fixedLink}>
+                                  <a href={fixedLink} target="_blank" rel="noopener noreferrer" style={{marginRight: 3}}>
                                     {link}
-                                  </a>{' '}
+                                  </a>
                                   </span>
                               )})}
                             </span>
