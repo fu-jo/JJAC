@@ -14,7 +14,10 @@ import { firestore } from "../firebase";
 function useArticle(id) {
   const [article, setArticle] = useState([]);
 
-  firestore.collection("posts").doc(id).get()
+  firestore
+    .collection("posts")
+    .doc(id)
+    .get()
     .then((snapshot) => setArticle(snapshot.data()));
 
   return article;
@@ -44,45 +47,56 @@ const SingleArticle = (props) => {
         <div>
           {article.img && <img className="text-wrap" src={article.img} />}
           <h1>{article.title}</h1>
-          { article.author
-          ? (
+          {article.author ? (
             <h6>
-            By {article.author} • {getDate(article.date)}
-          </h6>
-          )
-          : (
-            <h6>
-              {getDate(article.date)}
+              By {article.author} • {getDate(article.date)}
             </h6>
+          ) : (
+            <h6>{getDate(article.date)}</h6>
           )}
           <br />
           <p>{article.content}</p>
-          {article.tags && article.tags.length > 0 && (
-            <b>
-              Tags:{" "}
-              {article.tags.map((tag, idx) => (
-                <a href="/articles-list">
-                  <Badge pill variant="primary" key={idx} className="tag-badge">
-                    {tag}
-                  </Badge>
-                </a>
-              ))}
-            </b>
-          )}
-          {article.links && article.links.length > 0 && (
-            <b>
-              Links:{" "}
-              {article.links.map((link, idx) => {
-              if (!link.includes("https://")) {
-                var adjustedLink = "https://" + link
-              }
-              return (
-                <a href={adjustedLink} target="_blank" rel="noopener noreferrer" style={{marginRight: 5}}>
-                  {link}
-                </a>
-              )})}
-            </b>
-          )}
+          <p>
+            {article.tags && article.tags.length > 0 && (
+              <b>
+                Tags:{" "}
+                {article.tags.map((tag, idx) => (
+                  <a href="/articles-list">
+                    <Badge
+                      pill
+                      variant="primary"
+                      key={idx}
+                      className="tag-badge"
+                    >
+                      {tag}
+                    </Badge>
+                  </a>
+                ))}
+              </b>
+            )}
+          </p>
+          <p>
+            {article.links && article.links.length > 0 && (
+              <b>
+                Links:{" "}
+                {article.links.map((link, idx) => {
+                  if (!link.includes("https://")) {
+                    var adjustedLink = "https://" + link;
+                  }
+                  return (
+                    <a
+                      href={adjustedLink}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      style={{ marginRight: 5 }}
+                    >
+                      {link}
+                    </a>
+                  );
+                })}
+              </b>
+            )}
+          </p>
         </div>
       </Container>
     </div>
