@@ -1,71 +1,110 @@
-import React, { Component } from "react";
+import React, { useState, useEffect } from "react";
 import Container from "react-bootstrap/Container";
 import Table from "react-bootstrap/Table";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSortUp, faSortDown } from "@fortawesome/free-solid-svg-icons";
 
 import MemberNavbar from "../components/MemberNavbar";
 import NonMemberNavbar from "../components/NonMemberNavbar";
 import BottomBar from "../components/BottomBar";
 
+import { firestore } from "../firebase"
 import testAnnouncements from "../assets/test-announcements";
 
-export default class Announcements extends Component {
-  constructor(props) {
-    super(props);
-    this.getAnnouncementData = this.getAnnouncementData.bind(this);
-    this.getDate = this.getDate.bind(this);
+const SORT_OPTIONS = {
+    'DATE_ASC': {column:'date', direction:'asc'},
+    'DATE_DESC': {column:'date', direction:'desc'},
+    'TITLE_ASC': {column:'title', direction:'asc'},
+    'TITLE_DESC': {column:'title', direction:'desc'},
+}
 
-    this.state = { data: null, loading: true };
-  }
+function useAnns(sortBy='DATE_DESC') {
+    const [anns, setAnns] = useState([])
 
-  componentDidMount() {
-    this.getAnnouncementData();
-  }
+    useEffect(() => {
+        const unsubscribe = //drop subscription to firestore
+            firestore.collection('announcements')
+            .orderBy(SORT_OPTIONS[sortBy].column,SORT_OPTIONS[sortBy].direction)
+            .onSnapshot((snapshot) => {
+                const newAnnouncements = snapshot.docs.map((doc) => ({
+                    id: doc.id,
+                    ...doc.data()
+                }))
 
-  // this will need to call to the backend when it gets connected
-  getAnnouncementData() {
-    try {
-      const data = testAnnouncements;
-      this.setState({ data: data, loading: false });
-    } catch (e) {
-      console.log(e);
-    }
-  }
+                setAnns(newAnnouncements)
+            })
 
-  getDate(dateStr) {
-    let date = new Date(dateStr).toLocaleDateString("en-US", {
-      year: "numeric",
-      month: "long",
-      day: "numeric",
-    });
-    return date ? date : null;
-  }
+        return () => unsubscribe()  //callback when unmounted
+    },[sortBy])
 
-  render() {
+    return anns
+}
+
+const getDate = (dateStr) => {
+  let date = new Date(dateStr).toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  });
+  return date ? date : null;
+}
+
+const Announcements = (props) => {
+    const [sortBy, setSortBy] = useState('DATE_DESC') //default
+    const announcements = useAnns(sortBy)
+
     return (
       <div>
-        {this.props.status === "Member" ? (<MemberNavbar />) : (<NonMemberNavbar />)}
+        {props.status === "Member" ? (<MemberNavbar />) : (<NonMemberNavbar />)}
         <Container>
           <h1>Latest Announcements</h1>
-          {!this.state.loading && (
+          {announcements && (
             <Table striped bordered hover>
               <thead>
                 <tr>
-                  <th style={{width: "70%"}}>Announcement</th>
-                  <th>Date</th>
+                  <th style={{width: "70%"}}>
+                    Announcement
+                    { sortBy === "TITLE_ASC"
+                      ? (<FontAwesomeIcon icon={faSortUp} style={{float: "right", marginTop: 8, marginRight: 10}} onClick={() => setSortBy("TITLE_DESC")}/>)
+                      : (<FontAwesomeIcon icon={faSortDown} style={{float: "right", marginBottom: 8, marginRight: 10}} onClick={() => setSortBy("TITLE_ASC")}/>)
+                    }
+                  </th>
+                  <th>
+                    Date
+                    { sortBy === "DATE_ASC"
+                      ? (<FontAwesomeIcon icon={faSortUp} style={{float: "right", marginTop: 8, marginRight: 10}} onClick={() => setSortBy("DATE_DESC")}/>)
+                      : (<FontAwesomeIcon icon={faSortDown} style={{float: "right", marginBottom: 8, marginRight: 10}} onClick={() => setSortBy("DATE_ASC")}/>)
+                    }
+                  </th>
                 </tr>
               </thead>
               <tbody>
-                {this.state.data.map((ann, idx) => { return (
+                {announcements.map((ann, idx) => { return (
                   <tr>
                     <td style={{whiteSpace: "pre-wrap"}}>
                       <span>{ann.title}{"\n"}</span>
                       {ann.details && (
                         <div style={{paddingLeft: 20}}>
-                          <small>{ann.details}</small>
+                          <small>{ann.details}{"\n"}
+                          {ann.links && ann.links.length > 0 && (
+                            <span>
+                              <b>Links: </b>
+                              {ann.links.map((link, idx) => {
+                                const fixedLink = link.includes("https://") || link.includes("http://") ? link : "https://" + link
+                                return (
+                                  <span>
+                                  <a href={fixedLink}>
+                                    {link}
+                                  </a>{' '}
+                                  </span>
+                              )})}
+                            </span>
+                          )}
+                          </small>
                         </div>
                       )}
                     </td>
-                    {ann.date ? (<td>{this.getDate(ann.date)}</td>) : <td></td>}
+                    {ann.date ? (<td>{getDate(ann.date)}</td>) : <td></td>}
                   </tr>
                 )})}
               </tbody>
@@ -75,5 +114,7 @@ export default class Announcements extends Component {
         <BottomBar />
       </div>
     );
-  }
+
 }
+
+export default Announcements;
