@@ -14,10 +14,7 @@ import { firestore } from "../firebase";
 function useArticle(id) {
   const [article, setArticle] = useState([]);
 
-  firestore
-    .collection("posts")
-    .doc(id)
-    .get()
+  firestore.collection("posts").doc(id).get()
     .then((snapshot) => setArticle(snapshot.data()));
 
   return article;
@@ -80,9 +77,7 @@ const SingleArticle = (props) => {
               <b>
                 Links:{" "}
                 {article.links.map((link, idx) => {
-                  if (!link.includes("https://")) {
-                    var adjustedLink = "https://" + link;
-                  }
+                  const adjustedLink = link.includes("https://") || link.includes("http://") ? link : "https://" + link
                   return (
                     <a
                       href={adjustedLink}
