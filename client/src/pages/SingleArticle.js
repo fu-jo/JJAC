@@ -9,12 +9,12 @@ import BottomBar from "../components/BottomBar";
 
 import "../styles/pages/SingleArticle.css";
 import testArticle from "../assets/test-article";
-import firebase from "../firebase";
+import { firestore } from "../firebase";
 
 function useArticle(id) {
   const [article, setArticle] = useState([]);
 
-  firebase.firestore().collection("posts").doc(id).get()
+  firestore.collection("posts").doc(id).get()
     .then((snapshot) => setArticle(snapshot.data()));
 
   return article;
