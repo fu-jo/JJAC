@@ -57,7 +57,7 @@ const SingleArticle = (props) => {
           )}
           <br />
           <p>{article.content}</p>
-          {article.tags && (
+          {article.tags && article.tags.length > 0 && (
             <b>
               Tags:{" "}
               {article.tags.map((tag, idx) => (
@@ -69,9 +69,22 @@ const SingleArticle = (props) => {
               ))}
             </b>
           )}
+          {article.links && article.links.length > 0 && (
+            <b>
+              Links:{" "}
+              {article.links.map((link, idx) => {
+              if (!link.includes("https://")) {
+                var adjustedLink = "https://" + link
+              }
+              return (
+                <a href={adjustedLink} target="_blank" rel="noopener noreferrer" style={{marginRight: 5}}>
+                  {link}
+                </a>
+              )})}
+            </b>
+          )}
         </div>
       </Container>
-      <BottomBar />
     </div>
   );
 };
