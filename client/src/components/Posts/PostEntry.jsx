@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import firebase from '../../firebase'
+import { firestore } from '../../firebase'
 
 const PostEntry = () => {
     //const [title, setTitle] = useState(' ') for react hooks
@@ -8,7 +8,7 @@ const PostEntry = () => {
 
     function onSubmit(e) {
         e.preventDefault()
-        firebase.firestore().collection('posts').add({
+        firestore.collection('posts').add({
             title: e.target.title.value,
             content: e.target.content.value,
             description: e.target.description.value,
@@ -42,7 +42,7 @@ const PostEntry = () => {
             <label for="date">Date</label>
             <input name="date" type="date" />
         </div>
-        
+
         {//FIXME need tags and links
         /*<div> //for react hooks
             <label for="content">Content</label>

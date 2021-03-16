@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react'
-import firebase from '../../firebase'
+import { firestore } from '../../firebase'
 
 import Post from './Post/Post'
 
@@ -15,7 +15,7 @@ function usePosts(sortBy='TITLE_ASC') {
 
     useEffect(() => {
         const unsubscribe = //drop subscription to firestore
-            firebase.firestore().collection('posts')
+            firestore.collection('posts')
             .orderBy(SORT_OPTIONS[sortBy].column,SORT_OPTIONS[sortBy].direction)
             .onSnapshot((snapshot) => {
                 const newPosts = snapshot.docs.map((doc) => ({
