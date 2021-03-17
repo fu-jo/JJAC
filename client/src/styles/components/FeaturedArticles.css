@@ -33,6 +33,10 @@
   font-size: 0.85rem;
 }
 
+#create-post {
+  margin-bottom: 50px;
+}
+
 #article-0 {
   padding-left: 0;
   padding-right: 5px;
