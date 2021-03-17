@@ -1,0 +1,28 @@
+.articles-header {
+  margin-bottom: 25px;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.article-box {
+  white-space: pre-wrap;
+}
+
+.article-link {
+  color: #212529;
+}
+
+.article-link:hover {
+  color: #64696B;
+}
+
+.article-link:link {
+  text-decoration: none;
+}
+
+.article-content {
+  margin-left: 20px;
+  font-size: smaller;
+}
