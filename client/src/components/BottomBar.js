@@ -16,7 +16,7 @@ export default class MemberNavbar extends Component {
             <b>© UF SASE 2021</b>
           </Col>
           <Col xs={{span: 2}} className="icons">
-            <a href="https://www.facebook.com/ufsase/">
+            <a href="https://www.facebook.com/ufsase/" target="_blank" rel="noopener noreferrer">
               <FontAwesomeIcon icon={faFacebook} size="2x"/>
             </a>
             <a href="mailto:ufsase@gmail.com">
