@@ -2,6 +2,7 @@ import React, { Component } from "react";
 
 import MemberNavbar from "../components/MemberNavbar";
 import NonMemberNavbar from "../components/NonMemberNavbar";
+import BottomBar from "../components/BottomBar";
 
 export default class SingleArticle extends Component {
   render() {
@@ -10,6 +11,7 @@ export default class SingleArticle extends Component {
         {this.props.status === "Member" ? <MemberNavbar /> : <NonMemberNavbar /> }
         <h2>SingleArticle</h2>
         <h4>ID: {this.props.match.params.id}</h4>
+        <BottomBar />
       </div>
     );
   }

@@ -1,7 +1,7 @@
 .bottom-bar-cont {
   margin-top: 50px;
   background-color: #7DC242;
-  width: 100%;
+  height: 150px;
 }
 
 .bar-row {
@@ -10,14 +10,11 @@
 
 .copyright {
   padding: 0;
-  margin-top: 5px;
-  margin-left: 20%;
+  margin-top: 10px;
+  margin-left: 150%;
+  margin-right: 150%;
 }
 
 .icons {
-  display: flex;
-  justify-content: space-between;
-  padding-left: 30px;
-  padding-right: 30px;
-  align-items: center;
+  margin-left: 10%;
 }
