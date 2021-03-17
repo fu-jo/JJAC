@@ -14,7 +14,7 @@ import ContactForm from "../components/ContactForm";
 import BottomBar from "../components/BottomBar";
 
 import "../styles/pages/Home.css";
-import tempImg from "../assets/temp.png";
+import img from "../assets/temp2.png";
 
 // Question: do we like where the View All buttons are currently or
 // should they be moved to the same line as the header?
@@ -42,8 +42,8 @@ export default class Home extends Component {
           ? <MemberNavbar sendNewStatus={this.navbarCallback} />
           : <NonMemberNavbar sendNewStatus={this.navbarCallback}/>
         }
-        {/* image below: w-100 means width 100% */}
-        <Image src={tempImg} className="w-100" style={{margin: 0, height: 200}}/>
+        {/* update: made an entire class just for the image */}
+        <Image src={img} className="img"/>
         <AboutSASE />
         <Container>
           <Row>
