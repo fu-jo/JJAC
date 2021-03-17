@@ -3,7 +3,7 @@ import Container from "react-bootstrap/Container";
 import Card from "react-bootstrap/Card";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
-import firebase from '../../firebase'
+import { firestore } from '../../firebase'
 import "../../styles/components/FeaturedArticles.css"
 
 const PostEntry = () => {
@@ -13,7 +13,7 @@ const PostEntry = () => {
 
     function onSubmit(e) {
         e.preventDefault()
-        firebase.firestore().collection('posts').add({
+        firestore.collection('posts').add({
             title: e.target.title.value,
             content: e.target.content.value,
             description: e.target.description.value,
@@ -79,7 +79,7 @@ Not sure if above works when actually submitting the posts so here's the origina
             <label for="date">Date</label>
             <input name="date" type="date" />
         </div>
-        
+
         {//FIXME need tags and links
         /*<div> //for react hooks
             <label for="content">Content</label>
