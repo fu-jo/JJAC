@@ -27,20 +27,3 @@ export default class MemberNavbar extends Component {
     );
   }
 }
-
-/*
-<Navbar class="navbar fixed-bottom">
-  <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-  <Navbar.Collapse id="responsive-navbar-nav">
-    <Nav className="mr-auto">
-      <Col xs={5} className="copyright">
-        <b>© UF SASE 2021</b>
-      </Col>
-      <Nav.Link className="icons" href="https://www.facebook.com/ufsase/"><FontAwesomeIcon icon={faFacebook} size="2x"/></Nav.Link>
-      <Nav.Link className="icons" href="mailto:ufsase@gmail.com"><FontAwesomeIcon icon={faEnvelope} size="2x"/></Nav.Link>
-    </Nav>
-    <Nav>
-    </Nav>
-  </Navbar.Collapse>
-</Navbar>
-*/
