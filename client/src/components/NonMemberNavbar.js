@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
 import Button from "react-bootstrap/Button";
+import "../styles/components/NonMemberNavbar.css";
 
 export default class MemberNavbar extends Component {
   constructor(props) {
@@ -17,7 +18,8 @@ export default class MemberNavbar extends Component {
 
   render() {
     return (
-      <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
+    // Original: <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
+      <Navbar className="navbar">
         <Navbar.Brand href="/home">UF SASE</Navbar.Brand>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
