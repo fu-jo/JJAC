@@ -19,13 +19,15 @@ const PostEntry = () => {
             description: e.target.description.value,
             date: e.target.date.value,
             tags: [],
-            links:[]
+            links:[],
+            img: e.target.img.value
         })
         .then(() => {       //clears form on submit
             e.target.title.value = ''   
             e.target.content.value = ''
             e.target.description.value = ''
             e.target.date.value = ''
+            e.target.img.value = null
         })
     }
 
@@ -34,23 +36,27 @@ const PostEntry = () => {
         <Card>
           <Card.Body>
             <Form onSubmit={onSubmit}>
-              <Form.Group controlId="exampleForm.ControlInput1">
+              <Form.Group controlId="title">
                 <Form.Label>Title</Form.Label>
                 <Form.Control type="text" />
               </Form.Group>
-              <Form.Group controlId="exampleForm.ControlTextarea1">
+              <Form.Group controlId="description">
                 <Form.Label>Description</Form.Label>
                 <Form.Control as="textarea" rows={3} />
               </Form.Group>
-              <Form.Group controlId="exampleForm.ControlTextarea1">
+              <Form.Group controlId="content">
                 <Form.Label>Content</Form.Label>
                 <Form.Control as="textarea" rows={3} />
               </Form.Group>
-              <Form.Group controlId="exampleForm.ControlInput1">
+              <Form.Group controlId="date">
                 <Form.Label>Date</Form.Label>
                 <Form.Control type="date" />
               </Form.Group>
-              <Button variant="primary">Create Post</Button>
+              <Form.Group controlId="img">
+                <Form.Label>Image</Form.Label>
+                <Form.Control type="file"/>
+              </Form.Group>
+              <Button variant="primary" type='submit'>Create Post</Button>
             </Form>
           </Card.Body>
         </Card>
@@ -60,28 +66,8 @@ const PostEntry = () => {
 
 export default PostEntry
 
-/*
-Not sure if above works when actually submitting the posts so here's the original just in case:
-    <form onSubmit={onSubmit}>
-        <div>
-            <label for="title">Title</label>
-            <input name="title" type="text" />
-        </div>
-        <div>
-            <label for="description">Description</label>
-            <input name="description" type="text" />
-        </div>
-        <div>
-            <label for="content">Content</label>
-            <input name="content" type="text" />
-        </div>
-        <div>
-            <label for="date">Date</label>
-            <input name="date" type="date" />
-        </div>
-        
-        {//FIXME need tags and links
-        /*<div> //for react hooks
+
+/*<div> //for react hooks
             <label for="content">Content</label>
             <input id="content" type="text" value={content} onChange={e => setContent(e.currentTarget.value)} />
         </div>}
