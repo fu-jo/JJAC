@@ -9,7 +9,8 @@ import "../styles/components/BottomBar.css";
 export default class MemberNavbar extends Component {
   render() {
     return (
-      <Container id="bottom-bar-cont">
+      // Changed from Container to div because bottom bar wouldn't stretch all the way across with Container
+      <div className="bottom-bar-cont">
         <Row className="bar-row">
           <Col xs={5} className="copyright">
             <b>© UF SASE 2021</b>
@@ -23,7 +24,7 @@ export default class MemberNavbar extends Component {
             </a>
           </Col>
         </Row>
-      </Container>
+      </div>
     );
   }
 }

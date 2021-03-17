@@ -4,6 +4,7 @@
 
 .btn {
   margin-right: 10px;
+  background-color: #0668B3;
 }
 
 .col {
@@ -16,6 +17,14 @@
   padding-left: 0px;
   padding-right: 0px;
   margin: 0px;
+}
+
+.img {
+  display: block;
+  margin-top: 20px;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
 }
 
 h4 {
