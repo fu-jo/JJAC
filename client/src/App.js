@@ -16,21 +16,7 @@ import MailingList from './pages/admin/MailingList';
 import ManageAnnouncements from "./pages/admin/ManageAnnouncements";
 import ManageArticles from "./pages/admin/ManageArticles";
 import ManageUsers from "./pages/admin/ManageUsers";
-import ModifyArticle from "./pages/admin/ModifyArticle";
-
-import Posts from './components/Posts/Posts'
-import PostEntry from './components/Posts/PostEntry'
-
-// import firebase from './firebase'
-
-// firebase.firestore().collection('posts').add({
-// 	title: 'example title',
-//   description: 'example description',
-//   articleText: 'dakljzxjckl lorem ipsum',
-//   date: 'March',
-//   tags: ['tag 1'],
-//   links: ['www.sase.com']
-// })
+import ModifyArticle from "./pages/admin/ModifyArticle"
 
 export default class App extends Component {
   render() {
@@ -66,11 +52,7 @@ export default class App extends Component {
           <Route path="/404" component={NotFound404} />
           <Redirect to="/404" />
         </Switch>
-        <Posts />
-        <PostEntry />
-
       </Router>
-
     );
   }
 }
