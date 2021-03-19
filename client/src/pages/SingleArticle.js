@@ -94,6 +94,7 @@ const SingleArticle = (props) => {
           </p>
         </div>
       </Container>
+      <BottomBar />
     </div>
   );
 };
