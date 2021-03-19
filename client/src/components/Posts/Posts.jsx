@@ -7,7 +7,7 @@ const SORT_OPTIONS = {
     'DATE_ASC': {column:'date', direction:'asc'},
     'DATE_DESC': {column:'date', direction:'desc'},
     'TITLE_ASC': {column:'title', direction:'asc'},
-    'TITLE_DESC': {column:'title', direction:'desc'},
+    'TITLE_DESC': {column:'title', direction:'desc'}
 }
 
 function usePosts(sortBy='TITLE_ASC') {
@@ -50,8 +50,8 @@ const Posts = () => {
                 </select>
             </div>
             <ol>
-                {posts.map((post) =>
-                    <Post post={post}/>
+                {posts && posts.map((post, idx) =>
+                    <Post article={post} idx={idx}/>               
                 )}
             </ol>
         </div>

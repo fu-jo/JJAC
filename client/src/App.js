@@ -16,7 +16,7 @@ import MailingList from './pages/admin/MailingList';
 import ManageAnnouncements from "./pages/admin/ManageAnnouncements";
 import ManageArticles from "./pages/admin/ManageArticles";
 import ManageUsers from "./pages/admin/ManageUsers";
-import ModifyArticle from "./pages/admin/ModifyArticle";
+import ModifyArticle from "./pages/admin/ModifyArticle"
 
 export default class App extends Component {
   render() {

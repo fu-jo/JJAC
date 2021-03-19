@@ -2,6 +2,7 @@ import React, { Component } from "react";
 
 import MemberNavbar from "../components/MemberNavbar";
 import NonMemberNavbar from "../components/NonMemberNavbar";
+
 import BottomBar from "../components/BottomBar";
 
 export default class EventsCalendar extends Component {
