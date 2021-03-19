@@ -11,7 +11,8 @@ const getDate = (dateStr) => {
   return (date ? date : null)
 }
 
-const Post = ({ article, idx }) => {
+
+const Article = ({ article, idx }) => {
     if (!article) {
       return null;
     }
@@ -50,4 +51,5 @@ const Post = ({ article, idx }) => {
     )
 }
 
-export default Post
+
+export default Article

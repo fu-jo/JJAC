@@ -4,14 +4,14 @@ import Card from "react-bootstrap/Card";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 
-// import "../styles/components/ContactForm.css";
+import "../styles/components/ContactForm.css";
 
 // need to implement Submit button functionality (grabbing/sending values, etc)
 // Margin between header and card isn't right -Amber
 export default class ContactForm extends Component {
   render() {
     return (
-      <Container>
+      <Container className="contact-form">
         <h4>Contact Us</h4>
         <Card>
           <Card.Body>

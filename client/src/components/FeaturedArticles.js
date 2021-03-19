@@ -4,9 +4,10 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 
 import React, {useState, useEffect} from 'react'
-import firebase from '../firebase'
 
-import Article from './Posts/Post/Post'
+import { firestore } from '../firebase'
+
+import ArticleCard from './ArticleCard'
 
 const SORT_OPTIONS = {
     'DATE_ASC': {column:'date', direction:'asc'},
@@ -20,7 +21,7 @@ function usePosts(sortBy='DATE_DESC') {
 
     useEffect(() => {
         const unsubscribe = //drop subscription to firestore
-            firebase.firestore().collection('posts')
+            firestore.collection('posts')
             .orderBy(SORT_OPTIONS[sortBy].column,SORT_OPTIONS[sortBy].direction)
             .onSnapshot((snapshot) => {
                 const newPosts = snapshot.docs.map((doc) => ({
@@ -53,7 +54,7 @@ const FeaturedArticles = () => {
               </Row>
               <div className="cards-container">
                 <Row>
-                  {posts.map((article, idx) => <Article article={article} idx={idx}/>)}
+                  {posts.map((article, idx) => <ArticleCard article={article} idx={idx}/>)}
                 </Row>
               </div>
             </Container>
