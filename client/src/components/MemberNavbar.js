@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
 import Button from "react-bootstrap/Button";
@@ -28,6 +29,9 @@ export default class MemberNavbar extends Component {
             <Nav.Link href="/settings">Settings</Nav.Link>
           </Nav>
           <Nav>
+            {/* Once auth is implemented with admin/user levels,
+                want this button to show to only admins */}
+            <Button href="/admin/dashboard" variant="primary">Admin</Button>
             <Button variant="primary" onClick={this.callback}>Logout</Button>
           </Nav>
         </Navbar.Collapse>
