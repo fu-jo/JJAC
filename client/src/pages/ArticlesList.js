@@ -43,6 +43,7 @@ function usePosts(sortBy = "DATE_DESC") {
 
 const getDate = (dateStr) => {
   let date = new Date(dateStr).toLocaleDateString("en-US", {
+    timeZone: "UTC",
     year: "numeric",
     month: "long",
     day: "numeric",
