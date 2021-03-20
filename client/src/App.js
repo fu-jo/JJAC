@@ -11,12 +11,14 @@ import EventsCalendar from "./pages/EventsCalendar";
 import SingleArticle from "./pages/SingleArticle";
 import NotFound404 from "./pages/NotFound404";
 // admin pages
+import AdminWrapper from "./components/AdminWrapper";
 import AdminDashboard from './pages/admin/AdminDashboard';
 import MailingList from './pages/admin/MailingList';
 import ManageAnnouncements from "./pages/admin/ManageAnnouncements";
 import ManageArticles from "./pages/admin/ManageArticles";
 import ManageUsers from "./pages/admin/ManageUsers";
-import ModifyArticle from "./pages/admin/ModifyArticle"
+import CreateArticle from "./pages/admin/CreateArticle";
+import ModifyArticle from "./pages/admin/ModifyArticle";
 
 export default class App extends Component {
   render() {
@@ -34,14 +36,20 @@ export default class App extends Component {
           <Route path="/announcements" component={Announcements} />
           <Route path="/articles-list" component={ArticlesList} />
           <Route path="/events-calendar" component={EventsCalendar} />
+          {/* What to do when article id isn't found? */}
           <Route path="/article/:id" component={SingleArticle} />
           {/* Admin page routes */}
-          <Route path="/admin/dashboard" component={AdminDashboard} />
-          <Route path="/admin/mailing-list" component={MailingList} />
-          <Route path="/admin/manage-announcements" component={ManageAnnouncements} />
-          <Route path="/admin/manage-articles" component={ManageArticles} />
-          <Route path="/admin/manage-users" component={ManageUsers} />
-          <Route path="/admin/modify-article/:id" component={ModifyArticle} />
+          <AdminWrapper>
+            <Route path="/admin/dashboard" component={AdminDashboard} />
+            <Route path="/admin/mailing-list" component={MailingList} />
+            <Route path="/admin/manage-announcements" component={ManageAnnouncements} />
+            <Route path="/admin/manage-articles" component={ManageArticles} />
+            <Route path="/admin/manage-users" component={ManageUsers} />
+            <Route path="/admin/create-article" component={CreateArticle} />
+            {/* What to do when article id isn't found? */}
+            <Route path="/admin/modify-article/:id" component={ModifyArticle} />
+            {/* Need a 404 page for admin too */}
+          </AdminWrapper>
           {/* Other routes */}
           <Route exact path="/admin">
             <Redirect to="/admin/dashboard" />

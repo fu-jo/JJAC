@@ -24,7 +24,7 @@ const PostEntry = () => {
             img: e.target.img.value
         })
         .then(() => {       //clears form on submit
-            e.target.title.value = ''   
+            e.target.title.value = ''
             e.target.content.value = ''
             e.target.description.value = ''
             e.target.date.value = ''
@@ -67,9 +67,8 @@ const PostEntry = () => {
 
 export default PostEntry
 
-/*<div> //for react hooks
-            <label for="content">Content</label>
-            <input id="content" type="text" value={content} onChange={e => setContent(e.currentTarget.value)} />
-        </div>}
-        <button type='submit'>Create Post</button>
-
+// /*<div> //for react hooks
+//             <label for="content">Content</label>
+//             <input id="content" type="text" value={content} onChange={e => setContent(e.currentTarget.value)} />
+//         </div>}
+//         <button type='submit'>Create Post</button>
