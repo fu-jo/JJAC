@@ -3,7 +3,6 @@ import { Container, Row, Col } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
 import { faDiscord, faFacebook } from "@fortawesome/free-brands-svg-icons";
-
 import "../styles/components/BottomBar.css";
 
 import Navbar from "react-bootstrap/Navbar";
