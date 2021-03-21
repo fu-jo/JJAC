@@ -1,9 +1,12 @@
 import React, { Component } from "react";
 import Button from "react-bootstrap/Button";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
 
-import AdminSidebar from '../../components/AdminSidebar';
+import AdminSidebar from './AdminSidebar';
+import "../styles/components/AdminSidebar.css";
 
-export default class ManageArticles extends Component {
+export default class AdminWrapper extends Component {
   constructor(props) {
     super(props);
 
@@ -21,9 +24,10 @@ export default class ManageArticles extends Component {
   render() {
     return (
       <div>
-        <AdminSidebar />
-        <h2>Manage Articles</h2>
-        <Button href="/admin/create-article" variant="primary">Create article</Button>
+        <AdminSidebar/>
+        <div className="main">
+          {this.props.children}
+        </div>
       </div>
     );
   }

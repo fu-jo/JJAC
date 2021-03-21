@@ -11,6 +11,7 @@ const getDate = (dateStr) => {
   return (date ? date : null)
 }
 
+
 const Article = ({ article, idx }) => {
     if (!article) {
       return null;
@@ -49,5 +50,6 @@ const Article = ({ article, idx }) => {
       </Col>
     )
 }
+
 
 export default Article

@@ -2,24 +2,26 @@ import React, { Component } from "react";
 import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
 import Button from "react-bootstrap/Button";
+import Image from "react-bootstrap/Image";
 import "bootstrap/dist/css/bootstrap.min.css";
+
+import "../styles/components/AdminSidebar.css";
+import img from "../assets/temp2.png";
 
 export default class AdminSidebar extends Component {
   render() {
     return (
-      <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
-        <Navbar.Brand href="/home">UF SASE</Navbar.Brand>
-        <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-        <Navbar.Collapse id="responsive-navbar-nav">
-          <Nav className="mr-auto">
-            <Nav.Link href="/home">Home</Nav.Link>
-            <Nav.Link href="/settings">Settings</Nav.Link>
-          </Nav>
-          <Nav>
-            <Button variant="primary">Login</Button>
-          </Nav>
-        </Navbar.Collapse>
-      </Navbar>
+      <div className="sidenav">
+        <a href="/home" style={{textAlign: "center"}}>
+          <Image src={img} style={{width : "100%"}}/>
+          <h1 style={{marginTop: 10}}>UF SASE</h1>
+        </a>
+        <a href="/admin/dashboard">Home</a>
+        <a href="/admin/mailing-list">Mailing List</a>
+        <a href="/admin/manage-articles">Articles</a>
+        <a href="/admin/manage-announcements">Announcements</a>
+        <a href="/admin/manage-users">Manage Users</a>
+      </div>
     );
   }
 }

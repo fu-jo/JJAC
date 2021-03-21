@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
-import { faFacebook } from "@fortawesome/free-brands-svg-icons";
+import { faDiscord, faFacebook } from "@fortawesome/free-brands-svg-icons";
 
 import "../styles/components/BottomBar.css";
 
@@ -21,6 +21,7 @@ export default class MemberNavbar extends Component {
             </Col>
             <Nav.Link className="icons" href="https://www.facebook.com/ufsase/"><FontAwesomeIcon icon={faFacebook} size="2x"/></Nav.Link>
             <Nav.Link className="icons" href="mailto:ufsase@gmail.com"><FontAwesomeIcon icon={faEnvelope} size="2x"/></Nav.Link>
+            <Nav.Link className="icons" href="http://discord.gg/q3HBeC5"><FontAwesomeIcon icon={faDiscord} size="2x"/></Nav.Link>
           </Nav>
         </Navbar.Collapse>
       </Navbar>
