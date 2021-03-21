@@ -42,10 +42,12 @@ function useAnns(sortBy='DATE_DESC') {
 
 const getDate = (dateStr) => {
   let date = new Date(dateStr).toLocaleDateString("en-US", {
+    timeZone: "UTC",
     year: "numeric",
     month: "long",
     day: "numeric",
   });
+  console.log(dateStr + ' ' + new Date(dateStr))
   return date ? date : null;
 }
 
@@ -100,6 +102,22 @@ const Announcements = (props) => {
                               )})}
                             </span>
                           )}
+                          </small>
+                        </div>
+                      )}
+                      {!ann.details && ann.links && ann.links.length > 0 && (
+                        <div style={{ paddingLeft: 20 }}>
+                          <small>
+                            <a onClick={console.log(ann.links)}></a>
+                            <b>Links: </b>
+                            {ann.links.map((link, idx) => {
+                              const fixedLink = link.includes("https://") || link.includes("http://") ? link : "https://" + link;
+                              return (
+                                <span>
+                                  <a href={fixedLink} target="_blank" rel="noopener noreferrer" style={{ marginRight: 3 }}>{link}</a>
+                                </span>
+                              );
+                            })}
                           </small>
                         </div>
                       )}

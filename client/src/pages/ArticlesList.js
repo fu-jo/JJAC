@@ -42,6 +42,16 @@ function usePosts(sortBy = "DATE_DESC") {
   return posts;
 }
 
+
+const getDate = (dateStr) => {
+  let date = new Date(dateStr).toLocaleDateString("en-US", {
+    timeZone: "UTC",
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  });
+  return date ? date : null;
+};
 const ArticlesList = (props) => {
   const [sortBy, setSortBy] = useState("DATE_DESC"); //default
   const posts = usePosts(sortBy);

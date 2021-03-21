@@ -13,6 +13,7 @@
 
 .article-card-link {
   color: #212529;
+  width: 100%;
 }
 
 .article-card-link:hover {
