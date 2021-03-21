@@ -1,8 +1,6 @@
 import React, { Component } from "react";
 import Button from "react-bootstrap/Button";
 
-import AdminSidebar from '../../components/AdminSidebar';
-
 export default class AdminDashboard extends Component {
   constructor(props) {
     super(props);
@@ -21,11 +19,7 @@ export default class AdminDashboard extends Component {
   render() {
     return (
       <div>
-        <AdminSidebar />
-        <h2>AdminDashboard</h2>
-        <Button variant="primary" onClick={this.buttonClicked}>
-          {this.state.name}
-        </Button>
+        <h1>Admin Dashboard</h1>
       </div>
     );
   }
