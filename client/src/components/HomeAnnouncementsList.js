@@ -1,74 +1,128 @@
-import React, { Component } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import Table from "react-bootstrap/Table";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import LinesEllipsis from "react-lines-ellipsis";
 
+import { firestore } from "../firebase";
+
 import "../styles/components/HomeAnnouncementsList.css";
-import testAnnouncements from "../assets/test-announcements";
 
-export default class HomeAnnouncementsList extends Component {
-  constructor(props) {
-    super(props);
-    this.getAnnouncementData = this.getAnnouncementData.bind(this);
-    this.getDate = this.getDate.bind(this);
+const SORT_OPTIONS = {
+  DATE_ASC: { column: "date", direction: "asc" },
+  DATE_DESC: { column: "date", direction: "desc" },
+  TITLE_ASC: { column: "title", direction: "asc" },
+  TITLE_DESC: { column: "title", direction: "desc" },
+};
 
-    this.state = { announcements: null, loading: true }
-  }
+const getDate = (dateStr) => {
+  let date = new Date(dateStr).toLocaleDateString("en-US", {
+    timeZone: "UTC",
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  });
+  return date ? date : null;
+};
 
-  componentDidMount() {
-    this.getAnnouncementData();
-  }
+function useAnnouncements(sortBy = "DATE_DESC") {
+  const [announcements, setAnnouncements] = useState([]);
 
-  getAnnouncementData() {
-    try {
-      const data = testAnnouncements.slice(0, 3);
-      this.setState({ announcements: data, loading: false });
-    }
-    catch (e) {
-      console.log(e);
-    }
-  }
+  useEffect(() => {
+    const unsubscribe = firestore //drop subscription to firestore
+      .collection("announcements")
+      .orderBy(SORT_OPTIONS[sortBy].column, SORT_OPTIONS[sortBy].direction)
+      .onSnapshot((snapshot) => {
+        const newAnnouncements = snapshot.docs.map((doc) => ({
+          id: doc.id,
+          ...doc.data(),
+        }));
 
-  getDate(dateStr) {
-    let date = new Date(dateStr).toLocaleDateString("en-US", { year: 'numeric', month: 'long', day: 'numeric' });
-    return (date ? date : null)
-  }
+        setAnnouncements(newAnnouncements);
+      });
 
-  render() {
-    return (
-      <div className="announcements">
-        <Row>
-          <Col>
-            <h4>Latest Announcements</h4>
-          </Col>
-          <Col className="view-all-link">
-            <Link to="/announcements">View All</Link>
-          </Col>
-        </Row>
-        <Table responsive striped bordered hover>
-          <thead>
-            <tr>
-              <th id="header-left">Announcement</th>
-              <th>Date</th>
-            </tr>
-          </thead>
-          <tbody>
-            {!this.state.loading && this.state.announcements.map((ann, idx) => { return (
-              <tr key={idx}>
-                <td className="ann-box">
-                  <span>{ann.title}{"\n"}</span>
+    return () => unsubscribe(); //callback when unmounted
+  }, [sortBy]);
+
+  return announcements;
+}
+
+const HomeAnnouncementsList = () => {
+  const [sortBy, setSortBy] = useState("DATE_DESC"); //default
+  const announcements = useAnnouncements(sortBy).slice(0, 3);
+
+  return (
+    <div className="announcements">
+      <Row>
+        <Col>
+          <h4>Latest Announcements</h4>
+        </Col>
+        <Col className="view-all-link">
+          <Link to="/announcements">View All</Link>
+        </Col>
+      </Row>
+      <Table responsive striped bordered hover>
+        <thead>
+          <tr>
+            <th id="header-left">Announcement</th>
+            <th>Date</th>
+          </tr>
+        </thead>
+        <tbody>
+          {announcements.map((ann, idx) => {
+            return (
+              <tr>
+                <td style={{ whiteSpace: "pre-wrap" }}>
+                  <span>
+                    {ann.title}{"\n"}
+                  </span>
                   {ann.details && (
-                    <LinesEllipsis text={ann.details} maxLine="2" ellipsis="..." basedOn="words" className="ann-details"/>
+                    <div style={{ paddingLeft: 20 }}>
+                      <small>
+                        {ann.details}{"\n"}
+                        {ann.links && ann.links.length > 0 && (
+                          <span>
+                            <a onClick={console.log(ann.links)}></a>
+                            <b>Links: </b>
+                            {ann.links.map((link, idx) => {
+                              const fixedLink = link.includes("https://") || link.includes("http://") ? link : "https://" + link;
+                              return (
+                                <span>
+                                  <a href={fixedLink} target="_blank" rel="noopener noreferrer" style={{ marginRight: 3 }}>{link}</a>
+                                </span>
+                              );
+                            })}
+                          </span>
+                        )}
+                      </small>
+                    </div>
+                  )}
+                  {!ann.details && ann.links && ann.links.length > 0 && (
+                    <div style={{ paddingLeft: 20 }}>
+                      <small>
+                        <a onClick={console.log(ann.links)}></a>
+                        <b>Links: </b>
+                        {ann.links.map((link, idx) => {
+                          const fixedLink = link.includes("https://") || link.includes("http://") ? link : "https://" + link;
+                          return (
+                            <span>
+                              <a href={fixedLink} target="_blank" rel="noopener noreferrer" style={{ marginRight: 3 }}>{link}</a>
+                            </span>
+                          );
+                        })}
+                      </small>
+                    </div>
                   )}
                 </td>
-                {ann.date ? (<td>{this.getDate(ann.date)}</td>) : <td></td>}
+                {ann.date ? <td>{getDate(ann.date)}</td> : <td></td>}
               </tr>
-            )})}
-          </tbody>
-        </Table>
-      </div>
-    );
-  }
-}
+            );
+          })}
+        </tbody>
+      </Table>
+    </div>
+  );
+};
+
+export default HomeAnnouncementsList;
