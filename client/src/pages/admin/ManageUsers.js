@@ -3,6 +3,8 @@ import Button from "react-bootstrap/Button";
 
 import AdminSidebar from '../../components/AdminSidebar';
 
+import UserList from './UserList/UserList'
+
 export default class ManageUsers extends Component {
   constructor(props) {
     super(props);
@@ -23,6 +25,7 @@ export default class ManageUsers extends Component {
       <div>
         <AdminSidebar />
         <h2>ManageUsers</h2>
+        <UserList />
         <Button variant="primary" onClick={this.buttonClicked}>
           {this.state.name}
         </Button>
