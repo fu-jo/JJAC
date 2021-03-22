@@ -54,9 +54,7 @@ const Article = ({article, idx, access}) => {
               </td>
             )}
             {access.status === 'Admin' ? <th>
-              <Button variant='success' onClick={() => {
-                console.log(article.id)
-              }}>Edit</Button>
+              <Button variant='success' href='/admin/modify-article/:id' id={article.id}>Edit</Button>
               <Button variant='danger' onClick={deleteArticle}>Delete</Button>
             </th> 
             :
