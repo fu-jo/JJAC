@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { useParams } from "react-router-dom";
 import {Button, Form} from "react-bootstrap";
 
 import AdminSidebar from '../../components/AdminSidebar';
@@ -36,9 +37,11 @@ import { firestore } from '../../firebase'
 
 
 const ModifyArticle = () => {
+  const { id } = useParams();
 
   function updatePost(e) {
     e.preventDefault()
+    e.persist()
     const object = {
       title: e.target.title.value,
       content: e.target.content.value,
@@ -51,7 +54,7 @@ const ModifyArticle = () => {
     Object.keys(object).forEach(k => (!object[k] && object[k] !== undefined) && delete object[k]); //remove blank keys
     console.log(object)  
   
-    firestore.collection('posts').doc('6Afp75VxT00FwywbSRaj').update(object)
+    firestore.collection('posts').doc(id).update(object)
     .then(() => {       //clears form on submit
         e.target.title.value = ''
         e.target.content.value = ''
@@ -61,6 +64,7 @@ const ModifyArticle = () => {
     })
   }
 
+  // we will probably want some sort of redirect on submit
   return (
     <div>
       <AdminSidebar />
