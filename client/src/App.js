@@ -10,6 +10,9 @@ import ArticlesList from "./pages/ArticlesList";
 import EventsCalendar from "./pages/EventsCalendar";
 import SingleArticle from "./pages/SingleArticle";
 import NotFound404 from "./pages/NotFound404";
+import SignUp from "./pages/SignUp";
+import Login from "./pages/Login"
+import {AuthProvider} from "./Contexts/AuthContext"
 // admin pages
 import AdminWrapper from "./components/AdminWrapper";
 import AdminDashboard from './pages/admin/AdminDashboard';
@@ -23,6 +26,7 @@ import ModifyArticle from "./pages/admin/ModifyArticle";
 export default class App extends Component {
   render() {
     return (
+      <AuthProvider>
       <Router>
         <Switch>
           {/* General page routes */}
@@ -32,6 +36,8 @@ export default class App extends Component {
                       <Home {...props} status="NonMember" />
                     )}
           />
+          <Route path="/signup" component={SignUp} />
+          <Route path="/login" component={Login} />
           <Route path="/settings" component={Settings} />
           <Route path="/announcements" component={Announcements} />
           <Route path="/articles-list" component={ArticlesList} />
@@ -100,6 +106,7 @@ export default class App extends Component {
           <Redirect to="/404" />
         </Switch>
       </Router>
+      </AuthProvider>
     );
   }
 }
