@@ -1,6 +1,6 @@
-import React, { Component } from "react";
+import React, { Component, useState } from "react";
 import { useParams } from "react-router-dom";
-import {Button, Form} from "react-bootstrap";
+import { Button, Form, Alert } from "react-bootstrap";
 
 import AdminSidebar from '../../components/AdminSidebar';
 
@@ -37,6 +37,7 @@ import { firestore } from '../../firebase'
 
 
 const ModifyArticle = () => {
+  const [succ, setSucc] = useState();
   const { id } = useParams();
 
   function updatePost(e) {
@@ -56,18 +57,20 @@ const ModifyArticle = () => {
   
     firestore.collection('posts').doc(id).update(object)
     .then(() => {       //clears form on submit
+        setSucc('Successfully Modified')
         e.target.title.value = ''
         e.target.content.value = ''
         e.target.description.value = ''
         e.target.date.value = ''
         e.target.img.value = null
+        window.history.back(); //return to previous page
     })
   }
 
-  // we will probably want some sort of redirect on submit
   return (
     <div>
       <AdminSidebar />
+      {succ ? <Alert className='alert-success'>{succ}</Alert> : ''}
       <h2>Modify Article</h2>
       <Form onSubmit={updatePost}>
         <Form.Group controlId="title">
@@ -92,7 +95,6 @@ const ModifyArticle = () => {
         </Form.Group>
         <Button variant="primary" type='submit'>Update</Button>
       </Form>
-      {/* href='/admin/manage-articles' */}
     </div>
   );
 }
