@@ -4,13 +4,14 @@ import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Table from "react-bootstrap/Table";
-import LinesEllipsis from "react-lines-ellipsis";
 
 import { firestore } from "../firebase";
 import MemberNavbar from "../components/MemberNavbar";
 import NonMemberNavbar from "../components/NonMemberNavbar";
 import BottomBar from "../components/BottomBar";
 import "../styles/pages/ArticlesList.css";
+
+import Article from './Article'
 
 const SORT_OPTIONS = {
   DATE_ASC: { column: "date", direction: "asc" },
@@ -41,6 +42,7 @@ function usePosts(sortBy = "DATE_DESC") {
   return posts;
 }
 
+
 const getDate = (dateStr) => {
   let date = new Date(dateStr).toLocaleDateString("en-US", {
     timeZone: "UTC",
@@ -50,64 +52,44 @@ const getDate = (dateStr) => {
   });
   return date ? date : null;
 };
-
 const ArticlesList = (props) => {
   const [sortBy, setSortBy] = useState("DATE_DESC"); //default
   const posts = usePosts(sortBy);
 
   return (
     <div>
-      {props.status === "Member" ? <MemberNavbar /> : <NonMemberNavbar />}
+      {props.status === 'Admin' ? '' : props.status === "Member" ? <MemberNavbar /> : <NonMemberNavbar />}
       <Container>
         <h1 className="articles-header">Articles</h1>
+
+        <label>Sort By</label>{' '}
+        <select value={sortBy} onChange={e => setSortBy(e.currentTarget.value)}>
+            <option value='TITLE_ASC'>Title (a-z)</option>
+            <option value='TITLE_DESC'>Title (z-a)</option>
+            <option disabled>---</option>
+            <option value='DATE_ASC'>Date (earliest)</option>
+            <option value='DATE_DESC'>Date (latest)</option>
+        </select>
+        
         <Table striped bordered hover>
           <thead>
             <tr>
               <th>Article Name</th>
               <th>Date Published</th>
+              {props.status === 'Admin' ? 
+                <th>Modify</th>
+              :
+              ''
+              }
+              
             </tr>
           </thead>
           <tbody>
-            {posts.map((article, idx) => (
-              <tr key={idx}>
-                <td>
-                  <a href={`article/${article.id}`} className="article-link">
-                    <div className="article-box full-width">
-                      <span>
-                        {article.title}
-                        {"\n"}
-                      </span>
-                      {article.content && (
-                        <LinesEllipsis
-                          text={article.content}
-                          maxLine="2"
-                          ellipsis="..."
-                          basedOn="words"
-                          className="article-content"
-                        />
-                      )}
-                    </div>
-                  </a>
-                </td>
-                {article.date ? (
-                  <td>
-                    <a href={`article/${article.id}`} className="article-link">
-                      <div className="full-width">{getDate(article.date)}</div>
-                    </a>
-                  </td>
-                ) : (
-                  <td>
-                    <a href={`article/${article.id}`} className="article-link">
-                      <div className="full-width"></div>
-                    </a>
-                  </td>
-                )}
-              </tr>
-            ))}
+            {posts.map((article, idx) => <Article article={article} key={`article-${idx}`} idx={idx} access={props}/>)}
           </tbody>
         </Table>
       </Container>
-      <BottomBar />
+      {props.status === 'Admin' ? '' : <BottomBar />}
     </div>
   );
 };
