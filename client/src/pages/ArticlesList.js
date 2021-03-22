@@ -76,11 +76,16 @@ const ArticlesList = (props) => {
             <tr>
               <th>Article Name</th>
               <th>Date Published</th>
-              <th>Modify</th>
+              {props.status === 'Admin' ? 
+                <th>Modify</th>
+              :
+              ''
+              }
+              
             </tr>
           </thead>
           <tbody>
-            {posts.map((article, idx) => <Article article={article} key={`article-${idx}`} idx={idx} />)}
+            {posts.map((article, idx) => <Article article={article} key={`article-${idx}`} idx={idx} access={props}/>)}
           </tbody>
         </Table>
       </Container>

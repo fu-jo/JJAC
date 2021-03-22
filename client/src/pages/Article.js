@@ -13,7 +13,7 @@ const getDate = (dateStr) => {
     return date ? date : null;
   };
 
-const Article = ({article, idx}) => {
+const Article = ({article, idx, access}) => {
   async function deleteArticle() {
     console.log(article.id)
     await firestore.collection('posts').doc(article.id).delete();
@@ -53,12 +53,16 @@ const Article = ({article, idx}) => {
                 </a>
               </td>
             )}
-            <th>
+            {access.status === 'Admin' ? <th>
               <Button variant='success' onClick={() => {
                 console.log(article.id)
               }}>Edit</Button>
               <Button variant='danger' onClick={deleteArticle}>Delete</Button>
-            </th>
+            </th> 
+            :
+              ''
+            }
+            
     </tr>
   )  
 }
