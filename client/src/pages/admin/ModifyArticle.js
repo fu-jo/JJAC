@@ -1,44 +1,33 @@
 import React, { Component, useState } from "react";
 import { useParams } from "react-router-dom";
 import { Button, Form, Alert } from "react-bootstrap";
+import Progress from '../../components/Progress'
 
 import AdminSidebar from '../../components/AdminSidebar';
 
 import { firestore } from '../../firebase'
 
-// export default class ModifyArticle extends Component {
-//   constructor(props) {
-//     super(props);
-
-//     this.buttonClicked = this.buttonClicked.bind(this);
-
-//     this.state = {
-//       name: "Click"
-//     };
-//   }
-
-//   buttonClicked() {
-//     this.setState({name: "Button Pressed"})
-//   }
-
-//   render() {
-//     return (
-//       <div>
-//         <AdminSidebar />
-//         <h2>ModifyArticle</h2>
-//         <h4>ID: {this.props.match.params.id}</h4>
-//         <Button variant="primary" onClick={this.buttonClicked}>
-//           {this.state.name}
-//         </Button>
-//       </div>
-//     );
-//   }
-// }
-
-
 const ModifyArticle = () => {
   const [succ, setSucc] = useState();
+  const [img, setImg] = useState(null);
+  const [err, setErr] = useState(null);
+  const [imgUrl, setImgUrl] = useState(null);
   const { id } = useParams();
+
+  const imgFormats = ['image/png', 'image/jpeg'];
+
+  const imgChange = (e) => {
+    const selected = e.target.files[0];
+
+    if (selected && imgFormats.includes(selected.type)) {
+      //console.log(selected)
+      setImg(selected);
+      setErr('')
+    } else {
+      setImg(null);
+      setErr('Please use an image file (png) or (jpeg)')
+    }
+  }
 
   function updatePost(e) {
     e.preventDefault()
@@ -50,7 +39,7 @@ const ModifyArticle = () => {
       date: e.target.date.value,
       tags: [],
       links:[],
-      img: e.target.img.value
+      img: imgUrl,//e.target.img.value
     }
     Object.keys(object).forEach(k => (!object[k] && object[k] !== undefined) && delete object[k]); //remove blank keys
     console.log(object)  
@@ -91,8 +80,9 @@ const ModifyArticle = () => {
         </Form.Group>
         <Form.Group controlId="img">
           <Form.Label>Image</Form.Label>
-          <Form.Control type="file"/>
+          <Form.Control type="file" onChange={imgChange} />
         </Form.Group>
+        {img &&<Progress file={img} setFile={setImg} setImgUrl={setImgUrl} /> }
         <Button variant="primary" type='submit'>Update</Button>
       </Form>
     </div>

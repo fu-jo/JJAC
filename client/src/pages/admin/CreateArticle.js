@@ -8,6 +8,7 @@ import { firestore } from "../../firebase";
 const CreateArticle = () => {
   const [img, setImg] = useState(null);
   const [err, setErr] = useState(null);
+  const [imgUrl, setImgUrl] = useState(null);
 
   const imgFormats = ['image/png', 'image/jpeg'];
 
@@ -34,7 +35,7 @@ const CreateArticle = () => {
         date: e.target.date.value,
         tags: [],
         links: [],
-        img: e.target.img.value,
+        img: imgUrl,//e.target.img.value,
       })
       .then(() => {
         //clears form on submit
@@ -74,7 +75,7 @@ const CreateArticle = () => {
               <Form.Label>Image</Form.Label>
               <Form.Control type="file" onChange={imgChange} />
             </Form.Group>
-            {img &&<Progress file={img} setFile={setImg} /> }
+            {img &&<Progress file={img} setFile={setImg} setImgUrl={setImgUrl} /> }
             <Button variant="primary" type="submit">
               Create Post
             </Button>

@@ -23,6 +23,7 @@ const ArticleCard = ({ article, idx }) => {
           <Card>
             {article.img && (
               <Card.Img
+                
                 variant="top"
                 src={article.img}
                 className="article-card-img"
