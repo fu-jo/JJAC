@@ -43,6 +43,7 @@ const CreateArticle = () => {
         e.target.description.value = "";
         e.target.date.value = "";
         e.target.img.value = null;
+        window.history.back();
       });
   }
 
