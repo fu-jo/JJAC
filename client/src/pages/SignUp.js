@@ -21,7 +21,16 @@ export default function Signup() {
         try{
             setError('')
             setLoading(true)
+            
             await signup(emailRef.current.value, passwordRef.current.value)
+            var user = firebase.auth().currentUser;
+            var name, email, photoUrl, uid
+            firestore.collection("users").add({
+                name = user.displayName,
+                email = user.email,
+                photoUrl = user.photoURL,
+                uid = user.uid
+            })
             alert('Signup Successful')
         } catch {
             setError('Failed to create an account')
