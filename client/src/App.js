@@ -19,6 +19,7 @@ import ManageArticles from "./pages/admin/ManageArticles";
 import ManageUsers from "./pages/admin/ManageUsers";
 import CreateArticle from "./pages/admin/CreateArticle";
 import ModifyArticle from "./pages/admin/ModifyArticle";
+import CreateAnnouncement from "./pages/admin/CreateAnnouncement"
 
 export default class App extends Component {
   render() {
@@ -39,18 +40,64 @@ export default class App extends Component {
           {/* What to do when article id isn't found? */}
           <Route path="/article/:id" component={SingleArticle} />
           {/* Admin page routes */}
-          <AdminWrapper>
-            <Route path="/admin/dashboard" component={AdminDashboard} />
-            <Route path="/admin/mailing-list" component={MailingList} />
-            <Route path="/admin/manage-announcements" component={ManageAnnouncements} />
-            <Route path="/admin/manage-articles" component={ManageArticles} />
-            <Route path="/admin/manage-users" component={ManageUsers} />
-            <Route path="/admin/create-article" component={CreateArticle} />
-            {/* What to do when article id isn't found? */}
-            <Route path="/admin/modify-article/:id" component={ModifyArticle} />
-            {/* Need a 404 page for admin too */}
-          </AdminWrapper>
-          {/* Other routes */}
+          <Route path="/admin/dashboard"
+                  render={() => (
+                    <AdminWrapper>
+                      <AdminDashboard/>
+                    </AdminWrapper>
+                  )}
+          />
+          <Route path="/admin/mailing-list"
+                  render={() => (
+                    <AdminWrapper>
+                      <MailingList/>
+                    </AdminWrapper>
+                  )}
+          />
+          <Route path="/admin/manage-announcements"
+                  render={() => (
+                    <AdminWrapper>
+                      <ManageAnnouncements/>
+                    </AdminWrapper>
+                  )}
+          />
+          <Route path="/admin/manage-articles"
+                  render={() => (
+                    <AdminWrapper>
+                      <ManageArticles/>
+                    </AdminWrapper>
+                  )}
+          />
+          <Route path="/admin/manage-users"
+                  render={() => (
+                    <AdminWrapper>
+                      <ManageUsers/>
+                    </AdminWrapper>
+                  )}
+          />
+          <Route path="/admin/create-article"
+                  render={() => (
+                    <AdminWrapper>
+                      <CreateArticle/>
+                    </AdminWrapper>
+                  )}
+          />
+          <Route path="/admin/create-announcement"
+                  render={() => (
+                    <AdminWrapper>
+                      <CreateAnnouncement/>
+                    </AdminWrapper>
+                  )}
+          />
+          {/* What to do when article id isn't found? */}
+          <Route path="/admin/modify-article/:id"
+                  render={() => (
+                    <AdminWrapper>
+                      <ModifyArticle/>
+                    </AdminWrapper>
+                  )}
+          />
+          {/* Generalized routes */}
           <Route exact path="/admin">
             <Redirect to="/admin/dashboard" />
           </Route>

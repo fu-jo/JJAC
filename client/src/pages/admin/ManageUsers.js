@@ -1,7 +1,10 @@
 import React, { Component } from "react";
 import Button from "react-bootstrap/Button";
+import "../../styles/pages/AdminPage.css"
 
 import AdminSidebar from '../../components/AdminSidebar';
+
+import UserList from './UserList/UserList'
 
 export default class ManageUsers extends Component {
   constructor(props) {
@@ -22,10 +25,9 @@ export default class ManageUsers extends Component {
     return (
       <div>
         <AdminSidebar />
-        <h2>ManageUsers</h2>
-        <Button variant="primary" onClick={this.buttonClicked}>
-          {this.state.name}
-        </Button>
+        <Button className="logout" href="/home">Logout</Button>
+        <h2 className="title">Users</h2>
+        <UserList />
       </div>
     );
   }

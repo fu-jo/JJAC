@@ -9,7 +9,7 @@ import LinesEllipsis from "react-lines-ellipsis";
 import "../styles/components/FeaturedArticles.css";
 
 const getDate = (dateStr) => {
-  let date = new Date(dateStr).toLocaleDateString("en-US", { year: 'numeric', month: 'long', day: 'numeric' });
+  let date = new Date(dateStr).toLocaleDateString("en-US", { timeZone: "UTC", year: 'numeric', month: 'long', day: 'numeric' });
   return (date ? date : null)
 }
 

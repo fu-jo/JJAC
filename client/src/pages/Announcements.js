@@ -42,10 +42,12 @@ function useAnns(sortBy='DATE_DESC') {
 
 const getDate = (dateStr) => {
   let date = new Date(dateStr).toLocaleDateString("en-US", {
+    timeZone: "UTC",
     year: "numeric",
     month: "long",
     day: "numeric",
   });
+  console.log(dateStr + ' ' + new Date(dateStr))
   return date ? date : null;
 }
 
@@ -55,9 +57,9 @@ const Announcements = (props) => {
 
     return (
       <div>
-        {props.status === "Member" ? (<MemberNavbar />) : (<NonMemberNavbar />)}
+        {props.status === 'Admin' ? '' : props.status === "Member" ? <MemberNavbar /> : <NonMemberNavbar />}
         <Container>
-          <h1>Latest Announcements</h1>
+          {props.status === 'Admin' ? '' : <h1>Latest Announcements</h1>}
           {announcements && (
             <Table striped bordered hover>
               <thead>
@@ -76,6 +78,11 @@ const Announcements = (props) => {
                       : (<FontAwesomeIcon icon={faSortDown} style={{float: "right", marginBottom: 8, marginRight: 10}} onClick={() => setSortBy("DATE_ASC")}/>)
                     }
                   </th>
+                    {props.status === 'Admin' ?
+                      <th>Modify</th>
+                    :
+                    ''
+                    }
                 </tr>
               </thead>
               <tbody>
@@ -103,6 +110,22 @@ const Announcements = (props) => {
                           </small>
                         </div>
                       )}
+                      {!ann.details && ann.links && ann.links.length > 0 && (
+                        <div style={{ paddingLeft: 20 }}>
+                          <small>
+                            <a onClick={console.log(ann.links)}></a>
+                            <b>Links: </b>
+                            {ann.links.map((link, idx) => {
+                              const fixedLink = link.includes("https://") || link.includes("http://") ? link : "https://" + link;
+                              return (
+                                <span>
+                                  <a href={fixedLink} target="_blank" rel="noopener noreferrer" style={{ marginRight: 3 }}>{link}</a>
+                                </span>
+                              );
+                            })}
+                          </small>
+                        </div>
+                      )}
                     </td>
                     {ann.date ? (<td>{getDate(ann.date)}</td>) : <td></td>}
                   </tr>
@@ -111,7 +134,7 @@ const Announcements = (props) => {
             </Table>
           )}
         </Container>
-        <BottomBar />
+        {props.status === 'Admin' ? '' : <BottomBar />}
       </div>
     );
 
