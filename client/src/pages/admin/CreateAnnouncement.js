@@ -6,32 +6,27 @@ import Button from "react-bootstrap/Button";
 
 import { firestore } from "../../firebase";
 
-const CreateArticle = () => {
+const CreateAnnouncement = () => {
   function onSubmit(e) {
     e.preventDefault();
     e.persist();
-    firestore.collection("posts").add({
+    firestore.collection("announcements").add({
         title: e.target.title.value,
-        content: e.target.content.value,
-        description: e.target.description.value,
+        details: e.target.details.value,
         date: e.target.date.value,
-        tags: [],
-        links: [],
-        img: e.target.img.value,
+        links: []
       })
       .then(() => {
         //clears form on submit
         e.target.title.value = "";
-        e.target.content.value = "";
-        e.target.description.value = "";
+        e.target.details.value = "";
         e.target.date.value = "";
-        e.target.img.value = null;
       });
   }
 
-  // missing links & tags fields
+  // missing links field
   return (
-    <Container id="create-post">
+    <Container id="create-announcement">
       <Card>
         <Card.Body>
           <Form onSubmit={onSubmit}>
@@ -39,24 +34,16 @@ const CreateArticle = () => {
               <Form.Label>Title</Form.Label>
               <Form.Control type="text" />
             </Form.Group>
-            <Form.Group controlId="description">
-              <Form.Label>Description</Form.Label>
-              <Form.Control as="textarea" rows={3} />
-            </Form.Group>
-            <Form.Group controlId="content">
-              <Form.Label>Content</Form.Label>
+            <Form.Group controlId="details">
+              <Form.Label>Details</Form.Label>
               <Form.Control as="textarea" rows={3} />
             </Form.Group>
             <Form.Group controlId="date">
               <Form.Label>Date</Form.Label>
               <Form.Control type="date" />
             </Form.Group>
-            <Form.Group controlId="img">
-              <Form.Label>Image</Form.Label>
-              <Form.Control type="file" />
-            </Form.Group>
             <Button variant="primary" type="submit">
-              Create Post
+              Create Announcement
             </Button>
           </Form>
         </Card.Body>
@@ -65,4 +52,4 @@ const CreateArticle = () => {
   );
 };
 
-export default CreateArticle;
+export default CreateAnnouncement;

@@ -1,8 +1,6 @@
 import React, { Component } from "react";
 import Button from "react-bootstrap/Button";
 
-import AdminSidebar from '../../components/AdminSidebar';
-
 export default class MailingList extends Component {
   constructor(props) {
     super(props);
@@ -21,7 +19,6 @@ export default class MailingList extends Component {
   render() {
     return (
       <div>
-        <AdminSidebar />
         <h2>MailingList</h2>
         <Button variant="primary" onClick={this.buttonClicked}>
           {this.state.name}

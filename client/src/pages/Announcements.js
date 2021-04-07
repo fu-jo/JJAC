@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Container from "react-bootstrap/Container";
 import Table from "react-bootstrap/Table";
+import Button from "react-bootstrap/Button";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSortUp, faSortDown } from "@fortawesome/free-solid-svg-icons";
 
@@ -55,9 +56,14 @@ const Announcements = (props) => {
     const [sortBy, setSortBy] = useState('DATE_DESC') //default
     const announcements = useAnns(sortBy)
 
+    async function deleteAnnouncement(announcement) {
+      console.log(announcement.id)
+      await firestore.collection('announcements').doc(announcement.id).delete();
+    }
+
     return (
       <div>
-        {props.status === "Member" ? (<MemberNavbar />) : (<NonMemberNavbar />)}
+        {props.status === 'Admin' ? '' : props.status === "Member" ? <MemberNavbar /> : <NonMemberNavbar />}
         <Container>
           <h1>Latest Announcements</h1>
           {announcements && (
@@ -78,6 +84,11 @@ const Announcements = (props) => {
                       : (<FontAwesomeIcon icon={faSortDown} style={{float: "right", marginBottom: 8, marginRight: 10}} onClick={() => setSortBy("DATE_ASC")}/>)
                     }
                   </th>
+                  {props.status === 'Admin' ?
+                    <th>Modify</th>
+                  :
+                  ''
+                  }
                 </tr>
               </thead>
               <tbody>
@@ -123,13 +134,22 @@ const Announcements = (props) => {
                       )}
                     </td>
                     {ann.date ? (<td>{getDate(ann.date)}</td>) : <td></td>}
+                    {props.status === 'Admin' ? <th>
+                      <Button variant='success' onClick={() => {
+                        console.log(ann.id)
+                      }}>Edit</Button>
+                      <Button variant='danger' onClick={() => deleteAnnouncement(ann)}>Delete</Button>
+                    </th>
+                    :
+                      ''
+                    }
                   </tr>
                 )})}
               </tbody>
             </Table>
           )}
         </Container>
-        <BottomBar />
+        {props.status === 'Admin' ? '' : <BottomBar />}
       </div>
     );
 

@@ -17,6 +17,7 @@ import MailingList from './pages/admin/MailingList';
 import ManageAnnouncements from "./pages/admin/ManageAnnouncements";
 import ManageArticles from "./pages/admin/ManageArticles";
 import ManageUsers from "./pages/admin/ManageUsers";
+import CreateAnnouncement from "./pages/admin/CreateAnnouncement";
 import CreateArticle from "./pages/admin/CreateArticle";
 import ModifyArticle from "./pages/admin/ModifyArticle";
 
@@ -71,6 +72,13 @@ export default class App extends Component {
                   render={() => (
                     <AdminWrapper>
                       <ManageUsers/>
+                    </AdminWrapper>
+                  )}
+          />
+          <Route path="/admin/create-announcement"
+                  render={() => (
+                    <AdminWrapper>
+                      <CreateAnnouncement/>
                     </AdminWrapper>
                   )}
           />
