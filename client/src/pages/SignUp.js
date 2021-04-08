@@ -1,10 +1,13 @@
 import React, { useRef, useState } from "react";
 import {Button, Form, Card, Alert} from "react-bootstrap";
 import{ useAuth } from "../Contexts/AuthContext"
+import { firestore } from "../firebase";
+import firebase from "../firebase"
 import {Link} from "react-router-dom"
 
 export default function Signup() {
     const emailRef = useRef()
+    const nameRef = useRef()
     const passwordRef = useRef()
     const passwordConfirmRef = useRef()
     const {signup} = useAuth()
@@ -22,14 +25,12 @@ export default function Signup() {
             setError('')
             setLoading(true)
             
-            await signup(emailRef.current.value, passwordRef.current.value)
+            await signup(emailRef.current.value, passwordRef.current.value, nameRef.current.value)
             var user = firebase.auth().currentUser;
-            var name, email, photoUrl, uid
             firestore.collection("users").add({
-                name = user.displayName,
-                email = user.email,
-                photoUrl = user.photoURL,
-                uid = user.uid
+                name : nameRef.current.value,
+                email : user.email,
+                uid : user.uid
             })
             alert('Signup Successful')
         } catch {
@@ -47,6 +48,10 @@ export default function Signup() {
                     <Form.Group id="email">
                         <Form.Label>Email</Form.Label>
                         <Form.Control type="email" ref={emailRef} required />
+                    </Form.Group>
+                    <Form.Group id="email">
+                        <Form.Label>Name (First and Last)</Form.Label>
+                        <Form.Control type="name" ref={nameRef} required />
                     </Form.Group>
                     <Form.Group id="passord">
                         <Form.Label>Password</Form.Label>
