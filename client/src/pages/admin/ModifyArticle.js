@@ -22,7 +22,7 @@ export default class ModifyArticle extends Component {
     return (
       <div>
         <AdminSidebar />
-        <h2>ModifyArticle</h2>
+        <h2>Modify Article</h2>
         <h4>ID: {this.props.match.params.id}</h4>
         <Button variant="primary" onClick={this.buttonClicked}>
           {this.state.name}

@@ -6,11 +6,11 @@ import Button from "react-bootstrap/Button";
 
 import { firestore } from "../../firebase";
 
-const CreateArticle = () => {
+const CreateAnnouncement = () => {
   function onSubmit(e) {
     e.preventDefault();
     e.persist();
-    firestore.collection("posts").add({
+    firestore.collection("announcements").add({
         title: e.target.title.value,
         content: e.target.content.value,
         description: e.target.description.value,
@@ -55,7 +55,7 @@ const CreateArticle = () => {
               <Form.Control type="file" />
             </Form.Group>
             <Button variant="primary" type="submit">
-              Create Article
+              Create Announcement
             </Button>
           </Form>
         </Card.Body>
@@ -64,4 +64,4 @@ const CreateArticle = () => {
   );
 };
 
-export default CreateArticle;
+export default CreateAnnouncement;
