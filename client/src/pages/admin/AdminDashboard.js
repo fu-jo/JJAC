@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import Button from "react-bootstrap/Button";
+import "../../styles/pages/AdminPage.css"
 
 export default class AdminDashboard extends Component {
   constructor(props) {
@@ -19,7 +20,9 @@ export default class AdminDashboard extends Component {
   render() {
     return (
       <div>
-        <h1>Admin Dashboard</h1>
+        <Button className="logout" href="/home">Logout</Button>
+        <h2 className="title">Admin Dashboard</h2>
+        <h5 className="title">Welcome back!</h5>
       </div>
     );
   }

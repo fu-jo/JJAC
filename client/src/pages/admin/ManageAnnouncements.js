@@ -1,7 +1,9 @@
 import React, { Component } from "react";
 import Button from "react-bootstrap/Button";
+import "../../styles/pages/AdminPage.css"
 
 import AdminSidebar from '../../components/AdminSidebar';
+import Announcements from '../Announcements'
 
 export default class ManageAnnouncements extends Component {
   constructor(props) {
@@ -22,10 +24,10 @@ export default class ManageAnnouncements extends Component {
     return (
       <div>
         <AdminSidebar />
-        <h2>ManageAnnouncements</h2>
-        <Button variant="primary" onClick={this.buttonClicked}>
-          {this.state.name}
-        </Button>
+        <Button className="logout" href="/home">Logout</Button>
+        <h2 className="title">Announcements</h2>
+        <Announcements status='Admin'/>
+        <Button href="/admin/create-announcement" variant="primary">Create Announcement</Button>
       </div>
     );
   }

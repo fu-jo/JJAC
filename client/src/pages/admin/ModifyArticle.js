@@ -29,6 +29,7 @@ const ModifyArticle = () => {
     }
   }
 
+
   function updatePost(e) {
     e.preventDefault()
     e.persist()
@@ -54,6 +55,19 @@ const ModifyArticle = () => {
         e.target.img.value = null
         window.history.back(); //return to previous page
     })
+/*
+  render() {
+    return (
+      <div>
+        <AdminSidebar />
+        <h2>Modify Article</h2>
+        <h4>ID: {this.props.match.params.id}</h4>
+        <Button variant="primary" onClick={this.buttonClicked}>
+          {this.state.name}
+        </Button>
+      </div>
+    );
+*/
   }
 
   return (

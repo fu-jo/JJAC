@@ -60,7 +60,7 @@ const ArticlesList = (props) => {
     <div>
       {props.status === 'Admin' ? '' : props.status === "Member" ? <MemberNavbar /> : <NonMemberNavbar />}
       <Container>
-        <h1 className="articles-header">Articles</h1>
+        {props.status === 'Admin' ? '' : <h1 className="articles-header">Articles</h1>}
 
         <label>Sort By</label>{' '}
         <select value={sortBy} onChange={e => setSortBy(e.currentTarget.value)}>
@@ -70,18 +70,17 @@ const ArticlesList = (props) => {
             <option value='DATE_ASC'>Date (earliest)</option>
             <option value='DATE_DESC'>Date (latest)</option>
         </select>
-        
+
         <Table striped bordered hover>
           <thead>
             <tr>
               <th>Article Name</th>
               <th>Date Published</th>
-              {props.status === 'Admin' ? 
+              {props.status === 'Admin' ?
                 <th>Modify</th>
               :
               ''
               }
-              
             </tr>
           </thead>
           <tbody>

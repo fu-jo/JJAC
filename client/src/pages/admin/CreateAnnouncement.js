@@ -1,41 +1,23 @@
-import React, { useState } from "react";
+import React from "react";
 import Container from "react-bootstrap/Container";
-import { Card, Form, Button, Alert } from "react-bootstrap";
-import Progress from '../../components/Progress'
+import Card from "react-bootstrap/Card";
+import Form from "react-bootstrap/Form";
+import Button from "react-bootstrap/Button";
 
 import { firestore } from "../../firebase";
 
-const CreateArticle = () => {
-  const [img, setImg] = useState(null);
-  const [err, setErr] = useState(null);
-  const [imgUrl, setImgUrl] = useState(null);
-
-  const imgFormats = ['image/png', 'image/jpeg'];
-
-  const imgChange = (e) => {
-    const selected = e.target.files[0];
-
-    if (selected && imgFormats.includes(selected.type)) {
-      //console.log(selected)
-      setImg(selected);
-      setErr('')
-    } else {
-      setImg(null);
-      setErr('Please use an image file (png) or (jpeg)')
-    }
-  }
-
+const CreateAnnouncement = () => {
   function onSubmit(e) {
     e.preventDefault();
     e.persist();
-    firestore.collection("posts").add({
+    firestore.collection("announcements").add({
         title: e.target.title.value,
         content: e.target.content.value,
         description: e.target.description.value,
         date: e.target.date.value,
         tags: [],
         links: [],
-        img: imgUrl,//e.target.img.value,
+        img: e.target.img.value,
       })
       .then(() => {
         //clears form on submit
@@ -44,14 +26,11 @@ const CreateArticle = () => {
         e.target.description.value = "";
         e.target.date.value = "";
         e.target.img.value = null;
-        window.history.back();
       });
   }
 
   return (
     <Container id="create-post">
-      {err && <Alert variant='danger'>{err}</Alert>}
-      <h2>Create Article</h2>
       <Card>
         <Card.Body>
           <Form onSubmit={onSubmit}>
@@ -73,11 +52,10 @@ const CreateArticle = () => {
             </Form.Group>
             <Form.Group controlId="img">
               <Form.Label>Image</Form.Label>
-              <Form.Control type="file" onChange={imgChange} />
+              <Form.Control type="file" />
             </Form.Group>
-            {img &&<Progress file={img} setFile={setImg} setImgUrl={setImgUrl} /> }
             <Button variant="primary" type="submit">
-              Create Article
+              Create Announcement
             </Button>
           </Form>
         </Card.Body>
@@ -86,4 +64,4 @@ const CreateArticle = () => {
   );
 };
 
-export default CreateArticle;
+export default CreateAnnouncement;
