@@ -55,6 +55,7 @@ const ModifyArticle = () => {
         e.target.img.value = null
         window.history.back(); //return to previous page
     })
+  }
 
   return (
     <div>

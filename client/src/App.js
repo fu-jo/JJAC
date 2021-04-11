@@ -23,7 +23,6 @@ import ManageUsers from "./pages/admin/ManageUsers";
 import CreateAnnouncement from "./pages/admin/CreateAnnouncement";
 import CreateArticle from "./pages/admin/CreateArticle";
 import ModifyArticle from "./pages/admin/ModifyArticle";
-import CreateAnnouncement from "./pages/admin/CreateAnnouncement"
 
 export default class App extends Component {
   render() {

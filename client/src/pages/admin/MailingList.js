@@ -22,7 +22,6 @@ export default class MailingList extends Component {
   render() {
     return (
       <div>
-        <AdminSidebar />
         <Button className="logout" href="/home">Logout</Button>
         <h2 className="title">Mailing List</h2>
         <Container>

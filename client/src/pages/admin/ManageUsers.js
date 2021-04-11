@@ -6,6 +6,7 @@ export default class ManageUsers extends Component {
   render() {
     return (
       <div>
+        <h2>Users</h2>
         <UserList />
       </div>
     );
