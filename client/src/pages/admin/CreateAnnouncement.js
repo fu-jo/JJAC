@@ -21,12 +21,14 @@ const CreateAnnouncement = () => {
         e.target.title.value = "";
         e.target.details.value = "";
         e.target.date.value = "";
+        window.history.back();
       });
   }
 
   // missing links field
   return (
     <Container id="create-announcement">
+      <h2>Create Announcement</h2>
       <Card>
         <Card.Body>
           <Form onSubmit={onSubmit}>

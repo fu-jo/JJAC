@@ -135,9 +135,7 @@ const Announcements = (props) => {
                     </td>
                     {ann.date ? (<td>{getDate(ann.date)}</td>) : <td></td>}
                     {props.status === 'Admin' ? <th>
-                      <Button variant='success' onClick={() => {
-                        console.log(ann.id)
-                      }}>Edit</Button>
+                      <Button variant='success' href={`/admin/modify-announcement/${ann.id}`}>Edit</Button>
                       <Button variant='danger' onClick={() => deleteAnnouncement(ann)}>Delete</Button>
                     </th>
                     :
