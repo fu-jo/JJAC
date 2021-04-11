@@ -1,5 +1,8 @@
 import React, { Component } from "react";
 import Button from "react-bootstrap/Button";
+import "../../styles/pages/AdminPage.css"
+import Container from "react-bootstrap/Container";
+import Table from "react-bootstrap/Table";
 
 export default class MailingList extends Component {
   constructor(props) {
@@ -19,10 +22,19 @@ export default class MailingList extends Component {
   render() {
     return (
       <div>
-        <h2>MailingList</h2>
-        <Button variant="primary" onClick={this.buttonClicked}>
-          {this.state.name}
-        </Button>
+        <AdminSidebar />
+        <Button className="logout" href="/home">Logout</Button>
+        <h2 className="title">Mailing List</h2>
+        <Container>
+        <Table striped bordered hover>
+          <thead>
+            <tr>
+              <th>Username</th>
+              <th>Email</th>
+            </tr>
+          </thead>
+        </Table>
+        </Container>
       </div>
     );
   }

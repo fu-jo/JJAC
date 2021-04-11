@@ -65,7 +65,7 @@ const Announcements = (props) => {
       <div>
         {props.status === 'Admin' ? '' : props.status === "Member" ? <MemberNavbar /> : <NonMemberNavbar />}
         <Container>
-          <h1>Latest Announcements</h1>
+          {props.status === 'Admin' ? '' : <h1>Latest Announcements</h1>}
           {announcements && (
             <Table striped bordered hover>
               <thead>
@@ -84,11 +84,11 @@ const Announcements = (props) => {
                       : (<FontAwesomeIcon icon={faSortDown} style={{float: "right", marginBottom: 8, marginRight: 10}} onClick={() => setSortBy("DATE_ASC")}/>)
                     }
                   </th>
-                  {props.status === 'Admin' ?
-                    <th>Modify</th>
-                  :
-                  ''
-                  }
+                    {props.status === 'Admin' ?
+                      <th>Modify</th>
+                    :
+                    ''
+                    }
                 </tr>
               </thead>
               <tbody>

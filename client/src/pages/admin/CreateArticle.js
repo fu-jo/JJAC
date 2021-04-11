@@ -1,12 +1,30 @@
-import React from "react";
+import React, { useState } from "react";
 import Container from "react-bootstrap/Container";
-import Card from "react-bootstrap/Card";
-import Form from "react-bootstrap/Form";
-import Button from "react-bootstrap/Button";
+import { Card, Form, Button, Alert } from "react-bootstrap";
+import Progress from '../../components/Progress'
 
 import { firestore } from "../../firebase";
 
 const CreateArticle = () => {
+  const [img, setImg] = useState(null);
+  const [err, setErr] = useState(null);
+  const [imgUrl, setImgUrl] = useState(null);
+
+  const imgFormats = ['image/png', 'image/jpeg'];
+
+  const imgChange = (e) => {
+    const selected = e.target.files[0];
+
+    if (selected && imgFormats.includes(selected.type)) {
+      //console.log(selected)
+      setImg(selected);
+      setErr('')
+    } else {
+      setImg(null);
+      setErr('Please use an image file (png) or (jpeg)')
+    }
+  }
+
   function onSubmit(e) {
     e.preventDefault();
     e.persist();
@@ -17,7 +35,7 @@ const CreateArticle = () => {
         date: e.target.date.value,
         tags: [],
         links: [],
-        img: e.target.img.value,
+        img: imgUrl,//e.target.img.value,
       })
       .then(() => {
         //clears form on submit
@@ -26,12 +44,15 @@ const CreateArticle = () => {
         e.target.description.value = "";
         e.target.date.value = "";
         e.target.img.value = null;
+        window.history.back();
       });
   }
 
   // missing links & tags fields
   return (
     <Container id="create-post">
+      {err && <Alert variant='danger'>{err}</Alert>}
+      <h2>Create Article</h2>
       <Card>
         <Card.Body>
           <Form onSubmit={onSubmit}>
@@ -53,10 +74,11 @@ const CreateArticle = () => {
             </Form.Group>
             <Form.Group controlId="img">
               <Form.Label>Image</Form.Label>
-              <Form.Control type="file" />
+              <Form.Control type="file" onChange={imgChange} />
             </Form.Group>
+            {img &&<Progress file={img} setFile={setImg} setImgUrl={setImgUrl} /> }
             <Button variant="primary" type="submit">
-              Create Post
+              Create Article
             </Button>
           </Form>
         </Card.Body>

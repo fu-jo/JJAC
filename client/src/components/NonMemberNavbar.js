@@ -24,9 +24,11 @@ export default class MemberNavbar extends Component {
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="mr-auto">
-            <Nav.Link href="/home">Home</Nav.Link>
+            {/* <Nav.Link href="/home">Home</Nav.Link> */}
+            
           </Nav>
-          <Nav>
+          <Nav className='ml-auto'>
+            <Button href="/signup" variant="primary">Sign Up</Button>
             <Button variant="primary" onClick={this.callback}>Login</Button>
           </Nav>
         </Navbar.Collapse>

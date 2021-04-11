@@ -1,5 +1,6 @@
+import React from 'react';
+import { Link, Redirect, useLocation } from "react-router-dom";
 import Button from "react-bootstrap/Button";
-import React from 'react'
 import LinesEllipsis from "react-lines-ellipsis";
 
 import { firestore } from '../firebase'
@@ -18,11 +19,12 @@ const Article = ({article, idx, access}) => {
     console.log(article.id)
     await firestore.collection('posts').doc(article.id).delete();
   }
+  console.log(useLocation())
 
   return (
     <tr key={idx}>
             <td>
-              <a href={`article/${article.id}`} className="article-link">
+              <a href={`/article/${article.id}`} className="article-link">
                 <div className="article-box full-width">
                   <span>
                     {article.title}
@@ -42,21 +44,19 @@ const Article = ({article, idx, access}) => {
             </td>
             {article.date ? (
               <td>
-                <a href={`article/${article.id}`} className="article-link">
+                <a href ={`/article/${article.id}`} className="article-link">
                   <div className="full-width">{getDate(article.date)}</div>
                 </a>
               </td>
             ) : (
               <td>
-                <a href={`article/${article.id}`} className="article-link">
+                <a href={`/article/${article.id}`} className="article-link">
                   <div className="full-width"></div>
                 </a>
               </td>
             )}
             {access.status === 'Admin' ? <th>
-              <Button variant='success' onClick={() => {
-                console.log(article.id)
-              }}>Edit</Button>
+              <Button variant='success' href={`/admin/modify-article/${article.id}`}>Edit</Button>
               <Button variant='danger' onClick={deleteArticle}>Delete</Button>
             </th> 
             :
