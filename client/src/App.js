@@ -24,6 +24,7 @@ import CreateAnnouncement from "./pages/admin/CreateAnnouncement";
 import CreateArticle from "./pages/admin/CreateArticle";
 import ModifyArticle from "./pages/admin/ModifyArticle";
 import ModifyAnnouncement from "./pages/admin/ModifyAnnouncement";
+import ModifyUser from "./pages/admin/UserList/ModifyUser";
 
 export default class App extends Component {
   render() {
@@ -115,6 +116,13 @@ export default class App extends Component {
                   render={() => (
                     <AdminWrapper>
                       <ModifyAnnouncement/>
+                    </AdminWrapper>
+                  )}
+          />
+          <Route path="/admin/modify-user/:id"
+                  render={() => (
+                    <AdminWrapper>
+                      <ModifyUser/>
                     </AdminWrapper>
                   )}
           />

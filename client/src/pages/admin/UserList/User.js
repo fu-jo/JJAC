@@ -34,11 +34,11 @@ const User = ({user, idx}) => {
       }
       </td>
       <td>
-        <Button variant='success'>Edit</Button>
+        <Button variant='success' href={`/admin/modify-user/${user.id}`}>Edit</Button>
         <Button variant='danger' onClick={deleteUser}>Delete</Button>
       </td>
     </tr>
-  )  
+  )
 }
 
 export default User;
