@@ -43,8 +43,8 @@ const ModifyArticle = () => {
       img: imgUrl,//e.target.img.value
     }
     Object.keys(object).forEach(k => (!object[k] && object[k] !== undefined) && delete object[k]); //remove blank keys
-    console.log(object)  
-  
+    console.log(object)
+
     firestore.collection('posts').doc(id).update(object)
     .then(() => {       //clears form on submit
         setSucc('Successfully Modified')
@@ -55,19 +55,6 @@ const ModifyArticle = () => {
         e.target.img.value = null
         window.history.back(); //return to previous page
     })
-/*
-  render() {
-    return (
-      <div>
-        <AdminSidebar />
-        <h2>Modify Article</h2>
-        <h4>ID: {this.props.match.params.id}</h4>
-        <Button variant="primary" onClick={this.buttonClicked}>
-          {this.state.name}
-        </Button>
-      </div>
-    );
-*/
   }
 
   return (

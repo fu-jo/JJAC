@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Container from "react-bootstrap/Container";
 import Table from "react-bootstrap/Table";
+import Button from "react-bootstrap/Button";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSortUp, faSortDown } from "@fortawesome/free-solid-svg-icons";
 
@@ -54,6 +55,11 @@ const getDate = (dateStr) => {
 const Announcements = (props) => {
     const [sortBy, setSortBy] = useState('DATE_DESC') //default
     const announcements = useAnns(sortBy)
+
+    async function deleteAnnouncement(announcement) {
+      console.log(announcement.id)
+      await firestore.collection('announcements').doc(announcement.id).delete();
+    }
 
     return (
       <div>
@@ -128,6 +134,13 @@ const Announcements = (props) => {
                       )}
                     </td>
                     {ann.date ? (<td>{getDate(ann.date)}</td>) : <td></td>}
+                    {props.status === 'Admin' ? <th>
+                      <Button variant='success' href={`/admin/modify-announcement/${ann.id}`}>Edit</Button>
+                      <Button variant='danger' onClick={() => deleteAnnouncement(ann)}>Delete</Button>
+                    </th>
+                    :
+                      ''
+                    }
                   </tr>
                 )})}
               </tbody>
