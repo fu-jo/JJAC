@@ -48,6 +48,7 @@ const CreateArticle = () => {
       });
   }
 
+  // missing links & tags fields
   return (
     <Container id="create-post">
       {err && <Alert variant='danger'>{err}</Alert>}
