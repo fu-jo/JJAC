@@ -7,12 +7,29 @@ import AdminSidebar from '../../components/AdminSidebar';
 
 import { firestore } from '../../firebase'
 
+function useArticle(id) {
+  const [initVal, setInitVal] = useState();
+
+  firestore.collection('posts').doc(id).get()
+  .then((doc) => {
+    if (doc.exists) {
+        setInitVal(doc.data())
+    } else {
+        // doc.data() will be undefined in this case
+        console.log("No such document!");
+    }
+  })
+
+  return initVal
+}
+
 const ModifyArticle = () => {
   const [succ, setSucc] = useState();
   const [img, setImg] = useState(null);
   const [err, setErr] = useState(null);
   const [imgUrl, setImgUrl] = useState(null);
   const { id } = useParams();
+  const initVal = useArticle(id);
 
   const imgFormats = ['image/png', 'image/jpeg'];
 
@@ -65,19 +82,19 @@ const ModifyArticle = () => {
       <Form onSubmit={updatePost}>
         <Form.Group controlId="title">
           <Form.Label>Title</Form.Label>
-          <Form.Control type="text" />
+          <Form.Control type="text" defaultValue={initVal ? initVal.title : ""}/>
         </Form.Group>
         <Form.Group controlId="description">
           <Form.Label>Description</Form.Label>
-          <Form.Control as="textarea" rows={3} />
+          <Form.Control as="textarea" rows={3} defaultValue={initVal ? initVal.description : ""}/>
         </Form.Group>
         <Form.Group controlId="content">
           <Form.Label>Content</Form.Label>
-          <Form.Control as="textarea" rows={3} />
+          <Form.Control as="textarea" rows={3} defaultValue={initVal ? initVal.content : ""}/>
         </Form.Group>
         <Form.Group controlId="date">
           <Form.Label>Date</Form.Label>
-          <Form.Control type="date" />
+          <Form.Control type="date" defaultValue={initVal ? initVal.date : ""}/>
         </Form.Group>
         <Form.Group controlId="img">
           <Form.Label>Image</Form.Label>
