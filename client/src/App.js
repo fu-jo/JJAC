@@ -13,6 +13,7 @@ import NotFound404 from "./pages/NotFound404";
 import SignUp from "./pages/SignUp";
 import Login from "./pages/Login"
 import {AuthProvider} from "./Contexts/AuthContext"
+import UnauthorizedUser from "./pages/UnauthorizedUser"
 // admin pages
 import AdminWrapper from "./components/AdminWrapper";
 import AdminDashboard from './pages/admin/AdminDashboard';
@@ -25,6 +26,98 @@ import CreateArticle from "./pages/admin/CreateArticle";
 import ModifyArticle from "./pages/admin/ModifyArticle";
 import ModifyAnnouncement from "./pages/admin/ModifyAnnouncement";
 import ModifyUser from "./pages/admin/UserList/ModifyUser";
+
+const AdminRoutes = ({ user }) => {
+    return (
+    (user === "Admin") ? (
+    <>
+      <Route path="/admin/dashboard"
+              render={() => (
+                <AdminWrapper>
+                  <AdminDashboard/>
+                </AdminWrapper>
+              )}
+      />
+      <Route path="/admin/mailing-list"
+              render={() => (
+                <AdminWrapper>
+                  <MailingList/>
+                </AdminWrapper>
+              )}
+      />
+      <Route path="/admin/manage-announcements"
+              render={() => (
+                <AdminWrapper>
+                  <ManageAnnouncements/>
+                </AdminWrapper>
+              )}
+      />
+      <Route path="/admin/manage-articles"
+              render={() => (
+                <AdminWrapper>
+                  <ManageArticles/>
+                </AdminWrapper>
+              )}
+      />
+      <Route path="/admin/manage-users"
+              render={() => (
+                <AdminWrapper>
+                  <ManageUsers/>
+                </AdminWrapper>
+              )}
+      />
+      <Route path="/admin/create-announcement"
+              render={() => (
+                <AdminWrapper>
+                  <CreateAnnouncement/>
+                </AdminWrapper>
+              )}
+      />
+      <Route path="/admin/create-article"
+              render={() => (
+                <AdminWrapper>
+                  <CreateArticle/>
+                </AdminWrapper>
+              )}
+      />
+      <Route path="/admin/create-announcement"
+              render={() => (
+                <AdminWrapper>
+                  <CreateAnnouncement/>
+                </AdminWrapper>
+              )}
+      />
+      {/* What to do when article id isn't found? */}
+      <Route path="/admin/modify-article/:id"
+              render={() => (
+                <AdminWrapper>
+                  <ModifyArticle/>
+                </AdminWrapper>
+              )}
+      />
+      <Route path="/admin/modify-announcement/:id"
+              render={() => (
+                <AdminWrapper>
+                  <ModifyAnnouncement/>
+                </AdminWrapper>
+              )}
+      />
+      <Route path="/admin/modify-user/:id"
+              render={() => (
+                <AdminWrapper>
+                  <ModifyUser/>
+                </AdminWrapper>
+              )}
+      />
+      {/* Generalized routes */}
+      <Route exact path="/admin">
+        <Redirect to="/admin/dashboard" />
+      </Route>
+    </>
+    )
+    : <Route to="/401" component={UnauthorizedUser} />
+  )
+}
 
 export default class App extends Component {
   render() {
@@ -47,89 +140,7 @@ export default class App extends Component {
           <Route path="/events-calendar" component={EventsCalendar} />
           {/* What to do when article id isn't found? */}
           <Route path="/article/:id" component={SingleArticle} />
-          {/* Admin page routes */}
-          <Route path="/admin/dashboard"
-                  render={() => (
-                    <AdminWrapper>
-                      <AdminDashboard/>
-                    </AdminWrapper>
-                  )}
-          />
-          <Route path="/admin/mailing-list"
-                  render={() => (
-                    <AdminWrapper>
-                      <MailingList/>
-                    </AdminWrapper>
-                  )}
-          />
-          <Route path="/admin/manage-announcements"
-                  render={() => (
-                    <AdminWrapper>
-                      <ManageAnnouncements/>
-                    </AdminWrapper>
-                  )}
-          />
-          <Route path="/admin/manage-articles"
-                  render={() => (
-                    <AdminWrapper>
-                      <ManageArticles/>
-                    </AdminWrapper>
-                  )}
-          />
-          <Route path="/admin/manage-users"
-                  render={() => (
-                    <AdminWrapper>
-                      <ManageUsers/>
-                    </AdminWrapper>
-                  )}
-          />
-          <Route path="/admin/create-announcement"
-                  render={() => (
-                    <AdminWrapper>
-                      <CreateAnnouncement/>
-                    </AdminWrapper>
-                  )}
-          />
-          <Route path="/admin/create-article"
-                  render={() => (
-                    <AdminWrapper>
-                      <CreateArticle/>
-                    </AdminWrapper>
-                  )}
-          />
-          <Route path="/admin/create-announcement"
-                  render={() => (
-                    <AdminWrapper>
-                      <CreateAnnouncement/>
-                    </AdminWrapper>
-                  )}
-          />
-          {/* What to do when article id isn't found? */}
-          <Route path="/admin/modify-article/:id"
-                  render={() => (
-                    <AdminWrapper>
-                      <ModifyArticle/>
-                    </AdminWrapper>
-                  )}
-          />
-          <Route path="/admin/modify-announcement/:id"
-                  render={() => (
-                    <AdminWrapper>
-                      <ModifyAnnouncement/>
-                    </AdminWrapper>
-                  )}
-          />
-          <Route path="/admin/modify-user/:id"
-                  render={() => (
-                    <AdminWrapper>
-                      <ModifyUser/>
-                    </AdminWrapper>
-                  )}
-          />
-          {/* Generalized routes */}
-          <Route exact path="/admin">
-            <Redirect to="/admin/dashboard" />
-          </Route>
+          <AdminRoutes user="Admin" />
           <Route exact path="/">
             <Redirect to="/home" />
           </Route>
