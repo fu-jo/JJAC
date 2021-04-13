@@ -4,10 +4,27 @@ import { Button, Form, Alert } from "react-bootstrap";
 
 import { firestore } from '../../../firebase'
 
+function useUser(id) {
+  const [initVal, setInitVal] = useState();
+
+  firestore.collection('users').doc(id).get()
+  .then((doc) => {
+    if (doc.exists) {
+        setInitVal(doc.data())
+    } else {
+        // doc.data() will be undefined in this case
+        console.log("No such document!");
+    }
+  })
+
+  return initVal
+}
+
 const ModifyAnnouncement = () => {
   const [succ, setSucc] = useState();
   const [err, setErr] = useState(null);
   const { id } = useParams();
+  const initVal = useUser(id);
 
   function updateUser(e) {
     e.preventDefault()
@@ -35,11 +52,11 @@ const ModifyAnnouncement = () => {
       <Form onSubmit={updateUser}>
         <Form.Group controlId="name">
           <Form.Label>Name</Form.Label>
-          <Form.Control type="text" />
+          <Form.Control type="text" defaultValue={initVal ? initVal.displayName : ""}/>
         </Form.Group>
         <Form.Group controlId="email">
           <Form.Label>Email</Form.Label>
-          <Form.Control as="textarea"/>
+          <Form.Control as="textarea" defaultValue={initVal ? initVal.email : ""}/>
         </Form.Group>
         <Button variant="primary" type='submit'>Update</Button>
       </Form>
