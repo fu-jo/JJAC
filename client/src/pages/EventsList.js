@@ -61,7 +61,7 @@ const EventsList = (props) => {
       <div>
         {props.status === 'Admin' ? '' : props.status === "Member" ? <MemberNavbar /> : <NonMemberNavbar />}
         <Container>
-          {props.status === 'Admin' ? '' : <h1>Events</h1>}
+          <h2>Events</h2>
           {events && (
             <Table striped bordered hover>
               <thead>
