@@ -1,6 +1,8 @@
+/*
 .cards-container {
   margin-bottom: 16px;
 }
+*/
 
 .view-all-articles {
   text-align: right;
@@ -8,12 +10,17 @@
 }
 
 .article-card-img {
-  height: 100px;
+  width: 100%;
+  height: 50%;
+  object-fit: cover;
 }
 
 .article-card-link {
   color: #212529;
-  width: 100%;
+  display: flex;
+  height: 400px;
+  width: 500px;
+  overflow: hidden;
 }
 
 .article-card-link:hover {
@@ -24,14 +31,23 @@
   text-decoration: none;
 }
 
+.article-content {
+    margin-bottom: 10px;
+}
+
 .article-date {
   margin-top: 10px;
+  margin-bottom: 10px;
 }
 
 .tag-badge {
   padding: 0.4em 0.9em;
   margin-right: 0.4em;
   font-size: 0.85rem;
+}
+
+.card-color {
+  background-color: #7DC242;
 }
 
 #create-post {
