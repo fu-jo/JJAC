@@ -48,6 +48,7 @@ const CreateArticle = () => {
       });
   }
 
+  // missing links & tags fields
   return (
     <Container id="create-post">
       {err && <Alert variant='danger'>{err}</Alert>}
@@ -77,7 +78,7 @@ const CreateArticle = () => {
             </Form.Group>
             {img &&<Progress file={img} setFile={setImg} setImgUrl={setImgUrl} /> }
             <Button variant="primary" type="submit">
-              Create Post
+              Create Article
             </Button>
           </Form>
         </Card.Body>

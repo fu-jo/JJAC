@@ -29,6 +29,7 @@ const ModifyArticle = () => {
     }
   }
 
+
   function updatePost(e) {
     e.preventDefault()
     e.persist()
@@ -42,8 +43,8 @@ const ModifyArticle = () => {
       img: imgUrl,//e.target.img.value
     }
     Object.keys(object).forEach(k => (!object[k] && object[k] !== undefined) && delete object[k]); //remove blank keys
-    console.log(object)  
-  
+    console.log(object)
+
     firestore.collection('posts').doc(id).update(object)
     .then(() => {       //clears form on submit
         setSucc('Successfully Modified')

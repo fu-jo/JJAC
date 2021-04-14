@@ -1,0 +1,57 @@
+import React, { Component, useState } from "react";
+import { useParams } from "react-router-dom";
+import { Button, Form, Alert } from "react-bootstrap";
+
+import { firestore } from '../../firebase'
+
+const ModifyAnnouncement = () => {
+  const [succ, setSucc] = useState();
+  const [err, setErr] = useState(null);
+  const { id } = useParams();
+
+  function updatePost(e) {
+    e.preventDefault()
+    e.persist()
+    const object = {
+      title: e.target.title.value,
+      details: e.target.details.value,
+      date: e.target.date.value,
+      links:[],
+    }
+    Object.keys(object).forEach(k => (!object[k] && object[k] !== undefined) && delete object[k]); //remove blank keys
+    console.log(object)
+
+    firestore.collection('announcements').doc(id).update(object)
+    .then(() => {       //clears form on submit
+        setSucc('Successfully Modified')
+        e.target.title.value = ''
+        e.target.details.value = ''
+        e.target.date.value = ''
+        window.history.back(); //return to previous page
+    })
+  }
+
+  return (
+    <div>
+      {succ ? <Alert className='alert-success'>{succ}</Alert> : ''}
+      <h2>Modify Announcement</h2>
+      <Form onSubmit={updatePost}>
+        <Form.Group controlId="title">
+          <Form.Label>Title</Form.Label>
+          <Form.Control type="text" />
+        </Form.Group>
+        <Form.Group controlId="details">
+          <Form.Label>Details</Form.Label>
+          <Form.Control as="textarea" rows={3} />
+        </Form.Group>
+        <Form.Group controlId="date">
+          <Form.Label>Date</Form.Label>
+          <Form.Control type="date" />
+        </Form.Group>
+        <Button variant="primary" type='submit'>Update</Button>
+      </Form>
+    </div>
+  );
+}
+
+export default ModifyAnnouncement;

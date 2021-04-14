@@ -12,5 +12,8 @@
   "bugs": {
     "url": "https://github.com/fu-jo/JJAC/issues"
   },
+  "scripts": {
+    "start": "cd client && npm start"
+  },
   "homepage": "https://github.com/fu-jo/JJAC#readme"
 }

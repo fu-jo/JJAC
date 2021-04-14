@@ -20,7 +20,7 @@ export default class AdminSidebar extends Component {
         <a href="/admin/mailing-list">Mailing List</a>
         <a href="/admin/manage-articles">Articles</a>
         <a href="/admin/manage-announcements">Announcements</a>
-        <a href="/admin/manage-users">Manage Users</a>
+        <a href="/admin/manage-users">Users</a>
       </div>
     );
   }
