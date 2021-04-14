@@ -1,54 +1,91 @@
-import React, { Component } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import Table from "react-bootstrap/Table";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
+import LinesEllipsis from "react-lines-ellipsis";
 
-import "../styles/components/HomeEventsList.css";
+import { firestore } from "../firebase";
 
-export default class HomeEventsList extends Component {
-  render() {
-    // Eventually we will map the events data
-    // into this table.
-    // Would ideally like to set column width on tables
-    // Margin between header and table isn't right -Amber
-    return (
-      <div>
-        <Row>
-          <Col>
-            <h4>Upcoming Events</h4>
-          </Col>
-          <Col className="view-all-link" xs={3}>
-            <Link to="/events-calendar">View All</Link>
-          </Col>
-        </Row>
-        <Table responsive striped bordered hover>
-          <thead>
-            <tr>
-              <th style={{width: "65%"}}>Event</th>
-              <th>Date</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>Event #1</td>
-              <td>03/10/2021</td>
-            </tr>
-            <tr>
-              <td>Event #2</td>
-              <td>03/10/2021</td>
-            </tr>
-            <tr>
-              <td>Event #3</td>
-              <td>03/10/2021</td>
-            </tr>
-            <tr>
-              <td>Event #4</td>
-              <td>03/10/2021</td>
-            </tr>
-          </tbody>
-        </Table>
-      </div>
-    );
-  }
+const SORT_OPTIONS = {
+  DATE_ASC: { column: "date", direction: "asc" },
+  DATE_DESC: { column: "date", direction: "desc" },
+};
+
+const getDate = (dateStr) => {
+  let date = new Date(dateStr).toLocaleDateString("en-US", {
+    timeZone: "UTC",
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  });
+
+  let time = new Date(dateStr).toLocaleTimeString("en-US", {
+    hour: '2-digit',
+    minute: '2-digit'
+  })
+
+  return date ? `${date}\n${time}` : null;
+};
+
+function useEvents(sortBy = "DATE_ASC") {
+  const [events, setEvents] = useState([]);
+
+  useEffect(() => {
+    const unsubscribe = firestore //drop subscription to firestore
+      .collection("events")
+      .orderBy(SORT_OPTIONS[sortBy].column, SORT_OPTIONS[sortBy].direction)
+      .onSnapshot((snapshot) => {
+        const newEvents = snapshot.docs.map((doc) => ({
+          id: doc.id,
+          ...doc.data(),
+        }));
+
+        setEvents(newEvents);
+      });
+
+    return () => unsubscribe(); //callback when unmounted
+  }, [sortBy]);
+
+  return events;
 }
+
+const HomeEventsList = () => {
+  const [sortBy, setSortBy] = useState("DATE_ASC"); //default
+  const events = useEvents(sortBy).slice(0, 3);
+  console.log(events)
+  return (
+    <div>
+      <Row>
+        <Col>
+          <h4>Events</h4>
+        </Col>
+        <Col className="view-all-link">
+          <Link to="/events-calendar">View All</Link>
+        </Col>
+      </Row>
+      <Table responsive striped bordered hover>
+      <thead>
+        <tr>
+          <th style={{width: "53%"}}>Event</th>
+          <th>Date</th>
+        </tr>
+      </thead>
+      <tbody>
+      {events.map((evt, idx) => {
+        return (
+          <tr key={evt.id}>
+            <td style={{ whiteSpace: "pre-wrap" }}>
+              {evt.event}
+            </td>
+            {evt.date ? <td>{getDate(evt.date)}</td> : <td></td>}
+          </tr>
+        );
+      })}
+      </tbody>
+      </Table>
+    </div>
+  );
+};
+
+export default HomeEventsList;

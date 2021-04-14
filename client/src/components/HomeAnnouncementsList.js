@@ -72,7 +72,7 @@ const HomeAnnouncementsList = () => {
         <tbody>
           {announcements.map((ann, idx) => {
             return (
-              <tr>
+              <tr key={ann.id}>
                 <td style={{ whiteSpace: "pre-wrap" }}>
                   <span>
                     {ann.title}{"\n"}

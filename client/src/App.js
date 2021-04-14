@@ -21,11 +21,14 @@ import MailingList from './pages/admin/MailingList';
 import ManageAnnouncements from "./pages/admin/ManageAnnouncements";
 import ManageArticles from "./pages/admin/ManageArticles";
 import ManageUsers from "./pages/admin/ManageUsers";
+import ManageEvents from "./pages/admin/ManageEvents";
 import CreateAnnouncement from "./pages/admin/CreateAnnouncement";
 import CreateArticle from "./pages/admin/CreateArticle";
+import CreateEvent from "./pages/admin/CreateEvent";
 import ModifyArticle from "./pages/admin/ModifyArticle";
 import ModifyAnnouncement from "./pages/admin/ModifyAnnouncement";
 import ModifyUser from "./pages/admin/UserList/ModifyUser";
+import ModifyEvent from "./pages/admin/ModifyEvent";
 
 const AdminRoutes = ({ user }) => {
     return (
@@ -59,6 +62,13 @@ const AdminRoutes = ({ user }) => {
                 </AdminWrapper>
               )}
       />
+      <Route path="/admin/manage-events"
+              render={() => (
+                <AdminWrapper>
+                  <ManageEvents/>
+                </AdminWrapper>
+              )}
+      />
       <Route path="/admin/manage-users"
               render={() => (
                 <AdminWrapper>
@@ -87,6 +97,13 @@ const AdminRoutes = ({ user }) => {
                 </AdminWrapper>
               )}
       />
+      <Route path="/admin/create-event"
+              render={() => (
+                <AdminWrapper>
+                  <CreateEvent/>
+                </AdminWrapper>
+              )}
+      />
       {/* What to do when article id isn't found? */}
       <Route path="/admin/modify-article/:id"
               render={() => (
@@ -99,6 +116,13 @@ const AdminRoutes = ({ user }) => {
               render={() => (
                 <AdminWrapper>
                   <ModifyAnnouncement/>
+                </AdminWrapper>
+              )}
+      />
+      <Route path="/admin/modify-event/:id"
+              render={() => (
+                <AdminWrapper>
+                  <ModifyEvent/>
                 </AdminWrapper>
               )}
       />
@@ -140,10 +164,10 @@ export default class App extends Component {
           <Route path="/events-calendar" component={EventsCalendar} />
           {/* What to do when article id isn't found? */}
           <Route path="/article/:id" component={SingleArticle} />
-          <AdminRoutes user="Admin" />
           <Route exact path="/">
             <Redirect to="/home" />
           </Route>
+          <AdminRoutes user="Admin" />
           <Route path="/404" component={NotFound404} />
           <Redirect to="/404" />
         </Switch>
