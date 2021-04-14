@@ -52,7 +52,7 @@ const FeaturedArticles = () => {
                   <Link to="/articles-list">View All</Link>
                 </Col>
               </Row>
-              <div className="cards-container">
+              <div class="card-group">
                 <Row>
                   {posts.map((article, idx) => <ArticleCard article={article} idx={idx}/>)}
                 </Row>
