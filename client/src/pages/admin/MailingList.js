@@ -4,8 +4,6 @@ import "../../styles/pages/AdminPage.css"
 import Container from "react-bootstrap/Container";
 import Table from "react-bootstrap/Table";
 
-import AdminSidebar from '../../components/AdminSidebar';
-
 export default class MailingList extends Component {
   constructor(props) {
     super(props);
@@ -24,7 +22,6 @@ export default class MailingList extends Component {
   render() {
     return (
       <div>
-        <AdminSidebar />
         <Button className="logout" href="/home">Logout</Button>
         <h2 className="title">Mailing List</h2>
         <Container>

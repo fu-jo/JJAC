@@ -50,7 +50,7 @@ const UserList = (props) => {
         <Table striped bordered hover>
           <thead>
             <tr>
-              <th>Username</th>
+              <th>User's Name</th>
               <th>Email</th>
               <th>Modify</th>
             </tr>
