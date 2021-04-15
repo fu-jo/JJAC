@@ -16,7 +16,7 @@ const User = ({user, idx}) => {
         <a href={`article/${user.id}`} className="article-link">
           <div className="article-box full-width">
             <span>
-              {user.displayName}
+              {user.name}
               {"\n"}
             </span>
           </div>
