@@ -6,6 +6,7 @@ import Col from "react-bootstrap/Col";
 import Table from "react-bootstrap/Table";
 
 import { firestore } from "../firebase";
+import AdminNavbar from "../components/AdminNavbar";
 import MemberNavbar from "../components/MemberNavbar";
 import NonMemberNavbar from "../components/NonMemberNavbar";
 import BottomBar from "../components/BottomBar";
@@ -52,15 +53,24 @@ const getDate = (dateStr) => {
   });
   return date ? date : null;
 };
-const ArticlesList = (props) => {
+const ArticlesList = ({ user, onAdmin }) => {
   const [sortBy, setSortBy] = useState("DATE_DESC"); //default
   const posts = usePosts(sortBy);
 
   return (
     <div>
-      {props.status === 'Admin' ? '' : props.status === "Member" ? <MemberNavbar /> : <NonMemberNavbar />}
+      { onAdmin === "true" ? '' :
+        (user && (user.role === "user"
+        ? <MemberNavbar/>
+        : (user.role === "admin"
+           ? <AdminNavbar />
+           : <NonMemberNavbar/>
+          )
+        ))
+      }
+      { !user && <NonMemberNavbar /> }
       <Container>
-        {props.status === 'Admin' ? '' : <h1 className="articles-header">Articles</h1>}
+        {user && user.role === "admin" ? '' : <h1 className="articles-header">Articles</h1>}
 
         <label>Sort By</label>{' '}
         <select value={sortBy} onChange={e => setSortBy(e.currentTarget.value)}>
@@ -76,7 +86,7 @@ const ArticlesList = (props) => {
             <tr>
               <th>Article Name</th>
               <th>Date Published</th>
-              {props.status === 'Admin' ?
+              {onAdmin === "true" ?
                 <th>Modify</th>
               :
               ''
@@ -84,11 +94,11 @@ const ArticlesList = (props) => {
             </tr>
           </thead>
           <tbody>
-            {posts.map((article, idx) => <Article article={article} key={`article-${idx}`} idx={idx} access={props}/>)}
+            {posts.map((article, idx) => <Article article={article} key={`article-${idx}`} idx={idx} access={user ? user.role : ""}/>)}
           </tbody>
         </Table>
       </Container>
-      {props.status === 'Admin' ? '' : <BottomBar />}
+      {(user && user.role === "admin") || onAdmin === "true" ? '' : <BottomBar />}
     </div>
   );
 };

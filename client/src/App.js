@@ -47,9 +47,7 @@ function useUserData() {
 }
 
 
-const AdminRoutes = () => {
-  const user = useUserData();
-
+const AdminRoutes = ({ user }) => {
   if (user && user.role === "admin") {
     return (
       <>
@@ -146,32 +144,27 @@ const AdminRoutes = () => {
 }
 
 const App = () => {
+  const user = useUserData();
+
   return (
     <AuthProvider>
     <Router>
       <Switch>
         {/* General page routes */}
-        <Route
-          path="/home"
-          render={(props) => (
-                    <Home {...props} status="NonMember" />
-                  )}
-        />
+        <Route path="/home" render={() => (<Home user={user} />)} />
         <Route path="/signup" component={SignUp} />
         <Route path="/login" component={Login} />
         <Route path="/settings" component={Settings} />
-        <Route path="/announcements" component={Announcements} />
-        <Route path="/articles-list" component={ArticlesList} />
-        <Route path="/events-calendar" component={EventsCalendar} />
+        <Route path="/announcements" render={() => (<Announcements user={user} />)} />
+        <Route path="/events-calendar" render={() => (<EventsCalendar user={user} />)} />
+        <Route path="/articles-list" render={() => (<ArticlesList user={user} />)} />
+        <Route path="/article/:id" render={() => (<SingleArticle user={user} />)} />
         {/* What to do when article id isn't found? */}
-        <Route path="/article/:id" component={SingleArticle} />
         <Route exact path="/">
           <Redirect to="/home" />
         </Route>
         <Route path="/404" component={NotFound404} />
-        <Route path="/admin" render={() => {
-          return <AdminRoutes/>
-        }}/>
+        <Route path="/admin" render={() => (<AdminRoutes user={user} />)} />
         <Redirect to="/404" />
       </Switch>
     </Router>

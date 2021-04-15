@@ -4,6 +4,7 @@ import { Table, Button } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSortUp, faSortDown } from "@fortawesome/free-solid-svg-icons";
 
+import AdminNavbar from "../components/AdminNavbar";
 import MemberNavbar from "../components/MemberNavbar";
 import NonMemberNavbar from "../components/NonMemberNavbar";
 import BottomBar from "../components/BottomBar";
@@ -55,7 +56,7 @@ async function deleteAnnouncement(ann) {
   await firestore.collection('announcements').doc(ann.id).delete();
 }
 
-const Announcements = (props) => {
+const Announcements = ({ user }) => {
     const [sortBy, setSortBy] = useState('DATE_DESC') //default
     const announcements = useAnns(sortBy)
 
@@ -66,9 +67,18 @@ const Announcements = (props) => {
 
     return (
       <div>
-        {props.status === 'Admin' ? '' : props.status === "Member" ? <MemberNavbar /> : <NonMemberNavbar />}
+        {
+          user && (user.role === "user"
+          ? <MemberNavbar/>
+          : (user.role === "admin"
+             ? <AdminNavbar />
+             : <NonMemberNavbar/>
+            )
+          )
+        }
+        { !user && <NonMemberNavbar /> }
         <Container>
-          {props.status === 'Admin' ? '' : <h1>Latest Announcements</h1>}
+          {user && user.role === "admin" ? '' : <h1>Latest Announcements</h1>}
           {announcements && (
             <Table striped bordered hover>
               <thead>
@@ -87,7 +97,7 @@ const Announcements = (props) => {
                       : (<FontAwesomeIcon icon={faSortDown} style={{float: "right", marginBottom: 8, marginRight: 10}} onClick={() => setSortBy("DATE_ASC")}/>)
                     }
                   </th>
-                    {props.status === 'Admin' ?
+                    {user && user.role === "admin" ?
                       <th>Modify</th>
                     :
                     ''
@@ -137,7 +147,7 @@ const Announcements = (props) => {
                       )}
                     </td>
                     {ann.date ? (<td>{getDate(ann.date)}</td>) : <td></td>}
-                    {props.status === 'Admin' ? <th>
+                    {user && user.role === "admin" ? <th>
                       <Button variant='success' href={`/admin/modify-announcement/${ann.id}`}>Edit</Button>
                       <Button variant='danger' onClick={() => deleteAnnouncement(ann)}>Delete</Button>
                     </th>
@@ -150,7 +160,7 @@ const Announcements = (props) => {
             </Table>
           )}
         </Container>
-        {props.status === 'Admin' ? '' : <BottomBar />}
+        {user && user.role === "admin" ? '' : <BottomBar />}
       </div>
     );
 

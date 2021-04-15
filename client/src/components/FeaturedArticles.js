@@ -54,7 +54,7 @@ const FeaturedArticles = () => {
               </Row>
               <div class="card-group">
                 <Row>
-                  {posts.map((article, idx) => <ArticleCard article={article} idx={idx}/>)}
+                  {posts.map((article, idx) => <ArticleCard article={article} idx={idx} />)}
                 </Row>
               </div>
             </Container>

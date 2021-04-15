@@ -8,6 +8,7 @@ import firebase from '../firebase'
 
 import MemberNavbar from "../components/MemberNavbar";
 import NonMemberNavbar from "../components/NonMemberNavbar";
+import AdminNavbar from "../components/AdminNavbar";
 import AboutSASE from "../components/AboutSASE";
 import HomeAnnouncementsList from "../components/HomeAnnouncementsList";
 import HomeEventsList from "../components/HomeEventsList";
@@ -18,14 +19,19 @@ import BottomBar from "../components/BottomBar";
 import "../styles/pages/Home.css";
 import img from "../assets/temp2.png";
 
-const Home = () => {
+const Home = ({ user }) => {
   return (
     <div>
       {
-        true
+        user && (user.role === "user"
         ? <MemberNavbar/>
-        : <NonMemberNavbar/>
+        : (user.role === "admin"
+           ? <AdminNavbar />
+           : <NonMemberNavbar/>
+          )
+        )
       }
+      { !user && <NonMemberNavbar /> }
       {/* update: made an entire class just for the image */}
       <Image src={img} className="img"/>
       <AboutSASE />
