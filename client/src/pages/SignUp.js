@@ -3,7 +3,6 @@ import {Button, Form, Card, Alert} from "react-bootstrap";
 import{ useAuth } from "../Contexts/AuthContext"
 import { firestore } from "../firebase";
 import firebase from "../firebase"
-import {Link} from "react-router-dom"
 
 export default function Signup() {
     const emailRef = useRef()
@@ -16,7 +15,7 @@ export default function Signup() {
 
     async function handleSubmit(e){
         e.preventDefault()
-        
+
         if (passwordRef.current.value !== passwordConfirmRef.current.value){
             return setError('Passwords do not match')
         }
@@ -24,7 +23,7 @@ export default function Signup() {
         try{
             setError('')
             setLoading(true)
-            
+
             await signup(emailRef.current.value, passwordRef.current.value, nameRef.current.value)
             var user = firebase.auth().currentUser;
             firestore.collection("users").add({

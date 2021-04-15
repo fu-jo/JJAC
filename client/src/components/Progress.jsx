@@ -10,7 +10,7 @@ const Progress = ({ file, setFile, setImgUrl }) => {
             setFile(null);
             setImgUrl(url)
         }
-    }, [url, setFile])
+    }, [url, setImgUrl, setFile])
 
     return (
         <ProgressBar now={progress}/>

@@ -10,7 +10,6 @@ import NonMemberNavbar from "../components/NonMemberNavbar";
 import BottomBar from "../components/BottomBar";
 
 import { firestore } from "../firebase"
-import testAnnouncements from "../assets/test-announcements";
 
 const SORT_OPTIONS = {
     'DATE_ASC': {column:'date', direction:'asc'},
@@ -118,7 +117,6 @@ const Announcements = (props) => {
                       {!ann.details && ann.links && ann.links.length > 0 && (
                         <div style={{ paddingLeft: 20 }}>
                           <small>
-                            <a onClick={console.log(ann.links)}></a>
                             <b>Links: </b>
                             {ann.links.map((link, idx) => {
                               const fixedLink = link.includes("https://") || link.includes("http://") ? link : "https://" + link;
