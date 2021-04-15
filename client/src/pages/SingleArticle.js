@@ -2,6 +2,7 @@ import React, { Component, useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import Container from "react-bootstrap/Container";
 import Badge from "react-bootstrap/Badge";
+import Card from "react-bootstrap/Card";
 
 import MemberNavbar from "../components/MemberNavbar";
 import NonMemberNavbar from "../components/NonMemberNavbar";
@@ -41,9 +42,17 @@ const SingleArticle = (props) => {
   return (
     <div>
       {props.status === "Member" ? <MemberNavbar /> : <NonMemberNavbar />}
-      <Container className="article">
+      <Container>
         <div>
-          {article.img && <img className="text-wrap" src={article.img} />}
+        <Card className="article-img">
+        {article.img && (
+          <Card.Img
+            variant="top"
+            src={article.img}
+            className="text-wrap"
+          />
+        )}
+        </Card>
           <h1>{article.title}</h1>
           {article.author ? (
             <h6>

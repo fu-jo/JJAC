@@ -13,6 +13,15 @@ p, div {
 }
 
 .text-wrap {
-  float: right;
-  margin: 0 0 10px 20px;
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.article-img {
+  border: 0;
+  width: 100%;
+  height: 200px;
+  margin-bottom: 20px;
 }

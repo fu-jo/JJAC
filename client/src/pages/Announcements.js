@@ -47,7 +47,6 @@ const getDate = (dateStr) => {
     month: "long",
     day: "numeric",
   });
-  console.log(dateStr + ' ' + new Date(dateStr))
   return date ? date : null;
 }
 
@@ -97,7 +96,7 @@ const Announcements = (props) => {
               </thead>
               <tbody>
                 {announcements.map((ann, idx) => { return (
-                  <tr>
+                  <tr key={ann.id}>
                     <td style={{whiteSpace: "pre-wrap"}}>
                       <span>{ann.title}{"\n"}</span>
                       {ann.details && (
