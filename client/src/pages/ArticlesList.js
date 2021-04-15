@@ -59,7 +59,7 @@ const ArticlesList = ({ user, onAdmin }) => {
 
   return (
     <div>
-      { onAdmin === "true" ? '' :
+      { onAdmin ? '' :
         (user && (user.role === "user"
         ? <MemberNavbar/>
         : (user.role === "admin"
@@ -68,10 +68,9 @@ const ArticlesList = ({ user, onAdmin }) => {
           )
         ))
       }
-      { !user && <NonMemberNavbar /> }
+      { !onAdmin && !user && <NonMemberNavbar /> }
       <Container>
-        {user && user.role === "admin" ? '' : <h1 className="articles-header">Articles</h1>}
-
+        <h1 className="articles-header">Articles</h1>
         <label>Sort By</label>{' '}
         <select value={sortBy} onChange={e => setSortBy(e.currentTarget.value)}>
             <option value='TITLE_ASC'>Title (a-z)</option>
@@ -86,7 +85,7 @@ const ArticlesList = ({ user, onAdmin }) => {
             <tr>
               <th>Article Name</th>
               <th>Date Published</th>
-              {onAdmin === "true" ?
+              {onAdmin ?
                 <th>Modify</th>
               :
               ''
@@ -94,11 +93,11 @@ const ArticlesList = ({ user, onAdmin }) => {
             </tr>
           </thead>
           <tbody>
-            {posts.map((article, idx) => <Article article={article} key={`article-${idx}`} idx={idx} access={user ? user.role : ""}/>)}
+            {posts.map((article, idx) => <Article article={article} key={`article-${idx}`} idx={idx} access={onAdmin ? "Admin" : ""}/>)}
           </tbody>
         </Table>
       </Container>
-      {(user && user.role === "admin") || onAdmin === "true" ? '' : <BottomBar />}
+      {onAdmin ? '' : <BottomBar />}
     </div>
   );
 };

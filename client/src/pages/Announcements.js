@@ -56,7 +56,7 @@ async function deleteAnnouncement(ann) {
   await firestore.collection('announcements').doc(ann.id).delete();
 }
 
-const Announcements = ({ user }) => {
+const Announcements = ({ user, onAdmin }) => {
     const [sortBy, setSortBy] = useState('DATE_DESC') //default
     const announcements = useAnns(sortBy)
 
@@ -68,17 +68,18 @@ const Announcements = ({ user }) => {
     return (
       <div>
         {
-          user && (user.role === "user"
+          onAdmin ? ''
+          : (user && (user.role === "user"
           ? <MemberNavbar/>
           : (user.role === "admin"
              ? <AdminNavbar />
              : <NonMemberNavbar/>
             )
-          )
+          ))
         }
-        { !user && <NonMemberNavbar /> }
+        { !onAdmin && !user && <NonMemberNavbar /> }
         <Container>
-          {user && user.role === "admin" ? '' : <h1>Latest Announcements</h1>}
+          <h1>Latest Announcements</h1>
           {announcements && (
             <Table striped bordered hover>
               <thead>
@@ -97,7 +98,7 @@ const Announcements = ({ user }) => {
                       : (<FontAwesomeIcon icon={faSortDown} style={{float: "right", marginBottom: 8, marginRight: 10}} onClick={() => setSortBy("DATE_ASC")}/>)
                     }
                   </th>
-                    {user && user.role === "admin" ?
+                    {onAdmin ?
                       <th>Modify</th>
                     :
                     ''
@@ -147,7 +148,7 @@ const Announcements = ({ user }) => {
                       )}
                     </td>
                     {ann.date ? (<td>{getDate(ann.date)}</td>) : <td></td>}
-                    {user && user.role === "admin" ? <th>
+                    {onAdmin ? <th>
                       <Button variant='success' href={`/admin/modify-announcement/${ann.id}`}>Edit</Button>
                       <Button variant='danger' onClick={() => deleteAnnouncement(ann)}>Delete</Button>
                     </th>
@@ -160,7 +161,7 @@ const Announcements = ({ user }) => {
             </Table>
           )}
         </Container>
-        {user && user.role === "admin" ? '' : <BottomBar />}
+        {onAdmin ? '' : <BottomBar />}
       </div>
     );
 

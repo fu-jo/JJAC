@@ -6,8 +6,7 @@ export default class ManageAnnouncements extends Component {
   render() {
     return (
       <div>
-        <h2>Announcements</h2>
-        <Announcements status='Admin'/>
+        <Announcements onAdmin/>
         <Button href="/admin/create-announcement" variant="primary" style={{margin: 15}}>Create announcement</Button>
       </div>
     );

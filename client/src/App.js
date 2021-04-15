@@ -138,7 +138,7 @@ const AdminRoutes = ({ user }) => {
   }
   else {
     return (
-      <Route path="/401" component={UnauthorizedUser}/>
+      <Redirect to="/401"/>
     )
   }
 }
@@ -163,6 +163,7 @@ const App = () => {
         <Route exact path="/">
           <Redirect to="/home" />
         </Route>
+        <Route path="/401" component={UnauthorizedUser} />
         <Route path="/404" component={NotFound404} />
         <Route path="/admin" render={() => (<AdminRoutes user={user} />)} />
         <Redirect to="/404" />
