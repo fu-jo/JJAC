@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { BrowserRouter as Router, Route, Switch, Redirect } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 
+import firebase from "./firebase";
 // general pages
 import Home from './pages/Home';
 import Settings from './pages/Settings';
@@ -140,7 +141,7 @@ export default class App extends Component {
           <Route path="/events-calendar" component={EventsCalendar} />
           {/* What to do when article id isn't found? */}
           <Route path="/article/:id" component={SingleArticle} />
-          <AdminRoutes user="Admin" />
+          <AdminRoutes user={firebase.auth().currentUser} />
           <Route exact path="/">
             <Redirect to="/home" />
           </Route>
