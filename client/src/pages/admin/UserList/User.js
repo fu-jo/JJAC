@@ -24,14 +24,9 @@ const User = ({user, idx}) => {
       </td>
       <td>
       {user.email && ( <p>{user.email}</p> )}
-      {// <LinesEllipsis
-              //   text={article.content}
-              //   maxLine="2"
-              //   ellipsis="..."
-              //   basedOn="words"
-              //   className="article-content"
-              // />
-      }
+      </td>
+      <td>
+      {user.role}
       </td>
       <td>
         <Button variant='success' href={`/admin/modify-user/${user.id}`}>Edit</Button>

@@ -52,6 +52,7 @@ const UserList = (props) => {
             <tr>
               <th>User's Name</th>
               <th>Email</th>
+              <th>Role</th>
               <th>Modify</th>
             </tr>
           </thead>
