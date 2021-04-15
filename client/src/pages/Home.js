@@ -41,12 +41,14 @@ export default class Home extends Component {
   }
 
   render() {
+    var userRole = ''
     firebase.auth().onAuthStateChanged((user) => {
       if (user){
         var userData = firestore.collection("users").doc(user.uid)
         userData.get().then((doc) => {
           if(doc.exists){
             console.log(doc.data())
+            userRole = doc.data().role;
           }
         })
       } else{
