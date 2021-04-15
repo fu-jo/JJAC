@@ -42,16 +42,16 @@ export default class Home extends Component {
 
   render() {
     var userRole = ''
-    firebase.auth().onAuthStateChanged((user) => {
-      if (user){
-        var userData = firestore.collection("users").doc(user.uid)
+    firebase.auth().onAuthStateChanged((user) => {  // waits for auth state to change (login, logout, etc)
+      if (user){ // if user exists/is logged in
+        var userData = firestore.collection("users").doc(user.uid) // gets user data by user id
         userData.get().then((doc) => {
           if(doc.exists){
             console.log(doc.data())
-            userRole = doc.data().role;
+            userRole = doc.data().role; // sets userRole variable as the current user's role
           }
         })
-      } else{
+      } else{ // if no user signed in, print
         console.log('No User Signed In')
       }
     });
