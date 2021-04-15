@@ -8,8 +8,8 @@ import { firestore } from "../../../firebase";
 import User from './User'
 
 const SORT_OPTIONS = {
-  NAME_ASC: { column: "displayName", direction: "asc" },
-  NAME_DESC: { column: "displayName", direction: "desc" },
+  NAME_ASC: { column: "name", direction: "asc" },
+  NAME_DESC: { column: "name", direction: "desc" },
 };
 
 function useUsers(sortBy = "NAME_ASC") {
@@ -52,6 +52,7 @@ const UserList = (props) => {
             <tr>
               <th>User's Name</th>
               <th>Email</th>
+              <th>Role</th>
               <th>Modify</th>
             </tr>
           </thead>

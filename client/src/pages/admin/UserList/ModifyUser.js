@@ -30,7 +30,7 @@ const ModifyAnnouncement = () => {
     e.preventDefault()
     e.persist()
     const object = {
-      displayName: e.target.name.value,
+      name: e.target.name.value,
       email: e.target.email.value,
     }
     Object.keys(object).forEach(k => (!object[k] && object[k] !== undefined) && delete object[k]); //remove blank keys

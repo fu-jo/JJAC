@@ -6,7 +6,6 @@ import {Link} from "react-router-dom"
 export default function Login() {
     const emailRef = useRef()
     const passwordRef = useRef()
-    const passwordConfirmRef = useRef()
     const {login} = useAuth()
     const [error, setError] = useState('')
     const [loading, setLoading] = useState(false)
@@ -18,6 +17,8 @@ export default function Login() {
             setError('')
             setLoading(true)
             await login(emailRef.current.value, passwordRef.current.value)
+            alert("Logged In Successfully")
+            window.history.back()
         } catch {
             setError('Failed to log in')
         }
