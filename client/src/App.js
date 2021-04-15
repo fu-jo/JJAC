@@ -48,7 +48,10 @@ function useUserData() {
 
 
 const AdminRoutes = ({ user }) => {
-  if (user && user.role === "admin") {
+  if (!user) {
+    return <UnauthorizedUser />
+  }
+  else if (user && user.role === "admin") {
     return (
       <>
         <Route path="/admin/dashboard"
@@ -137,9 +140,7 @@ const AdminRoutes = ({ user }) => {
     )
   }
   else {
-    return (
-      <Redirect to="/401"/>
-    )
+    return <Redirect to="/401"/>
   }
 }
 
@@ -163,8 +164,8 @@ const App = () => {
         <Route exact path="/">
           <Redirect to="/home" />
         </Route>
-        <Route path="/401" component={UnauthorizedUser} />
-        <Route path="/404" component={NotFound404} />
+        <Route path="/401" render={() => (<UnauthorizedUser user={user} />)} />
+        <Route path="/404" render={() => (<NotFound404 user={user} />)} />
         <Route path="/admin" render={() => (<AdminRoutes user={user} />)} />
         <Redirect to="/404" />
       </Switch>
