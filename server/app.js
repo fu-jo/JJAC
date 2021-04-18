@@ -13,7 +13,7 @@ app.use(express.json());
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.post('/subscribe', (req, res) => {
+app.post('/api/subscribe', (req, res) => {
     const { fullName, email } = req.body;
 
     const mcData = {
@@ -35,7 +35,6 @@ app.post('/subscribe', (req, res) => {
         },
         body: mcDataPost
     }
-    setTimeout(console.log(options),2000    )
 
     request(options, (err, response, body) => {
         if (err)
