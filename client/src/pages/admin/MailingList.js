@@ -1,40 +1,50 @@
-import React, { Component } from "react";
+import React, { Component, useState, useEffect } from "react";
 import Button from "react-bootstrap/Button";
 import "../../styles/pages/AdminPage.css"
 import Container from "react-bootstrap/Container";
 import Table from "react-bootstrap/Table";
 
-export default class MailingList extends Component {
-  constructor(props) {
-    super(props);
+const MailingList = () => { 
+  //get initial users
+  const [emails, setEmails] = useState([]);
 
-    this.buttonClicked = this.buttonClicked.bind(this);
+  useEffect(() => {
+    fetch("/api/getList")
+      .then((res) => {
+        res.json()
+        console.log(res)
+      })
+      .then((data) => {
+        // setEmails(data.message)
+        console.log(data)
+      });
+  }, []);
 
-    this.state = {
-      name: "Click"
-    };
-  }
-
-  buttonClicked() {
-    this.setState({name: "Button Pressed"})
-  }
-
-  render() {
-    return (
-      <div>
-        <Button className="logout" href="/home">Logout</Button>
-        <h2 className="title">Mailing List</h2>
-        <Container>
-        <Table striped bordered hover>
-          <thead>
-            <tr>
-              <th>Username</th>
-              <th>Email</th>
+  // console.log(emails)
+  return (
+    <div>
+      <Button className="logout" href="/home">Logout</Button>
+      <h2 className="title">Mailing List</h2>
+      <Container>
+      <Table striped bordered hover>
+        <thead>
+          <tr>
+            <th>Email</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          {/*emails.map((email, idx) => (
+            <tr id={`email${idx}`}>
+              <th>email</th>
+              <th>Status</th>
             </tr>
-          </thead>
-        </Table>
-        </Container>
-      </div>
-    );
-  }
+          ))*/}
+        </tbody>
+      </Table>
+      </Container>
+    </div>
+  );
 }
+
+export default MailingList;

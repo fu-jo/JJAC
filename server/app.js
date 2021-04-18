@@ -1,5 +1,5 @@
 const express = require('express');
-const request = require('request');
+const request = require('request'); 
 const bodyParser = require('body-parser');
 const path = require('path');
 
@@ -12,12 +12,6 @@ const app = express();
 app.use(express.json());
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static(path.join(__dirname, 'public')));
-
-const testData = {
-    name: 'Josh',
-    age: '30',
-    account_balance: '15.5'
-}
 
 app.post('/subscribe', (req, res) => {
     const { fullName, email } = req.body;
@@ -41,7 +35,7 @@ app.post('/subscribe', (req, res) => {
         },
         body: mcDataPost
     }
-    console.log(options)
+    setTimeout(console.log(options),2000    )
 
     request(options, (err, response, body) => {
         if (err)
@@ -51,8 +45,38 @@ app.post('/subscribe', (req, res) => {
     });
 })
 
+app.get('/api/getList', (req, res) => {
+    const options = {
+        url: `https://${process.env.MC_DC}.api.mailchimp.com/3.0/lists/${process.env.MC_AUDIENCE_ID}/members`,
+        method:'GET',
+        headers: {
+            Authorization: `auth ${process.env.MC_API_KEY}`
+        },
+    }   
+    //https://sites.google.com/site/kumartechwiki/how-to-get-node-js-http-request-promise-without-a-single-dependency
 
-app.get('/api/form', (req, res) => res.sendFile(path.join(__dirname,'public/index.html')));
+    request(options, (err, response, body) => {
+        if (err) {
+            res.json({error:err})
+        }
+        else {
+            console.log('statusCode:', response && response.statusCode);
+            if (response.statusCode===200) {
+                res.send(JSON.parse(body).members.map(a => 
+                    // a.email_address
+                    {    
+                        a.email_address,
+                        a.status
+                    }
+                ));
+            }
+            
+        }
+    });
+})
+
+
+app.get('/api/test', (req, res) => res.sendFile(path.join(__dirname,'public/index.html')));
 
 const PORT = process.env.PORT || 5000;
 
