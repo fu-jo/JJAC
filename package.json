@@ -13,7 +13,15 @@
     "url": "https://github.com/fu-jo/JJAC/issues"
   },
   "scripts": {
-    "start": "cd client && npm start"
+    "start": "concurrently \"cd client && npm start\" \"cd server && node app\"",
+    "dev": "concurrently \"cd client && npm start\" \"cd server && nodemon app\""
   },
-  "homepage": "https://github.com/fu-jo/JJAC#readme"
+  "homepage": "https://github.com/fu-jo/JJAC#readme",
+  "dependencies": {
+    "concurrently": "^6.0.2",
+    "dotenv": "^8.2.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.7"
+  }
 }

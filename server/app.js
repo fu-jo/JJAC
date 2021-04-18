@@ -3,11 +3,14 @@ const request = require('request');
 const bodyParser = require('body-parser');
 const path = require('path');
 
+require('dotenv').config()
+
 const app = express();
+
 
 //Middleware
 app.use(express.json());
-app.use(bodyParser.urlencoded({extended: false}));
+app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static(path.join(__dirname, 'public')));
 
 const testData = {
@@ -17,8 +20,7 @@ const testData = {
 }
 
 app.post('/subscribe', (req, res) => {
-    const { email , js } = req.body;
-    console.log(req.body);
+    const { fullName, email } = req.body;
 
     const mcData = {
         members: [
@@ -32,31 +34,25 @@ app.post('/subscribe', (req, res) => {
     const mcDataPost = JSON.stringify(mcData);
 
     const options = {
-        url: '86b56758af',
+        url: `https://${process.env.MC_DC}.api.mailchimp.com/3.0/lists/${process.env.MC_AUDIENCE_ID}`,
         method:'POST',
         headers: {
-            Authorization: 'auth b055aac03b452f1891f0bf78b154342e-us1'
+            Authorization: `auth ${process.env.MC_API_KEY}`
         },
         body: mcDataPost
     }
+    console.log(options)
 
-    if (email) {
-        request(options, (err, response, body) => {
-            if (err) {
-                res.json({error: err})
-            } else {
-                if (js) {
-                    res.sendStatus(200);
-                }
-            }
-        })
-    } else [
-        res.status(404).send({message: 'Failed'})
-    ]
+    request(options, (err, response, body) => {
+        if (err)
+            res.json({error:err})
+        else
+            res.sendStatus(200);
+    });
 })
 
 
-app.get('/', (req, res) => res.send(testData))
+app.get('/api/form', (req, res) => res.sendFile(path.join(__dirname,'public/index.html')));
 
 const PORT = process.env.PORT || 5000;
 
