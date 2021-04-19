@@ -1,6 +1,5 @@
 import React, {useContext, useState, useEffect} from 'react'
 import {auth} from "../firebase"
-import Signup from '../pages/SignUp'
 
 const AuthContext = React.createContext()
 
@@ -40,7 +39,7 @@ useEffect(() => {
         logout,
         signup
     }
-    
+
     return (
         <AuthContext.Provider value={value}>
             {!loading && children}

@@ -3,6 +3,8 @@ import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Image from "react-bootstrap/Image";
+import { firestore } from '../firebase'
+import firebase from '../firebase'
 
 import MemberNavbar from "../components/MemberNavbar";
 import NonMemberNavbar from "../components/NonMemberNavbar";
@@ -16,10 +18,14 @@ import BottomBar from "../components/BottomBar";
 import "../styles/pages/Home.css";
 import img from "../assets/temp2.png";
 
+
 // Question: do we like where the View All buttons are currently or
 // should they be moved to the same line as the header?
 
 export default class Home extends Component {
+  
+  
+
   constructor(props) {
     super(props);
 
@@ -35,6 +41,22 @@ export default class Home extends Component {
   }
 
   render() {
+    var userRole = ''
+    firebase.auth().onAuthStateChanged((user) => {  // waits for auth state to change (login, logout, etc)
+      if (user){ // if user exists/is logged in
+        var userData = firestore.collection("users").doc(user.uid) // gets user data by user id
+        userData.get().then((doc) => {
+          if(doc.exists){
+            console.log(doc.data())
+            userRole = doc.data().role; // sets userRole variable as the current user's role
+          }
+        })
+      } else{ // if no user signed in, print
+        console.log('No User Signed In')
+      }
+    });
+    
+
     return (
       <div>
         {

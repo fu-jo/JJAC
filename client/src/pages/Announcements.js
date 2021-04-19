@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Container from "react-bootstrap/Container";
-import Table from "react-bootstrap/Table";
-import Button from "react-bootstrap/Button";
+import { Table, Button } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSortUp, faSortDown } from "@fortawesome/free-solid-svg-icons";
 
@@ -10,7 +9,6 @@ import NonMemberNavbar from "../components/NonMemberNavbar";
 import BottomBar from "../components/BottomBar";
 
 import { firestore } from "../firebase"
-import testAnnouncements from "../assets/test-announcements";
 
 const SORT_OPTIONS = {
     'DATE_ASC': {column:'date', direction:'asc'},
@@ -49,6 +47,11 @@ const getDate = (dateStr) => {
     day: "numeric",
   });
   return date ? date : null;
+}
+
+async function deleteAnnouncement(ann) {
+  //console.log(ann)
+  await firestore.collection('announcements').doc(ann.id).delete();
 }
 
 const Announcements = (props) => {
@@ -118,7 +121,6 @@ const Announcements = (props) => {
                       {!ann.details && ann.links && ann.links.length > 0 && (
                         <div style={{ paddingLeft: 20 }}>
                           <small>
-                            <a onClick={console.log(ann.links)}></a>
                             <b>Links: </b>
                             {ann.links.map((link, idx) => {
                               const fixedLink = link.includes("https://") || link.includes("http://") ? link : "https://" + link;

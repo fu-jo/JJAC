@@ -29,7 +29,8 @@ export default class MemberNavbar extends Component {
           </Nav>
           <Nav className='ml-auto'>
             <Button href="/signup" variant="primary">Sign Up</Button>
-            <Button variant="primary" onClick={this.callback}>Login</Button>
+            <Button href="/login" variant="primary">Login</Button>
+            {/* <Button variant="primary" onClick={this.callback}>Login</Button> */}
           </Nav>
         </Navbar.Collapse>
       </Navbar>

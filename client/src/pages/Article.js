@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link, Redirect, useLocation } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import Button from "react-bootstrap/Button";
 import LinesEllipsis from "react-lines-ellipsis";
 
@@ -58,13 +58,13 @@ const Article = ({article, idx, access}) => {
             {access.status === 'Admin' ? <th>
               <Button variant='success' href={`/admin/modify-article/${article.id}`}>Edit</Button>
               <Button variant='danger' onClick={deleteArticle}>Delete</Button>
-            </th> 
+            </th>
             :
               ''
             }
-            
+
     </tr>
-  )  
+  )
 }
 
 export default Article;

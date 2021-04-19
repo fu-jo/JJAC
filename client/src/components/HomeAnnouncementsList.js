@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import Table from "react-bootstrap/Table";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import LinesEllipsis from "react-lines-ellipsis";
 
 import { firestore } from "../firebase";
 
@@ -49,7 +48,7 @@ function useAnnouncements(sortBy = "DATE_DESC") {
 }
 
 const HomeAnnouncementsList = () => {
-  const [sortBy, setSortBy] = useState("DATE_DESC"); //default
+  const [sortBy] = useState("DATE_DESC"); //default
   const announcements = useAnnouncements(sortBy).slice(0, 3);
 
   return (
@@ -83,7 +82,6 @@ const HomeAnnouncementsList = () => {
                         {ann.details}{"\n"}
                         {ann.links && ann.links.length > 0 && (
                           <span>
-                            <a onClick={console.log(ann.links)}></a>
                             <b>Links: </b>
                             {ann.links.map((link, idx) => {
                               const fixedLink = link.includes("https://") || link.includes("http://") ? link : "https://" + link;
@@ -101,7 +99,6 @@ const HomeAnnouncementsList = () => {
                   {!ann.details && ann.links && ann.links.length > 0 && (
                     <div style={{ paddingLeft: 20 }}>
                       <small>
-                        <a onClick={console.log(ann.links)}></a>
                         <b>Links: </b>
                         {ann.links.map((link, idx) => {
                           const fixedLink = link.includes("https://") || link.includes("http://") ? link : "https://" + link;
