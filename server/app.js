@@ -5,6 +5,8 @@ const path = require('path');
 const fetch = require('node-fetch')
 //const firebase = require('../client/src/firebase')
 
+var cors = require('cors')
+
 require('dotenv').config()
 
 const app = express();
@@ -14,6 +16,7 @@ const app = express();
 app.use(express.json());
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(cors({origin: 'http://localhost:3000'}));
 
 app.use(function(req, res, next) {
     res.header("Access-Control-Allow-Origin", "http://localhost:5000");
@@ -47,8 +50,9 @@ app.post('/api/subscribe', (req, res) => {
 
     request(options, (err, response, body) => {
         if (err)
-            res.json({error:err})
-        else {
+            res.json({error:err}),
+            console.log('SOMETHING FUCKED UP')
+        else
             console.log(`Successfully added ${email}`)
             res.sendStatus(200);
         }
