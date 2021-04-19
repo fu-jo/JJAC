@@ -3,6 +3,7 @@ import Container from "react-bootstrap/Container";
 import Card from "react-bootstrap/Card";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
+import "../../styles/pages/AdminPage.css"
 
 import { firestore } from "../../firebase";
 
@@ -27,30 +28,33 @@ const CreateAnnouncement = () => {
 
   // missing links field
   return (
-    <Container id="create-announcement">
-      <h2>Create Announcement</h2>
+    <div>
+     <Button className="logout" href="/home">Logout</Button>
+     <h2 className="title">Create Annnouncement</h2>
+     <Container id="create-announcement">
       <Card>
-        <Card.Body>
-          <Form onSubmit={onSubmit}>
-            <Form.Group controlId="title">
-              <Form.Label>Title</Form.Label>
-              <Form.Control type="text" />
-            </Form.Group>
-            <Form.Group controlId="details">
-              <Form.Label>Details</Form.Label>
-              <Form.Control as="textarea" rows={3} />
-            </Form.Group>
-            <Form.Group controlId="date">
-              <Form.Label>Date</Form.Label>
-              <Form.Control type="date" />
-            </Form.Group>
-            <Button variant="primary" type="submit">
-              Create Announcement
-            </Button>
-          </Form>
-        </Card.Body>
+       <Card.Body>
+         <Form onSubmit={onSubmit}>
+           <Form.Group controlId="title">
+             <Form.Label>Title</Form.Label>
+             <Form.Control type="text" />
+           </Form.Group>
+           <Form.Group controlId="details">
+             <Form.Label>Details</Form.Label>
+             <Form.Control as="textarea" rows={3} />
+           </Form.Group>
+           <Form.Group controlId="date">
+             <Form.Label>Date</Form.Label>
+             <Form.Control type="date" />
+           </Form.Group>
+           <Button variant="primary" type="submit">
+             Create Announcement
+           </Button>
+         </Form>
+       </Card.Body>
       </Card>
-    </Container>
+     </Container>
+    </div>
   );
 };
 

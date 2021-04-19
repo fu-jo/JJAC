@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Container from "react-bootstrap/Container";
 import { Card, Form, Button, Alert } from "react-bootstrap";
 import Progress from '../../components/Progress'
+import "../../styles/pages/AdminPage.css"
 
 import { firestore } from "../../firebase";
 
@@ -50,9 +51,11 @@ const CreateArticle = () => {
 
   // missing links & tags fields
   return (
-    <Container id="create-post">
+    <div>
+     <Button className="logout" href="/home">Logout</Button>
+     <h2 className="title">Create Article</h2>
+     <Container id="create-post">
       {err && <Alert variant='danger'>{err}</Alert>}
-      <h2>Create Article</h2>
       <Card>
         <Card.Body>
           <Form onSubmit={onSubmit}>
@@ -82,8 +85,9 @@ const CreateArticle = () => {
             </Button>
           </Form>
         </Card.Body>
-      </Card>
-    </Container>
+       </Card>
+      </Container>
+    </div>
   );
 };
 

@@ -7,8 +7,10 @@ import { faSortUp, faSortDown } from "@fortawesome/free-solid-svg-icons";
 import MemberNavbar from "../components/MemberNavbar";
 import NonMemberNavbar from "../components/NonMemberNavbar";
 import BottomBar from "../components/BottomBar";
+import "../styles/components/AnnouncementTable.css"
 
 import { firestore } from "../firebase"
+import testAnnouncements from "../assets/test-announcements";
 
 const SORT_OPTIONS = {
     'DATE_ASC': {column:'date', direction:'asc'},
@@ -72,14 +74,14 @@ const Announcements = (props) => {
             <Table striped bordered hover>
               <thead>
                 <tr>
-                  <th style={{width: "70%"}}>
+                  <th class="name">
                     Announcement
                     { sortBy === "TITLE_ASC"
                       ? (<FontAwesomeIcon icon={faSortUp} style={{float: "right", marginTop: 8, marginRight: 10}} onClick={() => setSortBy("TITLE_DESC")}/>)
                       : (<FontAwesomeIcon icon={faSortDown} style={{float: "right", marginBottom: 8, marginRight: 10}} onClick={() => setSortBy("TITLE_ASC")}/>)
                     }
                   </th>
-                  <th>
+                  <th class="date">
                     Date
                     { sortBy === "DATE_ASC"
                       ? (<FontAwesomeIcon icon={faSortUp} style={{float: "right", marginTop: 8, marginRight: 10}} onClick={() => setSortBy("DATE_DESC")}/>)
@@ -87,7 +89,7 @@ const Announcements = (props) => {
                     }
                   </th>
                     {props.status === 'Admin' ?
-                      <th>Modify</th>
+                      <th class="modify">Modify</th>
                     :
                     ''
                     }
@@ -121,6 +123,7 @@ const Announcements = (props) => {
                       {!ann.details && ann.links && ann.links.length > 0 && (
                         <div style={{ paddingLeft: 20 }}>
                           <small>
+                            <a onClick={console.log(ann.links)}></a>
                             <b>Links: </b>
                             {ann.links.map((link, idx) => {
                               const fixedLink = link.includes("https://") || link.includes("http://") ? link : "https://" + link;

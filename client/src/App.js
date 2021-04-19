@@ -90,13 +90,6 @@ const AdminRoutes = ({ user }) => {
                 </AdminWrapper>
               )}
       />
-      <Route path="/admin/create-announcement"
-              render={() => (
-                <AdminWrapper>
-                  <CreateAnnouncement/>
-                </AdminWrapper>
-              )}
-      />
       <Route path="/admin/create-event"
               render={() => (
                 <AdminWrapper>
