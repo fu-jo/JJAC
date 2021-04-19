@@ -140,10 +140,10 @@ export default class App extends Component {
           <Route path="/events-calendar" component={EventsCalendar} />
           {/* What to do when article id isn't found? */}
           <Route path="/article/:id" component={SingleArticle} />
-          <AdminRoutes user="Admin" />
           <Route exact path="/">
             <Redirect to="/home" />
           </Route>
+          <AdminRoutes user="Admin" />
           <Route path="/404" component={NotFound404} />
           <Redirect to="/404" />
         </Switch>
