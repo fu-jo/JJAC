@@ -8,8 +8,7 @@ export default class ManageArticles extends Component {
     return (
       <div>
         <Button className="logout" href="/home">Logout</Button>
-        <h2 className="title">Articles</h2>
-        <ArticlesList status='Admin'/>
+        <ArticlesList onAdmin/>
         <Button href="/admin/create-article" variant="primary" style={{margin: 15}}>Create Article</Button>
       </div>
     );

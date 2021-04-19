@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import Container from "react-bootstrap/Container";
 import Badge from "react-bootstrap/Badge";
 
+import AdminNavbar from "../components/AdminNavbar";
 import MemberNavbar from "../components/MemberNavbar";
 import NonMemberNavbar from "../components/NonMemberNavbar";
 import BottomBar from "../components/BottomBar";
@@ -29,7 +30,7 @@ const getDate = (dateStr) => {
   return date ? date : null;
 };
 
-const SingleArticle = (props) => {
+const SingleArticle = ({ user }) => {
   const { id } = useParams();
   const article = useArticle(id);
 
@@ -39,7 +40,16 @@ const SingleArticle = (props) => {
 
   return (
     <div>
-      {props.status === "Member" ? <MemberNavbar /> : <NonMemberNavbar />}
+      {
+        user && (user.role === "user"
+        ? <MemberNavbar/>
+        : (user.role === "admin"
+           ? <AdminNavbar />
+           : <NonMemberNavbar/>
+          )
+        )
+      }
+      { !user && <NonMemberNavbar /> }
       <Container>
         <div>
         <img className="text-wrap" src={article.img} alt=""/>
