@@ -80,7 +80,7 @@ const Announcements = ({ user, onAdmin }) => {
         }
         { !onAdmin && !user && <NonMemberNavbar /> }
         <Container>
-          <h1>Latest Announcements</h1>
+          {onAdmin ? '' : <h1 className="articles-header">Latest Announcements</h1>}
           {announcements && (
             <Table striped bordered hover>
               <thead>

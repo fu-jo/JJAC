@@ -80,10 +80,10 @@ const EventsList = (props) => {
 
     return (
       <div>
+        {props.status === 'Admin' ? '' : props.status === 'User' ? <MemberNavbar/> : <NonMemberNavbar/>}
         <Container>
           {props.status === 'Admin' ? '' : <h1 className="articles-header">Events</h1>}
           {loading === "Loading..." ? <Alert className='alert-loading' variant="primary">{loading}</Alert> : ''}
-          <h2>Events</h2>
           {events && (
             <Table striped bordered hover>
               <thead>
@@ -125,6 +125,7 @@ const EventsList = (props) => {
             </Table>
           )}
         </Container>
+        {props.status === 'Admin' ? '' : <BottomBar/>}
       </div>
     );
 

@@ -68,7 +68,7 @@ const ArticlesList = ({ user, onAdmin }) => {
       }
       { !onAdmin && !user && <NonMemberNavbar /> }
       <Container>
-        <h1 className="articles-header">Articles</h1>
+        {onAdmin ? '' : <h1 className="articles-header">Articles</h1>}
         <label>Sort By</label>{' '}
         <select value={sortBy} onChange={e => setSortBy(e.currentTarget.value)}>
             <option value='TITLE_ASC'>Title (a-z)</option>

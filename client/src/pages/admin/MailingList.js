@@ -4,7 +4,7 @@ import "../../styles/pages/AdminPage.css"
 import Container from "react-bootstrap/Container";
 import Table from "react-bootstrap/Table";
 
-const MailingList = () => { 
+const MailingList = () => {
   //get initial users
   const [emails, setEmails] = useState([]);
 
@@ -25,7 +25,7 @@ const MailingList = () => {
   // console.log(emails)
   return (
     <div>
-      <Button className="logout" href="/home">Logout</Button>
+      <Button className="user-view" href="/home">User View</Button>
       <h2 className="title">Mailing List</h2>
       <Container>
       <Table striped bordered hover>

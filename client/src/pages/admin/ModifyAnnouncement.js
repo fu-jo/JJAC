@@ -51,7 +51,7 @@ const ModifyAnnouncement = () => {
 
   return (
     <div>
-      <Button className="logout" href="/home">Logout</Button>
+      <Button className="user-view" href="/home">User View</Button>
       {succ ? <Alert className='alert-success'>{succ}</Alert> : ''}
       <h2 className="title">Modify Announcement</h2>
       <Form className="title" onSubmit={updateAnnouncement}>

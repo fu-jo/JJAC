@@ -52,7 +52,7 @@ const CreateArticle = () => {
   // missing links & tags fields
   return (
     <div>
-     <Button className="logout" href="/home">Logout</Button>
+     <Button className="user-view" href="/home">User View</Button>
      <h2 className="title">Create Article</h2>
      <Container id="create-post">
       {err && <Alert variant='danger'>{err}</Alert>}

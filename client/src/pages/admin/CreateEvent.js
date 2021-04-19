@@ -46,11 +46,10 @@ const CreateEvent = () => {
   // missing links field
   return (
     <div>
-    <Button className="logout" href="/home">Logout</Button>
+    <Button className="user-view" href="/home">User View</Button>
     <h2 className="title">Create Event</h2>
     <Container id="create-event">
       {loading ? <Alert className='alert-loading' variant="primary">{loading}</Alert> : ''}
-      <h2>Create Event</h2>
       <Card>
         <Card.Body>
           <Form onSubmit={onSubmit}>

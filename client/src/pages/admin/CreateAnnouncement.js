@@ -29,7 +29,7 @@ const CreateAnnouncement = () => {
   // missing links field
   return (
     <div>
-     <Button className="logout" href="/home">Logout</Button>
+     <Button className="user-view" href="/home">User View</Button>
      <h2 className="title">Create Annnouncement</h2>
      <Container id="create-announcement">
       <Card>
