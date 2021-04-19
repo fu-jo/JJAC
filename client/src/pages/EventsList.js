@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import Container from "react-bootstrap/Container";
 import Table from "react-bootstrap/Table";
 import Button from "react-bootstrap/Button";
+import Alert from "react-bootstrap/Alert";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSortUp, faSortDown } from "@fortawesome/free-solid-svg-icons";
 
@@ -68,17 +69,19 @@ const getDate = (dateStr) => {
 
 const EventsList = (props) => {
     const [sortBy, setSortBy] = useState('DATE_ASC') //default
+    const [loading, setLoading] = useState()
     const events = useEvents(sortBy)
 
     async function deleteEvent(evt) {
-      console.log(evt.id)
+      setLoading("Loading...")
       await firestore.collection('events').doc(evt.id).delete();
+      setLoading()
     }
 
     return (
       <div>
-        {props.status === 'Admin' ? '' : props.status === "Member" ? <MemberNavbar /> : <NonMemberNavbar />}
         <Container>
+          {loading === "Loading..." ? <Alert className='alert-loading' variant="primary">{loading}</Alert> : ''}
           <h2>Events</h2>
           {events && (
             <Table striped bordered hover>
@@ -121,7 +124,6 @@ const EventsList = (props) => {
             </Table>
           )}
         </Container>
-        {props.status === 'Admin' ? '' : <BottomBar />}
       </div>
     );
 

@@ -92,6 +92,13 @@ const AdminRoutes = ({ user }) => {
                   </AdminWrapper>
                 )}
         />
+        <Route path="/admin/manage-events"
+                render={() => (
+                  <AdminWrapper>
+                    <ManageEvents/>
+                  </AdminWrapper>
+                )}
+        />
         <Route path="/admin/create-announcement"
                 render={() => (
                   <AdminWrapper>
@@ -110,6 +117,13 @@ const AdminRoutes = ({ user }) => {
                 render={() => (
                   <AdminWrapper>
                     <CreateAnnouncement/>
+                  </AdminWrapper>
+                )}
+        />
+        <Route path="/admin/create-event"
+                render={() => (
+                  <AdminWrapper>
+                    <CreateEvent/>
                   </AdminWrapper>
                 )}
         />
@@ -132,6 +146,13 @@ const AdminRoutes = ({ user }) => {
                 render={() => (
                   <AdminWrapper>
                     <ModifyUser/>
+                  </AdminWrapper>
+                )}
+        />
+        <Route path="/admin/modify-event/:id"
+                render={() => (
+                  <AdminWrapper>
+                    <ModifyEvent/>
                   </AdminWrapper>
                 )}
         />
