@@ -44,6 +44,7 @@ export default function Signup() {
             setLoading(true)
             console.log(subscribeRef.current.value)
             await signup(emailRef.current.value, passwordRef.current.value, nameRef.current.value, subscribeRef.current.checked)
+          
             var user = firebase.auth().currentUser;
             await firestore.collection("users").doc(user.uid).set({
                 name : nameRef.current.value,
