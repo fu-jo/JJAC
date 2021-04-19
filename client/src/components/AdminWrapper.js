@@ -1,7 +1,4 @@
 import React, { Component } from "react";
-import Button from "react-bootstrap/Button";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
 
 import AdminSidebar from './AdminSidebar';
 import "../styles/components/AdminSidebar.css";

@@ -1,8 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
 import Container from "react-bootstrap/Container";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
 import Table from "react-bootstrap/Table";
 
 import { firestore } from "../firebase";
@@ -42,16 +39,6 @@ function usePosts(sortBy = "DATE_DESC") {
   return posts;
 }
 
-
-const getDate = (dateStr) => {
-  let date = new Date(dateStr).toLocaleDateString("en-US", {
-    timeZone: "UTC",
-    year: "numeric",
-    month: "long",
-    day: "numeric",
-  });
-  return date ? date : null;
-};
 const ArticlesList = (props) => {
   const [sortBy, setSortBy] = useState("DATE_DESC"); //default
   const posts = usePosts(sortBy);

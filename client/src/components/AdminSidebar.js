@@ -1,7 +1,4 @@
 import React, { Component } from "react";
-import Navbar from "react-bootstrap/Navbar";
-import Nav from "react-bootstrap/Nav";
-import Button from "react-bootstrap/Button";
 import Image from "react-bootstrap/Image";
 import "bootstrap/dist/css/bootstrap.min.css";
 
@@ -21,6 +18,7 @@ export default class AdminSidebar extends Component {
         <a href="/admin/manage-articles">Articles</a>
         <a href="/admin/manage-announcements">Announcements</a>
         <a href="/admin/manage-users">Users</a>
+        <a href="/admin/manage-events">Events</a>
       </div>
     );
   }

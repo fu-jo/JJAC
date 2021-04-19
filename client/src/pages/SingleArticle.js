@@ -1,4 +1,4 @@
-import React, { Component, useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useParams } from "react-router-dom";
 import Container from "react-bootstrap/Container";
 import Badge from "react-bootstrap/Badge";
@@ -9,7 +9,6 @@ import NonMemberNavbar from "../components/NonMemberNavbar";
 import BottomBar from "../components/BottomBar";
 
 import "../styles/pages/SingleArticle.css";
-import testArticle from "../assets/test-article";
 import { firestore } from "../firebase";
 
 function useArticle(id) {
