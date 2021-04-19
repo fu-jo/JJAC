@@ -19,7 +19,6 @@ const Article = ({article, idx, access}) => {
     console.log(article.id)
     await firestore.collection('posts').doc(article.id).delete();
   }
-  console.log(useLocation())
 
   return (
     <tr key={idx}>
@@ -55,7 +54,7 @@ const Article = ({article, idx, access}) => {
                 </a>
               </td>
             )}
-            {access.status === 'Admin' ? <th>
+            {access === 'Admin' ? <th>
               <Button variant='success' href={`/admin/modify-article/${article.id}`}>Edit</Button>
               <Button variant='danger' onClick={deleteArticle}>Delete</Button>
             </th>

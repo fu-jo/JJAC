@@ -41,6 +41,7 @@ const UserList = (props) => {
   return (
     <div>
       <Container>
+        <h2>Users</h2>
         <label>Sort By</label>{' '}
         <select value={sortBy} onChange={e => setSortBy(e.currentTarget.value)}>
             <option value='NAME_ASC'>Name (a-z)</option>

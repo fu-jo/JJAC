@@ -1,5 +1,5 @@
-import React from "react";
-import Container from "react-bootstrap/Container";
+import React, {useState} from "react";
+import {Container,Alert} from "react-bootstrap";
 import Card from "react-bootstrap/Card";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
@@ -23,7 +23,10 @@ const convertTime12to24 = (time12h) => {
 }
 
 const CreateEvent = () => {
+  const [loading, setLoading] = useState()
+
   function onSubmit(e) {
+    setLoading("Loading...")
     e.preventDefault();
     e.persist();
     firestore.collection("events").add({
@@ -41,6 +44,7 @@ const CreateEvent = () => {
   // missing links field
   return (
     <Container id="create-event">
+      {loading ? <Alert className='alert-loading' variant="primary">{loading}</Alert> : ''}
       <h2>Create Event</h2>
       <Card>
         <Card.Body>

@@ -8,8 +8,7 @@ export default class ManageAnnouncements extends Component {
     return (
       <div>
         <Button className="logout" href="/home">Logout</Button>
-        <h2 className="title">Announcements</h2>
-        <Announcements status='Admin'/>
+        <Announcements onAdmin/>
         <Button href="/admin/create-announcement" variant="primary" style={{margin: 15}}>Create Announcement</Button>
       </div>
     );

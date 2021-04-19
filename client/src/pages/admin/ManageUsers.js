@@ -7,8 +7,6 @@ export default class ManageUsers extends Component {
   render() {
     return (
       <div>
-        <Button className="logout" href="/home">Logout</Button>
-        <h2 className="title">Users</h2>
         <UserList />
       </div>
     );

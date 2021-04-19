@@ -1,7 +1,8 @@
-import React, { Component } from "react";
-import { BrowserRouter as Router, Route, Switch, Redirect } from "react-router-dom";
+import React, { useState } from "react";
+import { BrowserRouter as Router, Route, Switch, Redirect, matchPath } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 
+import firebase, { firestore } from "./firebase"
 // general pages
 import Home from './pages/Home';
 import Settings from './pages/Settings';
@@ -30,142 +31,171 @@ import ModifyAnnouncement from "./pages/admin/ModifyAnnouncement";
 import ModifyUser from "./pages/admin/UserList/ModifyUser";
 import ModifyEvent from "./pages/admin/ModifyEvent";
 
-const AdminRoutes = ({ user }) => {
-    return (
-    (user === "Admin") ? (
-    <>
-      <Route path="/admin/dashboard"
-              render={() => (
-                <AdminWrapper>
-                  <AdminDashboard/>
-                </AdminWrapper>
-              )}
-      />
-      <Route path="/admin/mailing-list"
-              render={() => (
-                <AdminWrapper>
-                  <MailingList/>
-                </AdminWrapper>
-              )}
-      />
-      <Route path="/admin/manage-announcements"
-              render={() => (
-                <AdminWrapper>
-                  <ManageAnnouncements/>
-                </AdminWrapper>
-              )}
-      />
-      <Route path="/admin/manage-articles"
-              render={() => (
-                <AdminWrapper>
-                  <ManageArticles/>
-                </AdminWrapper>
-              )}
-      />
-      <Route path="/admin/manage-events"
-              render={() => (
-                <AdminWrapper>
-                  <ManageEvents/>
-                </AdminWrapper>
-              )}
-      />
-      <Route path="/admin/manage-users"
-              render={() => (
-                <AdminWrapper>
-                  <ManageUsers/>
-                </AdminWrapper>
-              )}
-      />
-      <Route path="/admin/create-announcement"
-              render={() => (
-                <AdminWrapper>
-                  <CreateAnnouncement/>
-                </AdminWrapper>
-              )}
-      />
-      <Route path="/admin/create-article"
-              render={() => (
-                <AdminWrapper>
-                  <CreateArticle/>
-                </AdminWrapper>
-              )}
-      />
-      <Route path="/admin/create-event"
-              render={() => (
-                <AdminWrapper>
-                  <CreateEvent/>
-                </AdminWrapper>
-              )}
-      />
-      {/* What to do when article id isn't found? */}
-      <Route path="/admin/modify-article/:id"
-              render={() => (
-                <AdminWrapper>
-                  <ModifyArticle/>
-                </AdminWrapper>
-              )}
-      />
-      <Route path="/admin/modify-announcement/:id"
-              render={() => (
-                <AdminWrapper>
-                  <ModifyAnnouncement/>
-                </AdminWrapper>
-              )}
-      />
-      <Route path="/admin/modify-event/:id"
-              render={() => (
-                <AdminWrapper>
-                  <ModifyEvent/>
-                </AdminWrapper>
-              )}
-      />
-      <Route path="/admin/modify-user/:id"
-              render={() => (
-                <AdminWrapper>
-                  <ModifyUser/>
-                </AdminWrapper>
-              )}
-      />
-      {/* Generalized routes */}
-      <Route exact path="/admin">
-        <Redirect to="/admin/dashboard" />
-      </Route>
-    </>
-    )
-    : <Route to="/401" component={UnauthorizedUser} />
-  )
+function useUserData() {
+  const [userData, setUserData] = useState()
+
+  var user = firebase.auth().currentUser
+
+  if (user) {
+    firestore.collection("users").doc(user.uid).get()
+      .then((doc) => {
+        setUserData(doc.data())
+      })
+  }
+  else {
+    console.log("no user logged in")
+  }
+
+  return userData
 }
 
-export default class App extends Component {
-  render() {
+
+const AdminRoutes = ({ user }) => {
+  if (!user) {
+    return <UnauthorizedUser />
+  }
+  else if (user && user.role === "admin") {
     return (
-      <AuthProvider>
-      <Router>
-        <Switch>
-          {/* General page routes */}
-          <Route
-            path="/home"
-            render={(props) => (
-                      <Home {...props} status="NonMember" />
-                    )}
-          />
-          <Route path="/signup" component={SignUp} />
-          <Route path="/login" component={Login} />
-          <Route path="/settings" component={Settings} />
-          <Route path="/announcements" component={Announcements} />
-          <Route path="/articles-list" component={ArticlesList} />
-          <Route path="/events-calendar" component={EventsList} />
-          {/* What to do when article id isn't found? */}
-          <Route path="/article/:id" component={SingleArticle} />
-          <Route exact path="/">
-            <Redirect to="/home" />
-          </Route>
-          <AdminRoutes user="Admin" />
-          <Route path="/404" component={NotFound404} />
-          <Redirect to="/404" />
-        </Switch>
-      </Router>
-      </AuthProvider>
-    );
+      <>
+        <Route path="/admin/dashboard"
+                render={() => (
+                  <AdminWrapper>
+                    <AdminDashboard/>
+                  </AdminWrapper>
+                )}
+        />
+        <Route path="/admin/mailing-list"
+                render={() => (
+                  <AdminWrapper>
+                    <MailingList/>
+                  </AdminWrapper>
+                )}
+        />
+        <Route path="/admin/manage-announcements"
+                render={() => (
+                  <AdminWrapper>
+                    <ManageAnnouncements/>
+                  </AdminWrapper>
+                )}
+        />
+        <Route path="/admin/manage-articles"
+                render={() => (
+                  <AdminWrapper>
+                    <ManageArticles/>
+                  </AdminWrapper>
+                )}
+        />
+        <Route path="/admin/manage-users"
+                render={() => (
+                  <AdminWrapper>
+                    <ManageUsers/>
+                  </AdminWrapper>
+                )}
+        />
+        <Route path="/admin/manage-events"
+                render={() => (
+                  <AdminWrapper>
+                    <ManageEvents/>
+                  </AdminWrapper>
+                )}
+        />
+        <Route path="/admin/create-announcement"
+                render={() => (
+                  <AdminWrapper>
+                    <CreateAnnouncement/>
+                  </AdminWrapper>
+                )}
+        />
+        <Route path="/admin/create-article"
+                render={() => (
+                  <AdminWrapper>
+                    <CreateArticle/>
+                  </AdminWrapper>
+                )}
+        />
+        <Route path="/admin/create-announcement"
+                render={() => (
+                  <AdminWrapper>
+                    <CreateAnnouncement/>
+                  </AdminWrapper>
+                )}
+        />
+        <Route path="/admin/create-event"
+                render={() => (
+                  <AdminWrapper>
+                    <CreateEvent/>
+                  </AdminWrapper>
+                )}
+        />
+        {/* What to do when article id isn't found? */}
+        <Route path="/admin/modify-article/:id"
+                render={() => (
+                  <AdminWrapper>
+                    <ModifyArticle/>
+                  </AdminWrapper>
+                )}
+        />
+        <Route path="/admin/modify-announcement/:id"
+                render={() => (
+                  <AdminWrapper>
+                    <ModifyAnnouncement/>
+                  </AdminWrapper>
+                )}
+        />
+        <Route path="/admin/modify-user/:id"
+                render={() => (
+                  <AdminWrapper>
+                    <ModifyUser/>
+                  </AdminWrapper>
+                )}
+        />
+        <Route path="/admin/modify-event/:id"
+                render={() => (
+                  <AdminWrapper>
+                    <ModifyEvent/>
+                  </AdminWrapper>
+                )}
+        />
+        {/* Generalized routes */}
+        <Route exact path="/admin">
+          <Redirect to="/admin/dashboard" />
+        </Route>
+      </>
+    )
+  }
+  else {
+    return <Redirect to="/401"/>
   }
 }
+
+const App = () => {
+  const user = useUserData();
+
+  return (
+    <AuthProvider>
+    <Router>
+      <Switch>
+        {/* General page routes */}
+        <Route path="/home" render={() => (<Home user={user} />)} />
+        <Route path="/signup" component={SignUp} />
+        <Route path="/login" component={Login} />
+        <Route path="/settings" component={Settings} />
+        <Route path="/announcements" render={() => (<Announcements user={user} />)} />
+        <Route path="/events-calendar" render={() => (<EventsList user={user} />)} />
+        <Route path="/articles-list" render={() => (<ArticlesList user={user} />)} />
+        <Route path="/article/:id" render={() => (<SingleArticle user={user} />)} />
+        {/* What to do when article id isn't found? */}
+        <Route exact path="/">
+          <Redirect to="/home" />
+        </Route>
+        <Route path="/401" render={() => (<UnauthorizedUser user={user} />)} />
+        <Route path="/404" render={() => (<NotFound404 user={user} />)} />
+        <Route path="/admin" render={() => (<AdminRoutes user={user} />)} />
+        <Redirect to="/404" />
+      </Switch>
+    </Router>
+    </AuthProvider>
+  );
+}
+
+export default App
