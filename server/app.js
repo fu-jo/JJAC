@@ -3,6 +3,8 @@ const request = require('request');
 const bodyParser = require('body-parser');
 const path = require('path');
 
+var cors = require('cors')
+
 require('dotenv').config()
 
 const app = express();
@@ -12,6 +14,7 @@ const app = express();
 app.use(express.json());
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(cors({origin: 'http://localhost:3000'}));
 
 app.post('/api/subscribe', (req, res) => {
     const { fullName, email } = req.body;
@@ -38,8 +41,10 @@ app.post('/api/subscribe', (req, res) => {
 
     request(options, (err, response, body) => {
         if (err)
-            res.json({error:err})
+            res.json({error:err}),
+            console.log('SOMETHING FUCKED UP')
         else
+            console.log('ALL GOOD')
             res.sendStatus(200);
     });
 })
