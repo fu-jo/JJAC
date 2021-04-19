@@ -15,7 +15,7 @@ export default function Signup() {
 
     async function handleSubmit(e){
         e.preventDefault()
-        
+
         if (passwordRef.current.value !== passwordConfirmRef.current.value){
             return setError('Passwords do not match')
         }
@@ -23,7 +23,7 @@ export default function Signup() {
         try{
             setError('')
             setLoading(true)
-            
+
             await signup(emailRef.current.value, passwordRef.current.value, nameRef.current.value)
             var user = firebase.auth().currentUser;
             await firestore.collection("users").doc(user.uid).set({

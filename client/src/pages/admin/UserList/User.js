@@ -1,5 +1,4 @@
 import React from 'react'
-import LinesEllipsis from "react-lines-ellipsis";
 
 import Button from 'react-bootstrap/Button'
 import { firestore } from '../../../firebase'
