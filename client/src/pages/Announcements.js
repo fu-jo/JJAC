@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Container from "react-bootstrap/Container";
-import Table from "react-bootstrap/Table";
-import Button from "react-bootstrap/Button";
+import { Table, Button } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSortUp, faSortDown } from "@fortawesome/free-solid-svg-icons";
 
@@ -48,6 +47,11 @@ const getDate = (dateStr) => {
     day: "numeric",
   });
   return date ? date : null;
+}
+
+async function deleteAnnouncement(ann) {
+  //console.log(ann)
+  await firestore.collection('announcements').doc(ann.id).delete();
 }
 
 const Announcements = (props) => {

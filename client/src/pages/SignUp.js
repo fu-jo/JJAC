@@ -26,12 +26,13 @@ export default function Signup() {
 
             await signup(emailRef.current.value, passwordRef.current.value, nameRef.current.value)
             var user = firebase.auth().currentUser;
-            firestore.collection("users").add({
+            await firestore.collection("users").doc(user.uid).set({
                 name : nameRef.current.value,
                 email : user.email,
-                uid : user.uid
+                role : "user"
             })
             alert('Signup Successful')
+            window.history.back()
         } catch {
             setError('Failed to create an account')
         }
