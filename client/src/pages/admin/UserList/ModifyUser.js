@@ -4,6 +4,8 @@ import { Button, Form, Alert } from "react-bootstrap";
 
 import { firestore } from '../../../firebase'
 
+import "../../../styles/pages/AdminPage.css"
+
 function useUser(id) {
   const [initVal, setInitVal] = useState();
 
@@ -48,9 +50,10 @@ const ModifyAnnouncement = () => {
 
   return (
     <div>
+      <Button className="logout" href="/home">Logout</Button>
+      <h2 className="title">Modify User</h2>
       {succ ? <Alert className='alert-success'>{succ}</Alert> : ''}
-      <h2>Modify User</h2>
-      <Form onSubmit={updateUser}>
+      <Form className="title" onSubmit={updateUser}>
         <Form.Group controlId="name">
           <Form.Label>Name</Form.Label>
           <Form.Control type="text" defaultValue={initVal ? initVal.name : ""}/>

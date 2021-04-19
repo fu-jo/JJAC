@@ -4,6 +4,7 @@ import { Button, Form, Alert } from "react-bootstrap";
 import Progress from '../../components/Progress'
 
 import AdminSidebar from '../../components/AdminSidebar';
+import "../../styles/pages/AdminPage.css"
 
 import { firestore } from '../../firebase'
 
@@ -79,9 +80,10 @@ const ModifyArticle = () => {
   return (
     <div>
       <AdminSidebar />
+      <Button className="logout" href="/home">Logout</Button>
       {succ ? <Alert className='alert-success'>{succ}</Alert> : ''}
-      <h2>Modify Article</h2>
-      <Form onSubmit={updatePost}>
+      <h2 className="title">Modify Article</h2>
+      <Form className="title" onSubmit={updatePost}>
         <Form.Group controlId="title">
           <Form.Label>Title</Form.Label>
           <Form.Control type="text" defaultValue={initVal ? initVal.title : ""}/>

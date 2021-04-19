@@ -4,6 +4,8 @@ import { Button, Form, Alert, Container } from "react-bootstrap";
 
 import { firestore } from '../../firebase'
 
+import "../../styles/pages/AdminPage.css"
+
 function useEvent(id) {
   const [val, setVal] = useState();
 
@@ -60,10 +62,11 @@ const ModifyEvent = () => {
   }
 
   return (
-    <Container>
+    <div>
+    <Button className="logout" href="/home">Logout</Button>
+    <h2 className="title">Modify Event</h2>
       {loading ? <Alert className='alert-loading' variant="primary">{loading}</Alert> : ''}
-      <h2>Modify Event</h2>
-      <Form onSubmit={updateEvent}>
+      <Form className="title" onSubmit={updateEvent}>
         <Form.Group controlId="event">
           <Form.Label>Title</Form.Label>
           <Form.Control type="text" defaultValue={val ? val.event : ""}/>
@@ -78,7 +81,7 @@ const ModifyEvent = () => {
         </Form.Group>
         <Button variant="primary" type='submit'>Update</Button>
       </Form>
-    </Container>
+    </div>
   );
 }
 
