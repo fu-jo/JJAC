@@ -81,6 +81,7 @@ const EventsList = (props) => {
     return (
       <div>
         <Container>
+          {props.status === 'Admin' ? '' : <h1 className="articles-header">Events</h1>}
           {loading === "Loading..." ? <Alert className='alert-loading' variant="primary">{loading}</Alert> : ''}
           <h2>Events</h2>
           {events && (

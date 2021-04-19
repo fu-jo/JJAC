@@ -6,6 +6,8 @@ import Button from "react-bootstrap/Button";
 
 import { firestore } from "../../firebase";
 
+import "../../styles/pages/AdminPage.css"
+
 const convertTime12to24 = (time12h) => {
   const [time, modifier] = time12h.split(' ');
 
@@ -43,6 +45,9 @@ const CreateEvent = () => {
 
   // missing links field
   return (
+    <div>
+    <Button className="logout" href="/home">Logout</Button>
+    <h2 className="title">Create Event</h2>
     <Container id="create-event">
       {loading ? <Alert className='alert-loading' variant="primary">{loading}</Alert> : ''}
       <h2>Create Event</h2>
@@ -68,6 +73,7 @@ const CreateEvent = () => {
         </Card.Body>
       </Card>
     </Container>
+    </div>
   );
 };
 
