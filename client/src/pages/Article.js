@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link, Redirect, useLocation } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import Button from "react-bootstrap/Button";
 import LinesEllipsis from "react-lines-ellipsis";
 

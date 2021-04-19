@@ -1,13 +1,15 @@
 import React, { Component } from "react";
 import Button from "react-bootstrap/Button";
 import ArticlesList from '../ArticlesList';
+import "../../styles/pages/AdminPage.css"
 
 export default class ManageArticles extends Component {
   render() {
     return (
       <div>
-        <ArticlesList onAdmin="true"/>
-        <Button href="/admin/create-article" variant="primary" style={{margin: 15}}>Create article</Button>
+        <Button className="logout" href="/home">Logout</Button>
+        <ArticlesList onAdmin/>
+        <Button href="/admin/create-article" variant="primary" style={{margin: 15}}>Create Article</Button>
       </div>
     );
   }

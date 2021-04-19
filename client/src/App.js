@@ -8,7 +8,7 @@ import Home from './pages/Home';
 import Settings from './pages/Settings';
 import Announcements from "./pages/Announcements";
 import ArticlesList from "./pages/ArticlesList";
-import EventsCalendar from "./pages/EventsCalendar";
+import EventsList from "./pages/EventsList";
 import SingleArticle from "./pages/SingleArticle";
 import NotFound404 from "./pages/NotFound404";
 import SignUp from "./pages/SignUp";
@@ -22,11 +22,14 @@ import MailingList from './pages/admin/MailingList';
 import ManageAnnouncements from "./pages/admin/ManageAnnouncements";
 import ManageArticles from "./pages/admin/ManageArticles";
 import ManageUsers from "./pages/admin/ManageUsers";
+import ManageEvents from "./pages/admin/ManageEvents";
 import CreateAnnouncement from "./pages/admin/CreateAnnouncement";
 import CreateArticle from "./pages/admin/CreateArticle";
+import CreateEvent from "./pages/admin/CreateEvent";
 import ModifyArticle from "./pages/admin/ModifyArticle";
 import ModifyAnnouncement from "./pages/admin/ModifyAnnouncement";
 import ModifyUser from "./pages/admin/UserList/ModifyUser";
+import ModifyEvent from "./pages/admin/ModifyEvent";
 
 function useUserData() {
   const [userData, setUserData] = useState()
@@ -157,7 +160,7 @@ const App = () => {
         <Route path="/login" component={Login} />
         <Route path="/settings" component={Settings} />
         <Route path="/announcements" render={() => (<Announcements user={user} />)} />
-        <Route path="/events-calendar" render={() => (<EventsCalendar user={user} />)} />
+        <Route path="/events-calendar" render={() => (<EventsList user={user} />)} />
         <Route path="/articles-list" render={() => (<ArticlesList user={user} />)} />
         <Route path="/article/:id" render={() => (<SingleArticle user={user} />)} />
         {/* What to do when article id isn't found? */}

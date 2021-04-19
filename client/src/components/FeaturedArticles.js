@@ -39,7 +39,7 @@ function usePosts(sortBy='DATE_DESC') {
 }
 
 const FeaturedArticles = () => {
-    const [sortBy, setSortBy] = useState('DATE_DESC') //default
+    const [sortBy] = useState('DATE_DESC') //default
     const posts = usePosts(sortBy).slice(0, 3)
 
     return (
@@ -52,9 +52,9 @@ const FeaturedArticles = () => {
                   <Link to="/articles-list">View All</Link>
                 </Col>
               </Row>
-              <div class="card-group">
+              <div>
                 <Row>
-                  {posts.map((article, idx) => <ArticleCard article={article} idx={idx} />)}
+                  {posts.map((article, idx) => <ArticleCard article={article} idx={article.id} key={article.id}/>)}
                 </Row>
               </div>
             </Container>

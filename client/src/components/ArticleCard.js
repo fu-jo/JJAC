@@ -7,6 +7,7 @@ import LinesEllipsis from "react-lines-ellipsis";
 
 
 import "../styles/components/FeaturedArticles.css";
+import blank from "../assets/noarticle.png"
 
 const getDate = (dateStr) => {
   let date = new Date(dateStr).toLocaleDateString("en-US", { timeZone: "UTC", year: 'numeric', month: 'long', day: 'numeric' });
@@ -21,13 +22,19 @@ const ArticleCard = ({ article, idx }) => {
       <Col className="d-flex" md={4} id={`article-${idx}`} key={Math.random()}>
         <a href={`/article/${article.id}`} className="article-card-link">
           <Card>
-            {article.img && (
+            {article.img ?
+              article.img && (
               <Card.Img
                 variant="top"
                 src={article.img}
                 className="article-card-img"
+              /> )
+             : <Card.Img
+                variant="top"
+                src={blank}
+                className="article-card-img"
               />
-            )}
+            }
             <Card.Body>
               <Card.Title>{article.title}</Card.Title>
               {/* Really awesome module for setting the number of lines */}

@@ -8,6 +8,7 @@ import AdminNavbar from "../components/AdminNavbar";
 import MemberNavbar from "../components/MemberNavbar";
 import NonMemberNavbar from "../components/NonMemberNavbar";
 import BottomBar from "../components/BottomBar";
+import "../styles/components/AnnouncementTable.css"
 
 import { firestore } from "../firebase"
 import testAnnouncements from "../assets/test-announcements";
@@ -84,14 +85,14 @@ const Announcements = ({ user, onAdmin }) => {
             <Table striped bordered hover>
               <thead>
                 <tr>
-                  <th style={{width: "70%"}}>
+                  <th class="name">
                     Announcement
                     { sortBy === "TITLE_ASC"
                       ? (<FontAwesomeIcon icon={faSortUp} style={{float: "right", marginTop: 8, marginRight: 10}} onClick={() => setSortBy("TITLE_DESC")}/>)
                       : (<FontAwesomeIcon icon={faSortDown} style={{float: "right", marginBottom: 8, marginRight: 10}} onClick={() => setSortBy("TITLE_ASC")}/>)
                     }
                   </th>
-                  <th>
+                  <th class="date">
                     Date
                     { sortBy === "DATE_ASC"
                       ? (<FontAwesomeIcon icon={faSortUp} style={{float: "right", marginTop: 8, marginRight: 10}} onClick={() => setSortBy("DATE_DESC")}/>)

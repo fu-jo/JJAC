@@ -1,8 +1,8 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
 import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
 import Button from "react-bootstrap/Button";
+import firebase from "../firebase";
 import "../styles/components/MemberNavbar.css";
 
 export default class MemberNavbar extends Component {
@@ -14,6 +14,7 @@ export default class MemberNavbar extends Component {
   callback() {
     if (this.props.sendNewStatus) {
       this.props.sendNewStatus("NonMember")
+      firebase.auth().signOut()
     }
   }
 
