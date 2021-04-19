@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Route, Switch, Redirect, matchPath } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 
@@ -30,25 +30,6 @@ import ModifyArticle from "./pages/admin/ModifyArticle";
 import ModifyAnnouncement from "./pages/admin/ModifyAnnouncement";
 import ModifyUser from "./pages/admin/UserList/ModifyUser";
 import ModifyEvent from "./pages/admin/ModifyEvent";
-
-function useUserData() {
-  const [userData, setUserData] = useState()
-
-  var user = firebase.auth().currentUser
-
-  if (user) {
-    firestore.collection("users").doc(user.uid).get()
-      .then((doc) => {
-        setUserData(doc.data())
-      })
-  }
-  else {
-    console.log("no user logged in")
-  }
-
-  return userData
-}
-
 
 const AdminRoutes = ({ user }) => {
   if (!user) {
@@ -169,7 +150,25 @@ const AdminRoutes = ({ user }) => {
 }
 
 const App = () => {
-  const user = useUserData();
+  const [user, setUser] = useState()
+  useEffect(() => {
+  // This way fetchData won't re-assigned on every render
+    async function fetchData() {
+      var userData = firebase.auth().currentUser
+
+      if (userData) {
+        firestore.collection("users").doc(userData.uid).get()
+          .then((doc) => {
+            setUser(doc.data())
+          })
+      }
+      else {
+        console.log("no user logged in")
+      }
+    }
+
+    fetchData();
+  }, []);
 
   return (
     <AuthProvider>
