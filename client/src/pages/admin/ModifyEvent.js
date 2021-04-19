@@ -63,7 +63,7 @@ const ModifyEvent = () => {
 
   return (
     <div>
-    <Button className="logout" href="/home">Logout</Button>
+    <Button className="user-view" href="/home">User View</Button>
     <h2 className="title">Modify Event</h2>
       {loading ? <Alert className='alert-loading' variant="primary">{loading}</Alert> : ''}
       <Form className="title" onSubmit={updateEvent}>

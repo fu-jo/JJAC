@@ -7,9 +7,9 @@ export default class ManageEvents extends Component {
   render() {
     return (
       <div>
-        <Button className="logout" href="/home">Logout</Button>
+        <Button className="user-view" href="/home">User View</Button>
         <h2 className="title">Events</h2>
-        <EventsList className="events-title" status='Admin'/>
+        <EventsList className="events-title" onAdmin/>
         <Button href="/admin/create-event" variant="primary" style={{margin: 15}}>Create Event</Button>
       </div>
     );

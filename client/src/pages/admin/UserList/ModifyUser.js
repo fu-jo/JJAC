@@ -50,7 +50,7 @@ const ModifyAnnouncement = () => {
 
   return (
     <div>
-      <Button className="logout" href="/home">Logout</Button>
+      <Button className="user-view" href="/home">User View</Button>
       <h2 className="title">Modify User</h2>
       {succ ? <Alert className='alert-success'>{succ}</Alert> : ''}
       <Form className="title" onSubmit={updateUser}>
