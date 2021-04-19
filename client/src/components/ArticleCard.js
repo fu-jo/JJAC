@@ -7,6 +7,7 @@ import LinesEllipsis from "react-lines-ellipsis";
 
 
 import "../styles/components/FeaturedArticles.css";
+import blank from "../assets/noarticle.png"
 
 const getDate = (dateStr) => {
   let date = new Date(dateStr).toLocaleDateString("en-US", { timeZone: "UTC", year: 'numeric', month: 'long', day: 'numeric' });
@@ -18,16 +19,22 @@ const ArticleCard = ({ article, idx }) => {
       return null;
     }
     return (
-      <Col className="d-flex" md={4} id={`article-${idx}`}>
+      <Col className="d-flex" md={4} id={`article-${idx}`} key={Math.random()}>
         <a href={`/article/${article.id}`} className="article-card-link">
           <Card>
-            {article.img && (
+            {article.img ?
+              article.img && (
               <Card.Img
                 variant="top"
                 src={article.img}
                 className="article-card-img"
+              /> )
+             : <Card.Img
+                variant="top"
+                src={blank}
+                className="article-card-img"
               />
-            )}
+            }
             <Card.Body>
               <Card.Title>{article.title}</Card.Title>
               {/* Really awesome module for setting the number of lines */}
@@ -42,7 +49,7 @@ const ArticleCard = ({ article, idx }) => {
               {/* Not totally sure how to turn these into links since the card is a link */}
               <div>
                 {article.tags && article.tags.map((tag) => (
-                  <Badge pill variant="primary" key={`${article.id}-${tag}`} className="tag-badge">{tag}</Badge>
+                  <Badge pill variant="primary" key={Math.random()} className="tag-badge" >{tag}</Badge>
                 ))}
               </div>
             </Card.Body>

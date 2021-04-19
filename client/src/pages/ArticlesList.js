@@ -7,6 +7,7 @@ import MemberNavbar from "../components/MemberNavbar";
 import NonMemberNavbar from "../components/NonMemberNavbar";
 import BottomBar from "../components/BottomBar";
 import "../styles/pages/ArticlesList.css";
+import "../styles/components/ArticleTable.css"
 
 import Article from './Article'
 
@@ -61,10 +62,10 @@ const ArticlesList = (props) => {
         <Table striped bordered hover>
           <thead>
             <tr>
-              <th>Article Name</th>
-              <th>Date Published</th>
+              <th class="name">Article Name</th>
+              <th class="date">Date Published</th>
               {props.status === 'Admin' ?
-                <th>Modify</th>
+                <th class="modify">Modify</th>
               :
               ''
               }

@@ -80,13 +80,6 @@ const AdminRoutes = ({ user }) => {
                 </AdminWrapper>
               )}
       />
-      <Route path="/admin/create-announcement"
-              render={() => (
-                <AdminWrapper>
-                  <CreateAnnouncement/>
-                </AdminWrapper>
-              )}
-      />
       {/* What to do when article id isn't found? */}
       <Route path="/admin/modify-article/:id"
               render={() => (
