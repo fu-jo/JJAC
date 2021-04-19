@@ -1,4 +1,4 @@
-import React, { Component, useState } from "react";
+import React, { useState } from "react";
 import { useParams } from "react-router-dom";
 import { Button, Form, Alert } from "react-bootstrap";
 
@@ -22,7 +22,6 @@ function useUser(id) {
 
 const ModifyAnnouncement = () => {
   const [succ, setSucc] = useState();
-  const [err, setErr] = useState(null);
   const { id } = useParams();
   const initVal = useUser(id);
 

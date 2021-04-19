@@ -18,7 +18,7 @@ const ArticleCard = ({ article, idx }) => {
       return null;
     }
     return (
-      <Col className="d-flex" md={4} id={`article-${idx}`} key={Math.random()}>
+      <Col className="d-flex" md={4} id={`article-${idx}`}>
         <a href={`/article/${article.id}`} className="article-card-link">
           <Card>
             {article.img && (
@@ -42,7 +42,7 @@ const ArticleCard = ({ article, idx }) => {
               {/* Not totally sure how to turn these into links since the card is a link */}
               <div>
                 {article.tags && article.tags.map((tag) => (
-                  <Badge pill variant="primary" key={Math.random()} className="tag-badge" >{tag}</Badge>
+                  <Badge pill variant="primary" key={`${article.id}-${tag}`} className="tag-badge">{tag}</Badge>
                 ))}
               </div>
             </Card.Body>

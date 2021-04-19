@@ -1,4 +1,4 @@
-import React, { Component, useState } from "react";
+import React, { useState } from "react";
 import { useParams } from "react-router-dom";
 import { Button, Form, Alert } from "react-bootstrap";
 import Progress from '../../components/Progress'
@@ -44,6 +44,8 @@ const ModifyArticle = () => {
       setImg(null);
       setErr('Please use an image file (png) or (jpeg)')
     }
+
+    console.log(err)
   }
 
 
