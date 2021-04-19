@@ -7,7 +7,7 @@ import Home from './pages/Home';
 import Settings from './pages/Settings';
 import Announcements from "./pages/Announcements";
 import ArticlesList from "./pages/ArticlesList";
-import EventsCalendar from "./pages/EventsCalendar";
+import EventsList from "./pages/EventsList";
 import SingleArticle from "./pages/SingleArticle";
 import NotFound404 from "./pages/NotFound404";
 import SignUp from "./pages/SignUp";
@@ -161,7 +161,7 @@ export default class App extends Component {
           <Route path="/settings" component={Settings} />
           <Route path="/announcements" component={Announcements} />
           <Route path="/articles-list" component={ArticlesList} />
-          <Route path="/events-calendar" component={EventsCalendar} />
+          <Route path="/events-calendar" component={EventsList} />
           {/* What to do when article id isn't found? */}
           <Route path="/article/:id" component={SingleArticle} />
           <Route exact path="/">

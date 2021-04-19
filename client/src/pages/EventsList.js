@@ -39,14 +39,32 @@ function useEvents(sortBy='DATE_ASC') {
 }
 
 const getDate = (dateStr) => {
-  let date = new Date(dateStr).toLocaleDateString("en-US", {
-    timeZone: "UTC",
-    year: "numeric",
-    month: "long",
-    day: "numeric",
-  });
-  return date ? date : null;
-}
+  let date, time = null
+
+  if (dateStr.length > 10) {
+    date = new Date(dateStr).toLocaleDateString("en-US", {
+      timeZone: "UTC",
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+    });
+
+    time = new Date(dateStr).toLocaleTimeString("en-US", {
+      hour: 'numeric',
+      minute: '2-digit'
+    })
+  }
+  else {
+    date = new Date(dateStr).toLocaleDateString("en-US", {
+      timeZone: "UTC",
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+    });
+  }
+
+  return date ? (time ? `${date} at ${time}` : date) : null;
+};
 
 const EventsList = (props) => {
     const [sortBy, setSortBy] = useState('DATE_ASC') //default

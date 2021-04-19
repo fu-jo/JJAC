@@ -13,20 +13,33 @@ const SORT_OPTIONS = {
 };
 
 const getDate = (dateStr) => {
-  let date = new Date(dateStr).toLocaleDateString("en-US", {
-    timeZone: "UTC",
-    year: "numeric",
-    month: "long",
-    day: "numeric",
-  });
+  let date, time = null
 
-  let time = new Date(dateStr).toLocaleTimeString("en-US", {
-    hour: '2-digit',
-    minute: '2-digit'
-  })
+  if (dateStr.length > 10) {
+    date = new Date(dateStr).toLocaleDateString("en-US", {
+      timeZone: "UTC",
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+    });
 
-  return date ? `${date}\n${time}` : null;
+    time = new Date(dateStr).toLocaleTimeString("en-US", {
+      hour: 'numeric',
+      minute: '2-digit'
+    })
+  }
+  else {
+    date = new Date(dateStr).toLocaleDateString("en-US", {
+      timeZone: "UTC",
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+    });
+  }
+
+  return date ? (time ? `${date}\nat ${time}` : date) : null;
 };
+
 
 function useEvents(sortBy = "DATE_ASC") {
   const [events, setEvents] = useState([]);
