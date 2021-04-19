@@ -18,7 +18,7 @@ export default function Signup() {
         e.preventDefault()
 
          //mailchimp POST request
-         async function postData(url = 'localhost5000/api/subscribe', data = {}) {
+         async function postData(url = '/api/subscribe', data = {}) {
             // Default options are marked with *
             const response = await fetch(url, {
               method: 'POST', // *GET, POST, PUT, DELETE, etc.
@@ -32,7 +32,7 @@ export default function Signup() {
               referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
               body: JSON.stringify(data) // body data type must match "Content-Type" header
             });
-            return response.json(); // parses JSON response into native JavaScript objects
+            return response.text(); // parses JSON response into native JavaScript objects
           }
         
         if (passwordRef.current.value !== passwordConfirmRef.current.value){
@@ -51,10 +51,11 @@ export default function Signup() {
                 role : "user",
                 subscribed : subscribeRef.current.checked
             })
-            // await postData('http://localhost:5000/api/subscribe', { email: emailRef.current.value })
-            //     .then(data => {
-            //     console.log(data); // JSON data parsed by `data.json()` call
-            //  });
+            await postData('/api/subscribe', { email: emailRef.current.value })    
+            .then(data => {
+                console.log(data); // JSON data parsed by `data.json()` call
+            })
+            .catch(error => console.log(error));
             alert('Signup Successful')
             window.history.back()
         } catch {

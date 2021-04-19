@@ -26,8 +26,6 @@ app.use(function(req, res, next) {
 app.post('/api/subscribe', (req, res) => {
     const { fullName, email } = req.body;
 
-    console.log(req.body)
-
     const mcData = {
         members: [
             {
@@ -52,7 +50,7 @@ app.post('/api/subscribe', (req, res) => {
         if (err)
             res.json({error:err}),
             console.log('SOMETHING FUCKED UP')
-        else
+        else {
             console.log(`Successfully added ${email}`)
             res.sendStatus(200);
         }
