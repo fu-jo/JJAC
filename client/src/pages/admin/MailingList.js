@@ -9,15 +9,17 @@ const MailingList = () => {
   const [emails, setEmails] = useState([]);
 
   useEffect(() => {
-    fetch("/api/getList")
-      .then((res) => {
-        res.json()
-        console.log(res)
+    var requestOptions = {
+      method: "GET",
+      redirect: "follow",
+    };
+    fetch("/api/getList", requestOptions)
+      .then(response => response.json())
+      .then(result => {
+        console.log(result)
+        setEmails(result)
       })
-      .then((data) => {
-        // setEmails(data.message)
-        console.log(data)
-      });
+      .catch(error => console.log(error));
   }, []);
 
   // console.log(emails)
@@ -34,12 +36,12 @@ const MailingList = () => {
           </tr>
         </thead>
         <tbody>
-          {/*emails.map((email, idx) => (
+          {emails.map((email, idx) => (
             <tr id={`email${idx}`}>
-              <th>email</th>
-              <th>Status</th>
+              <th>{email.email}</th>
+              <th>{email.status}</th>
             </tr>
-          ))*/}
+          ))}
         </tbody>
       </Table>
       </Container>
