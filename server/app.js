@@ -3,7 +3,6 @@ const request = require('request');
 const bodyParser = require('body-parser');
 const path = require('path');
 const fetch = require('node-fetch')
-//const firebase = require('../client/src/firebase')
 
 var cors = require('cors')
 
@@ -11,6 +10,8 @@ require('dotenv').config()
 
 const app = express();
 
+let MC_DC = process.env.MC_API_KEY.split('-').slice(-1)[0]
+// console.log(MC_DC)
 
 //Middleware
 app.use(express.json());
@@ -38,7 +39,7 @@ app.post('/api/subscribe', (req, res) => {
     const mcDataPost = JSON.stringify(mcData);
 
     const options = {
-        url: `https://${process.env.MC_DC}.api.mailchimp.com/3.0/lists/${process.env.MC_AUDIENCE_ID}`,
+        url: `https://${MC_DC}.api.mailchimp.com/3.0/lists/${process.env.MC_AUDIENCE_ID}`,
         method:'POST',
         headers: {
             Authorization: `auth ${process.env.MC_API_KEY}`
@@ -67,7 +68,7 @@ app.get('/api/getList', (req, res) => {
         mode: 'no-cors'
     }   
 
-    fetch(`https://${process.env.MC_DC}.api.mailchimp.com/3.0/lists/${process.env.MC_AUDIENCE_ID}/members`,options)
+    fetch(`https://${MC_DC}.api.mailchimp.com/3.0/lists/${process.env.MC_AUDIENCE_ID}/members`,options)
     .then(response => response.json())
     .then(data => {
         //set response status code and content type
