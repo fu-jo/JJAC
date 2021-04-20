@@ -5,19 +5,12 @@ import Button from "react-bootstrap/Button";
 import firebase from "../firebase";
 import "../styles/components/MemberNavbar.css";
 
+const signOut = () => {
+  firebase.auth().signOut();
+  window.location.reload();
+}
+
 export default class MemberNavbar extends Component {
-  constructor(props) {
-    super(props);
-    this.callback = this.callback.bind(this);
-  }
-
-  callback() {
-    if (this.props.sendNewStatus) {
-      this.props.sendNewStatus("NonMember")
-      firebase.auth().signOut()
-    }
-  }
-
   render() {
     return (
     // Original: <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
@@ -31,7 +24,7 @@ export default class MemberNavbar extends Component {
             {/* <Nav.Link href="/settings">Settings</Nav.Link> */}
           </Nav>
           <Nav>
-            <Button variant="primary" onClick={this.callback}>Logout</Button>
+            <Button variant="primary" onClick={() => signOut()}>Logout</Button>
           </Nav>
         </Navbar.Collapse>
       </Navbar>
