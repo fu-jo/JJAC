@@ -27,11 +27,10 @@ export default class MemberNavbar extends Component {
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="mr-auto">
             <Nav.Link href="/home">Home</Nav.Link>
-            <Nav.Link href="/settings">Settings</Nav.Link>
+            {/* Future dev: Settings page for users */}
+            {/* <Nav.Link href="/settings">Settings</Nav.Link> */}
           </Nav>
           <Nav>
-            {/* Once auth is implemented with admin/user levels,
-                want this button to show to only admins */}
             <Button variant="primary" onClick={this.callback}>Logout</Button>
           </Nav>
         </Navbar.Collapse>
