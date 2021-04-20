@@ -19,8 +19,10 @@ const NotFound404 = ({ user }) => {
           )
         }
         { !user && <NonMemberNavbar /> }
-        <h2>401: Unauthorized User</h2>
-        <BottomBar />
+        <div style={{textAlign: "center", marginTop: 30}}>
+          <h2>401: Unauthorized User</h2>
+          <p>Please log in with an authorized account to access this page</p>
+        </div>
       </div>
     );
 }
