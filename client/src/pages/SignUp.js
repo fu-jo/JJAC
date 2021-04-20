@@ -53,7 +53,6 @@ export default function Signup() {
             })
             await postData('/api/subscribe', { email: emailRef.current.value })
             .catch(error => console.log(error));
-            alert('Signup Successful')
             window.history.back()
         } catch {
             setError('Failed to create an account')
