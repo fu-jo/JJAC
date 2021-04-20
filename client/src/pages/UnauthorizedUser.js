@@ -3,10 +3,7 @@ import React from "react";
 import MemberNavbar from "../components/MemberNavbar";
 import NonMemberNavbar from "../components/NonMemberNavbar";
 
-import BottomBar from "../components/BottomBar";
-
-
-const NotFound404 = ({ user }) => {
+const UnauthorizedUser = ({ user }) => {
     return (
       <div>
         {
@@ -27,4 +24,4 @@ const NotFound404 = ({ user }) => {
     );
 }
 
-export default NotFound404;
+export default UnauthorizedUser;
