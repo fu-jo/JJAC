@@ -1,5 +1,4 @@
 import React from 'react';
-import { useLocation } from "react-router-dom";
 import Button from "react-bootstrap/Button";
 import LinesEllipsis from "react-lines-ellipsis";
 
@@ -16,7 +15,6 @@ const getDate = (dateStr) => {
 
 const Article = ({article, idx, access}) => {
   async function deleteArticle() {
-    console.log(article.id)
     await firestore.collection('posts').doc(article.id).delete();
   }
 
@@ -59,7 +57,7 @@ const Article = ({article, idx, access}) => {
               <Button variant='danger' onClick={deleteArticle}>Delete</Button>
             </th>
             :
-              ''
+              null
             }
 
     </tr>

@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 
 import AdminNavbar from "../components/AdminNavbar";
 import MemberNavbar from "../components/MemberNavbar";

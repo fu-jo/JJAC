@@ -1,4 +1,4 @@
-import React, { Component, useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import Button from "react-bootstrap/Button";
 import "../../styles/pages/AdminPage.css"
 import Container from "react-bootstrap/Container";
@@ -16,13 +16,11 @@ const MailingList = () => {
     fetch("/api/getList", requestOptions)
       .then(response => response.json())
       .then(result => {
-        console.log(result)
         setEmails(result)
       })
       .catch(error => console.log(error));
   }, []);
 
-  // console.log(emails)
   return (
     <div>
       <Button className="user-view" href="/home">User View</Button>

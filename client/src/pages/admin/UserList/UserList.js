@@ -67,7 +67,7 @@ const UserList = (props) => {
             </tr>
           </thead>
           <tbody>
-            {users.map((user,idx) => <User user={user} idx={idx} />)}
+            {users.map((user,idx) => <User user={user} idx={idx} key={user.id} />)}
           </tbody>
         </Table>
       </Container>

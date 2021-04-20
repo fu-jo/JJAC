@@ -44,15 +44,6 @@ function usePosts(sortBy = "DATE_DESC") {
 }
 
 
-const getDate = (dateStr) => {
-  let date = new Date(dateStr).toLocaleDateString("en-US", {
-    timeZone: "UTC",
-    year: "numeric",
-    month: "long",
-    day: "numeric",
-  });
-  return date ? date : null;
-};
 const ArticlesList = ({ user, onAdmin }) => {
   const [sortBy, setSortBy] = useState("DATE_DESC"); //default
   const posts = usePosts(sortBy);
@@ -74,14 +65,14 @@ const ArticlesList = ({ user, onAdmin }) => {
         <Table striped bordered hover>
           <thead>
             <tr>
-              <th class="name">
+              <th className="name">
                 Article Name
                 { sortBy === "TITLE_ASC"
                   ? (<FontAwesomeIcon icon={faSortUp} style={{float: "right", marginTop: 8, marginRight: 10}} onClick={() => setSortBy("TITLE_DESC")}/>)
                   : (<FontAwesomeIcon icon={faSortDown} style={{float: "right", marginBottom: 8, marginRight: 10}} onClick={() => setSortBy("TITLE_ASC")}/>)
                 }
               </th>
-              <th class="date">
+              <th className="date">
                 Date Published
                 { sortBy === "DATE_ASC"
                   ? (<FontAwesomeIcon icon={faSortUp} style={{float: "right", marginTop: 8, marginRight: 10}} onClick={() => setSortBy("DATE_DESC")}/>)
@@ -89,9 +80,9 @@ const ArticlesList = ({ user, onAdmin }) => {
                 }
               </th>
               {onAdmin ?
-                <th class="modify">Modify</th>
+                <th className="modify">Modify</th>
               :
-              ''
+              null
               }
             </tr>
           </thead>

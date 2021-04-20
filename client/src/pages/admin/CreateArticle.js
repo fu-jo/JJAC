@@ -17,7 +17,6 @@ const CreateArticle = () => {
     const selected = e.target.files[0];
 
     if (selected && imgFormats.includes(selected.type)) {
-      //console.log(selected)
       setImg(selected);
       setErr('')
     } else {

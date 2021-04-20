@@ -38,7 +38,6 @@ const ModifyAnnouncement = () => {
       role: e.target.role.value
     }
     Object.keys(object).forEach(k => (!object[k] && object[k] !== undefined) && delete object[k]); //remove blank keys
-    console.log(object)
 
     firestore.collection('users').doc(id).update(object)
     .then(() => {       //clears form on submit
