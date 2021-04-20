@@ -1,6 +1,6 @@
-import React, { Component, useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useParams } from "react-router-dom";
-import { Button, Form, Alert, Container } from "react-bootstrap";
+import { Button, Form, Alert } from "react-bootstrap";
 
 import { firestore } from '../../firebase'
 
@@ -40,7 +40,6 @@ const convertTime12to24 = (time12h) => {
 
 const ModifyEvent = () => {
   const [loading, setLoading] = useState();
-  const [err, setErr] = useState(null);
   const { id } = useParams();
   const val = useEvent(id);
 
@@ -53,7 +52,6 @@ const ModifyEvent = () => {
       date: e.target.date.value + " " + convertTime12to24(e.target.time.value),
     }
     Object.keys(object).forEach(k => (!object[k] && object[k] !== undefined) && delete object[k]); //remove blank keys
-    console.log(object)
 
     firestore.collection('events').doc(id).update(object)
     .then(() => {       //clears form on submit

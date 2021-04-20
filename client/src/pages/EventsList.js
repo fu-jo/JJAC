@@ -111,7 +111,7 @@ const EventsList = ({ user, onAdmin }) => {
                     {onAdmin ?
                       <th>Modify</th>
                     :
-                    ''
+                    null
                     }
                 </tr>
               </thead>
@@ -127,7 +127,7 @@ const EventsList = ({ user, onAdmin }) => {
                       <Button variant='danger' onClick={() => deleteEvent(evt)}>Delete</Button>
                     </th>
                     :
-                      ''
+                      null
                     }
                   </tr>
                 )})}

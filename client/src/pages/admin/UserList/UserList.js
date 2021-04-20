@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import Container from "react-bootstrap/Container";
 import Table from "react-bootstrap/Table";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSortUp, faSortDown } from "@fortawesome/free-solid-svg-icons";
 
 import { firestore } from "../../../firebase";
 //import "../../styles/pages/ArticlesList.css";
@@ -10,6 +12,8 @@ import User from './User'
 const SORT_OPTIONS = {
   NAME_ASC: { column: "name", direction: "asc" },
   NAME_DESC: { column: "name", direction: "desc" },
+  ROLE_ASC: { column: "role", direction: "asc" },
+  ROLE_DESC: { column: "role", direction: "desc" }
 };
 
 function useUsers(sortBy = "NAME_ASC") {
@@ -41,23 +45,29 @@ const UserList = (props) => {
   return (
     <div>
       <Container>
-        <label>Sort By</label>{' '}
-        <select value={sortBy} onChange={e => setSortBy(e.currentTarget.value)}>
-            <option value='NAME_ASC'>Name (a-z)</option>
-            <option value='NAME_DESC'>Name (z-a)</option>
-        </select>
-
         <Table striped bordered hover>
           <thead>
             <tr>
-              <th>User's Name</th>
+              <th>
+                User's Name
+                { sortBy === "NAME_ASC"
+                  ? (<FontAwesomeIcon icon={faSortUp} style={{float: "right", marginTop: 8, marginRight: 10}} onClick={() => setSortBy("NAME_DESC")}/>)
+                  : (<FontAwesomeIcon icon={faSortDown} style={{float: "right", marginBottom: 8, marginRight: 10}} onClick={() => setSortBy("NAME_ASC")}/>)
+                }
+              </th>
               <th>Email</th>
-              <th>Role</th>
+              <th>
+                Role
+                { sortBy === "ROLE_ASC"
+                  ? (<FontAwesomeIcon icon={faSortUp} style={{float: "right", marginTop: 8, marginRight: 10}} onClick={() => setSortBy("ROLE_DESC")}/>)
+                  : (<FontAwesomeIcon icon={faSortDown} style={{float: "right", marginBottom: 8, marginRight: 10}} onClick={() => setSortBy("ROLE_ASC")}/>)
+                }
+              </th>
               <th>Modify</th>
             </tr>
           </thead>
           <tbody>
-            {users.map((user,idx) => <User user={user} idx={idx} />)}
+            {users.map((user,idx) => <User user={user} idx={idx} key={user.id} />)}
           </tbody>
         </Table>
       </Container>

@@ -38,7 +38,6 @@ const ModifyArticle = () => {
     const selected = e.target.files[0];
 
     if (selected && imgFormats.includes(selected.type)) {
-      //console.log(selected)
       setImg(selected);
       setErr('')
     } else {
@@ -63,7 +62,6 @@ const ModifyArticle = () => {
       img: imgUrl,//e.target.img.value
     }
     Object.keys(object).forEach(k => (!object[k] && object[k] !== undefined) && delete object[k]); //remove blank keys
-    console.log(object)
 
     firestore.collection('posts').doc(id).update(object)
     .then(() => {       //clears form on submit
