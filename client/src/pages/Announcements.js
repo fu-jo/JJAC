@@ -4,11 +4,14 @@ import { Table, Button } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSortUp, faSortDown } from "@fortawesome/free-solid-svg-icons";
 
+import AdminNavbar from "../components/AdminNavbar";
 import MemberNavbar from "../components/MemberNavbar";
 import NonMemberNavbar from "../components/NonMemberNavbar";
 import BottomBar from "../components/BottomBar";
+import "../styles/components/AnnouncementTable.css"
 
 import { firestore } from "../firebase"
+import testAnnouncements from "../assets/test-announcements";
 
 const SORT_OPTIONS = {
     'DATE_ASC': {column:'date', direction:'asc'},
@@ -54,7 +57,7 @@ async function deleteAnnouncement(ann) {
   await firestore.collection('announcements').doc(ann.id).delete();
 }
 
-const Announcements = (props) => {
+const Announcements = ({ user, onAdmin }) => {
     const [sortBy, setSortBy] = useState('DATE_DESC') //default
     const announcements = useAnns(sortBy)
 
@@ -65,28 +68,38 @@ const Announcements = (props) => {
 
     return (
       <div>
-        {props.status === 'Admin' ? '' : props.status === "Member" ? <MemberNavbar /> : <NonMemberNavbar />}
+        {
+          onAdmin ? ''
+          : (user && (user.role === "user"
+          ? <MemberNavbar/>
+          : (user.role === "admin"
+             ? <AdminNavbar />
+             : <NonMemberNavbar/>
+            )
+          ))
+        }
+        { !onAdmin && !user && <NonMemberNavbar /> }
         <Container>
-          {props.status === 'Admin' ? '' : <h1>Latest Announcements</h1>}
+          {onAdmin ? '' : <h1 className="articles-header">Latest Announcements</h1>}
           {announcements && (
             <Table striped bordered hover>
               <thead>
                 <tr>
-                  <th style={{width: "70%"}}>
+                  <th class="name">
                     Announcement
                     { sortBy === "TITLE_ASC"
                       ? (<FontAwesomeIcon icon={faSortUp} style={{float: "right", marginTop: 8, marginRight: 10}} onClick={() => setSortBy("TITLE_DESC")}/>)
                       : (<FontAwesomeIcon icon={faSortDown} style={{float: "right", marginBottom: 8, marginRight: 10}} onClick={() => setSortBy("TITLE_ASC")}/>)
                     }
                   </th>
-                  <th>
+                  <th class="date">
                     Date
                     { sortBy === "DATE_ASC"
                       ? (<FontAwesomeIcon icon={faSortUp} style={{float: "right", marginTop: 8, marginRight: 10}} onClick={() => setSortBy("DATE_DESC")}/>)
                       : (<FontAwesomeIcon icon={faSortDown} style={{float: "right", marginBottom: 8, marginRight: 10}} onClick={() => setSortBy("DATE_ASC")}/>)
                     }
                   </th>
-                    {props.status === 'Admin' ?
+                    {onAdmin ?
                       <th>Modify</th>
                     :
                     ''
@@ -121,6 +134,7 @@ const Announcements = (props) => {
                       {!ann.details && ann.links && ann.links.length > 0 && (
                         <div style={{ paddingLeft: 20 }}>
                           <small>
+                            <a onClick={console.log(ann.links)}></a>
                             <b>Links: </b>
                             {ann.links.map((link, idx) => {
                               const fixedLink = link.includes("https://") || link.includes("http://") ? link : "https://" + link;
@@ -135,7 +149,7 @@ const Announcements = (props) => {
                       )}
                     </td>
                     {ann.date ? (<td>{getDate(ann.date)}</td>) : <td></td>}
-                    {props.status === 'Admin' ? <th>
+                    {onAdmin ? <th>
                       <Button variant='success' href={`/admin/modify-announcement/${ann.id}`}>Edit</Button>
                       <Button variant='danger' onClick={() => deleteAnnouncement(ann)}>Delete</Button>
                     </th>
@@ -148,7 +162,7 @@ const Announcements = (props) => {
             </Table>
           )}
         </Container>
-        {props.status === 'Admin' ? '' : <BottomBar />}
+        {onAdmin ? '' : <BottomBar />}
       </div>
     );
 

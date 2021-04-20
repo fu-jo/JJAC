@@ -1,9 +1,12 @@
-.logout {
-  margin-top: 20px;
-  margin-left: 91%;
+.user-view {
+  margin-top: 10px;
+  margin-left: 90%;
+  width: 100px;
 }
 
 .title {
+  margin-top: 10px;
   margin-bottom: 20px;
   margin-left: 12px;
+  margin-right: 12px;
 }

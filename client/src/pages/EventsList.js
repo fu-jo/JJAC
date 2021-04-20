@@ -2,9 +2,11 @@ import React, { useState, useEffect } from "react";
 import Container from "react-bootstrap/Container";
 import Table from "react-bootstrap/Table";
 import Button from "react-bootstrap/Button";
+import Alert from "react-bootstrap/Alert";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSortUp, faSortDown } from "@fortawesome/free-solid-svg-icons";
 
+import AdminNavbar from "../components/AdminNavbar";
 import MemberNavbar from "../components/MemberNavbar";
 import NonMemberNavbar from "../components/NonMemberNavbar";
 import BottomBar from "../components/BottomBar";
@@ -66,20 +68,32 @@ const getDate = (dateStr) => {
   return date ? (time ? `${date} at ${time}` : date) : null;
 };
 
-const EventsList = (props) => {
+const EventsList = ({ user, onAdmin }) => {
     const [sortBy, setSortBy] = useState('DATE_ASC') //default
+    const [loading, setLoading] = useState()
     const events = useEvents(sortBy)
 
     async function deleteEvent(evt) {
-      console.log(evt.id)
+      setLoading("Loading...")
       await firestore.collection('events').doc(evt.id).delete();
+      setLoading()
     }
 
     return (
       <div>
-        {props.status === 'Admin' ? '' : props.status === "Member" ? <MemberNavbar /> : <NonMemberNavbar />}
+        { onAdmin ? '' :
+          (user && (user.role === "user"
+          ? <MemberNavbar/>
+          : (user.role === "admin"
+             ? <AdminNavbar />
+             : <NonMemberNavbar/>
+            )
+          ))
+        }
+        { !onAdmin && !user && <NonMemberNavbar /> }
         <Container>
-          <h2>Events</h2>
+          {onAdmin ? '' : <h1 className="articles-header">Events</h1>}
+          {loading === "Loading..." ? <Alert className='alert-loading' variant="primary">{loading}</Alert> : ''}
           {events && (
             <Table striped bordered hover>
               <thead>
@@ -94,7 +108,7 @@ const EventsList = (props) => {
                       : (<FontAwesomeIcon icon={faSortDown} style={{float: "right", marginBottom: 8, marginRight: 10}} onClick={() => setSortBy("DATE_ASC")}/>)
                     }
                   </th>
-                    {props.status === 'Admin' ?
+                    {onAdmin ?
                       <th>Modify</th>
                     :
                     ''
@@ -108,7 +122,7 @@ const EventsList = (props) => {
                       {evt.event}
                     </td>
                     {evt.date ? (<td>{getDate(evt.date)}</td>) : <td></td>}
-                    {props.status === 'Admin' ? <th>
+                    {onAdmin ? <th>
                       <Button variant='success' href={`/admin/modify-event/${evt.id}`}>Edit</Button>
                       <Button variant='danger' onClick={() => deleteEvent(evt)}>Delete</Button>
                     </th>
@@ -121,7 +135,7 @@ const EventsList = (props) => {
             </Table>
           )}
         </Container>
-        {props.status === 'Admin' ? '' : <BottomBar />}
+        {onAdmin ? '' : <BottomBar/>}
       </div>
     );
 

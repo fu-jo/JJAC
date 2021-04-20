@@ -1,11 +1,11 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
 import Button from "react-bootstrap/Button";
-import firebase from "../firebase";
 import "../styles/components/MemberNavbar.css";
 
-export default class MemberNavbar extends Component {
+export default class AdminNavbar extends Component {
   constructor(props) {
     super(props);
     this.callback = this.callback.bind(this);
@@ -14,7 +14,6 @@ export default class MemberNavbar extends Component {
   callback() {
     if (this.props.sendNewStatus) {
       this.props.sendNewStatus("NonMember")
-      firebase.auth().signOut()
     }
   }
 
@@ -32,6 +31,7 @@ export default class MemberNavbar extends Component {
           <Nav>
             {/* Once auth is implemented with admin/user levels,
                 want this button to show to only admins */}
+            <Button href="/admin/dashboard" variant="primary">Admin</Button>
             <Button variant="primary" onClick={this.callback}>Logout</Button>
           </Nav>
         </Navbar.Collapse>

@@ -1,10 +1,12 @@
-import React from "react";
-import Container from "react-bootstrap/Container";
+import React, {useState} from "react";
+import {Container,Alert} from "react-bootstrap";
 import Card from "react-bootstrap/Card";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 
 import { firestore } from "../../firebase";
+
+import "../../styles/pages/AdminPage.css"
 
 const convertTime12to24 = (time12h) => {
   const [time, modifier] = time12h.split(' ');
@@ -23,7 +25,10 @@ const convertTime12to24 = (time12h) => {
 }
 
 const CreateEvent = () => {
+  const [loading, setLoading] = useState()
+
   function onSubmit(e) {
+    setLoading("Loading...")
     e.preventDefault();
     e.persist();
     firestore.collection("events").add({
@@ -40,8 +45,11 @@ const CreateEvent = () => {
 
   // missing links field
   return (
+    <div>
+    <Button className="user-view" href="/home">User View</Button>
+    <h2 className="title">Create Event</h2>
     <Container id="create-event">
-      <h2>Create Event</h2>
+      {loading ? <Alert className='alert-loading' variant="primary">{loading}</Alert> : ''}
       <Card>
         <Card.Body>
           <Form onSubmit={onSubmit}>
@@ -64,6 +72,7 @@ const CreateEvent = () => {
         </Card.Body>
       </Card>
     </Container>
+    </div>
   );
 };
 

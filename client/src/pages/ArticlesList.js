@@ -3,10 +3,12 @@ import Container from "react-bootstrap/Container";
 import Table from "react-bootstrap/Table";
 
 import { firestore } from "../firebase";
+import AdminNavbar from "../components/AdminNavbar";
 import MemberNavbar from "../components/MemberNavbar";
 import NonMemberNavbar from "../components/NonMemberNavbar";
 import BottomBar from "../components/BottomBar";
 import "../styles/pages/ArticlesList.css";
+import "../styles/components/ArticleTable.css"
 
 import Article from './Article'
 
@@ -39,16 +41,34 @@ function usePosts(sortBy = "DATE_DESC") {
   return posts;
 }
 
-const ArticlesList = (props) => {
+
+const getDate = (dateStr) => {
+  let date = new Date(dateStr).toLocaleDateString("en-US", {
+    timeZone: "UTC",
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  });
+  return date ? date : null;
+};
+const ArticlesList = ({ user, onAdmin }) => {
   const [sortBy, setSortBy] = useState("DATE_DESC"); //default
   const posts = usePosts(sortBy);
 
   return (
     <div>
-      {props.status === 'Admin' ? '' : props.status === "Member" ? <MemberNavbar /> : <NonMemberNavbar />}
+      { onAdmin ? '' :
+        (user && (user.role === "user"
+        ? <MemberNavbar/>
+        : (user.role === "admin"
+           ? <AdminNavbar />
+           : <NonMemberNavbar/>
+          )
+        ))
+      }
+      { !onAdmin && !user && <NonMemberNavbar /> }
       <Container>
-        {props.status === 'Admin' ? '' : <h1 className="articles-header">Articles</h1>}
-
+        {onAdmin ? '' : <h1 className="articles-header">Articles</h1>}
         <label>Sort By</label>{' '}
         <select value={sortBy} onChange={e => setSortBy(e.currentTarget.value)}>
             <option value='TITLE_ASC'>Title (a-z)</option>
@@ -61,21 +81,21 @@ const ArticlesList = (props) => {
         <Table striped bordered hover>
           <thead>
             <tr>
-              <th>Article Name</th>
-              <th>Date Published</th>
-              {props.status === 'Admin' ?
-                <th>Modify</th>
+              <th class="name">Article Name</th>
+              <th class="date">Date Published</th>
+              {onAdmin ?
+                <th class="modify">Modify</th>
               :
               ''
               }
             </tr>
           </thead>
           <tbody>
-            {posts.map((article, idx) => <Article article={article} key={`article-${idx}`} idx={idx} access={props}/>)}
+            {posts.map((article, idx) => <Article article={article} key={`article-${idx}`} idx={idx} access={onAdmin ? "Admin" : ""}/>)}
           </tbody>
         </Table>
       </Container>
-      {props.status === 'Admin' ? '' : <BottomBar />}
+      {onAdmin ? '' : <BottomBar />}
     </div>
   );
 };

@@ -20,7 +20,7 @@ export default class AdminDashboard extends Component {
   render() {
     return (
       <div>
-        <Button className="logout" href="/home">Logout</Button>
+        <Button className="user-view" href="/home">User View</Button>
         <h2 className="title">Admin Dashboard</h2>
         <h5 className="title">Welcome back!</h5>
       </div>
