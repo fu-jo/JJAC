@@ -23,11 +23,12 @@ function useUser(id) {
 }
 
 const ModifyAnnouncement = () => {
-  const [succ, setSucc] = useState();
+  const [loading, setLoading] = useState();
   const { id } = useParams();
   const initVal = useUser(id);
 
   function updateUser(e) {
+    setLoading('Loading...')
     e.preventDefault()
     e.persist()
 
@@ -41,7 +42,6 @@ const ModifyAnnouncement = () => {
 
     firestore.collection('users').doc(id).update(object)
     .then(() => {       //clears form on submit
-        setSucc('Successfully Modified')
         e.target.name.value = ''
         e.target.email.value = ''
         window.history.back(); //return to previous page
@@ -52,7 +52,7 @@ const ModifyAnnouncement = () => {
     <div>
       <Button className="user-view" href="/home">User View</Button>
       <h2 className="title">Modify User</h2>
-      {succ ? <Alert className='alert-success'>{succ}</Alert> : ''}
+      {loading ? <Alert className='alert-loading' variant="primary">{loading}</Alert> : ''}
       <Form className="title" onSubmit={updateUser}>
         <Form.Group controlId="name">
           <Form.Label>Name</Form.Label>
