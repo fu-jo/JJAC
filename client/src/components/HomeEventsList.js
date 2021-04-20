@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import Table from "react-bootstrap/Table";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import LinesEllipsis from "react-lines-ellipsis";
 
 import { firestore } from "../firebase";
 
@@ -64,9 +63,9 @@ function useEvents(sortBy = "DATE_ASC") {
 }
 
 const HomeEventsList = () => {
-  const [sortBy, setSortBy] = useState("DATE_ASC"); //default
+  const [sortBy] = useState("DATE_ASC"); //default
   const events = useEvents(sortBy).slice(0, 3);
-  console.log(events)
+
   return (
     <div>
       <Row>

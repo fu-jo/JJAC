@@ -11,7 +11,6 @@ import BottomBar from "../components/BottomBar";
 import "../styles/components/AnnouncementTable.css"
 
 import { firestore } from "../firebase"
-import testAnnouncements from "../assets/test-announcements";
 
 const SORT_OPTIONS = {
     'DATE_ASC': {column:'date', direction:'asc'},
@@ -53,18 +52,12 @@ const getDate = (dateStr) => {
 }
 
 async function deleteAnnouncement(ann) {
-  //console.log(ann)
   await firestore.collection('announcements').doc(ann.id).delete();
 }
 
 const Announcements = ({ user, onAdmin }) => {
     const [sortBy, setSortBy] = useState('DATE_DESC') //default
     const announcements = useAnns(sortBy)
-
-    async function deleteAnnouncement(announcement) {
-      console.log(announcement.id)
-      await firestore.collection('announcements').doc(announcement.id).delete();
-    }
 
     return (
       <div>
@@ -85,14 +78,14 @@ const Announcements = ({ user, onAdmin }) => {
             <Table striped bordered hover>
               <thead>
                 <tr>
-                  <th class="name">
+                  <th className="name">
                     Announcement
                     { sortBy === "TITLE_ASC"
                       ? (<FontAwesomeIcon icon={faSortUp} style={{float: "right", marginTop: 8, marginRight: 10}} onClick={() => setSortBy("TITLE_DESC")}/>)
                       : (<FontAwesomeIcon icon={faSortDown} style={{float: "right", marginBottom: 8, marginRight: 10}} onClick={() => setSortBy("TITLE_ASC")}/>)
                     }
                   </th>
-                  <th class="date">
+                  <th className="date">
                     Date
                     { sortBy === "DATE_ASC"
                       ? (<FontAwesomeIcon icon={faSortUp} style={{float: "right", marginTop: 8, marginRight: 10}} onClick={() => setSortBy("DATE_DESC")}/>)
@@ -102,7 +95,7 @@ const Announcements = ({ user, onAdmin }) => {
                     {onAdmin ?
                       <th>Modify</th>
                     :
-                    ''
+                    null
                     }
                 </tr>
               </thead>
@@ -134,7 +127,6 @@ const Announcements = ({ user, onAdmin }) => {
                       {!ann.details && ann.links && ann.links.length > 0 && (
                         <div style={{ paddingLeft: 20 }}>
                           <small>
-                            <a onClick={console.log(ann.links)}></a>
                             <b>Links: </b>
                             {ann.links.map((link, idx) => {
                               const fixedLink = link.includes("https://") || link.includes("http://") ? link : "https://" + link;
@@ -154,7 +146,7 @@ const Announcements = ({ user, onAdmin }) => {
                       <Button variant='danger' onClick={() => deleteAnnouncement(ann)}>Delete</Button>
                     </th>
                     :
-                      ''
+                      null
                     }
                   </tr>
                 )})}

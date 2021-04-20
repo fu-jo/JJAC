@@ -37,7 +37,6 @@ const ModifyAnnouncement = () => {
       links:[],
     }
     Object.keys(object).forEach(k => (!object[k] && object[k] !== undefined) && delete object[k]); //remove blank keys
-    console.log(object)
 
     firestore.collection('announcements').doc(id).update(object)
     .then(() => {       //clears form on submit

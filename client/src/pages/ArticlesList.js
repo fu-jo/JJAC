@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import Container from "react-bootstrap/Container";
 import Table from "react-bootstrap/Table";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSortUp, faSortDown } from "@fortawesome/free-solid-svg-icons";
 
 import { firestore } from "../firebase";
 import AdminNavbar from "../components/AdminNavbar";
@@ -42,15 +44,6 @@ function usePosts(sortBy = "DATE_DESC") {
 }
 
 
-const getDate = (dateStr) => {
-  let date = new Date(dateStr).toLocaleDateString("en-US", {
-    timeZone: "UTC",
-    year: "numeric",
-    month: "long",
-    day: "numeric",
-  });
-  return date ? date : null;
-};
 const ArticlesList = ({ user, onAdmin }) => {
   const [sortBy, setSortBy] = useState("DATE_DESC"); //default
   const posts = usePosts(sortBy);
@@ -69,24 +62,27 @@ const ArticlesList = ({ user, onAdmin }) => {
       { !onAdmin && !user && <NonMemberNavbar /> }
       <Container>
         {onAdmin ? '' : <h1 className="articles-header">Articles</h1>}
-        <label>Sort By</label>{' '}
-        <select value={sortBy} onChange={e => setSortBy(e.currentTarget.value)}>
-            <option value='TITLE_ASC'>Title (a-z)</option>
-            <option value='TITLE_DESC'>Title (z-a)</option>
-            <option disabled>---</option>
-            <option value='DATE_ASC'>Date (earliest)</option>
-            <option value='DATE_DESC'>Date (latest)</option>
-        </select>
-
         <Table striped bordered hover>
           <thead>
             <tr>
-              <th class="name">Article Name</th>
-              <th class="date">Date Published</th>
+              <th className="name">
+                Article Name
+                { sortBy === "TITLE_ASC"
+                  ? (<FontAwesomeIcon icon={faSortUp} style={{float: "right", marginTop: 8, marginRight: 10}} onClick={() => setSortBy("TITLE_DESC")}/>)
+                  : (<FontAwesomeIcon icon={faSortDown} style={{float: "right", marginBottom: 8, marginRight: 10}} onClick={() => setSortBy("TITLE_ASC")}/>)
+                }
+              </th>
+              <th className="date">
+                Date Published
+                { sortBy === "DATE_ASC"
+                  ? (<FontAwesomeIcon icon={faSortUp} style={{float: "right", marginTop: 8, marginRight: 10}} onClick={() => setSortBy("DATE_DESC")}/>)
+                  : (<FontAwesomeIcon icon={faSortDown} style={{float: "right", marginBottom: 8, marginRight: 10}} onClick={() => setSortBy("DATE_ASC")}/>)
+                }
+              </th>
               {onAdmin ?
-                <th class="modify">Modify</th>
+                <th className="modify">Modify</th>
               :
-              ''
+              null
               }
             </tr>
           </thead>

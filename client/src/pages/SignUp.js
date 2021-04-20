@@ -34,7 +34,7 @@ export default function Signup() {
             });
             return response.text(); // parses JSON response into native JavaScript objects
           }
-        
+
         if (passwordRef.current.value !== passwordConfirmRef.current.value){
             return setError('Passwords do not match')
         }
@@ -42,9 +42,8 @@ export default function Signup() {
         try{
             setError('')
             setLoading(true)
-            console.log(subscribeRef.current.value)
             await signup(emailRef.current.value, passwordRef.current.value, nameRef.current.value, subscribeRef.current.checked)
-          
+
             var user = firebase.auth().currentUser;
             await firestore.collection("users").doc(user.uid).set({
                 name : nameRef.current.value,
@@ -52,12 +51,8 @@ export default function Signup() {
                 role : "user",
                 subscribed : subscribeRef.current.checked
             })
-            await postData('/api/subscribe', { email: emailRef.current.value })    
-            .then(data => {
-                console.log(data); // JSON data parsed by `data.json()` call
-            })
+            await postData('/api/subscribe', { email: emailRef.current.value })
             .catch(error => console.log(error));
-            alert('Signup Successful')
             window.history.back()
         } catch {
             setError('Failed to create an account')

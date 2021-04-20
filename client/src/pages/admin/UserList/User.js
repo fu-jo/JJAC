@@ -5,7 +5,6 @@ import { firestore } from '../../../firebase'
 
 const User = ({user, idx}) => {
   async function deleteUser() {
-    console.log(user.id)
     await firestore.collection('users').doc(user.id).delete();
   }
 

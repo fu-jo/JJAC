@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 
 import AdminNavbar from "../components/AdminNavbar";
 import MemberNavbar from "../components/MemberNavbar";
@@ -20,8 +20,13 @@ const NotFound404 = ({ user }) => {
           )
         }
         { !user && <NonMemberNavbar /> }
-        <h2>404: Not Found</h2>
-        <BottomBar />
+        <div style={{textAlign: "center", marginTop: 30}}>
+          <h2>404: Page Not Found</h2>
+          <p>
+          Please ensure the page link is correct. If so, contact
+          the development team for help.
+          </p>
+        </div>
       </div>
     );
 }
